@@ -1,0 +1,62 @@
+[
+  {
+    "url": "https://www.robotsasia.com/Elephant-Robotics-Technology-4011100001-Ultraarm-P340.htm",
+    "category": "accessories",
+    "subcategory": "robot-arms",
+    "note": "Elephant Robotics Ultraarm P340 — small desktop arm (4011100001)"
+  },
+  {
+    "url": "https://www.robotsasia.com/Elephant-Robotics-Technology-4010100021-Mycobot-320-M5-Robot-Arm.htm",
+    "category": "accessories",
+    "subcategory": "robot-arms",
+    "note": "Elephant Robotics myCobot 320 M5 — mid-tier 6-axis arm (4010100021)"
+  },
+  {
+    "url": "https://www.robotsasia.com/Unitree-R1-Battery.htm",
+    "category": "accessories",
+    "subcategory": "robot-batteries",
+    "note": "Unitree R1 Battery — replacement battery for Unitree R1 humanoid"
+  },
+  {
+    "url": "https://www.robotsasia.com/Unitree-Go2-Standard-Version-Battery-8000Mah-Fast-Charging-296V.htm",
+    "category": "accessories",
+    "subcategory": "robot-batteries",
+    "note": "Unitree Go2 Standard 8000mAh fast-charge battery (GO2-BATTERY)"
+  },
+  {
+    "url": "https://www.robotsasia.com/Unitree-Go2-Charging-Board.htm",
+    "category": "accessories",
+    "subcategory": "robot-chargers",
+    "note": "Unitree Go2 Charging Board — base charging dock"
+  },
+  {
+    "url": "https://www.robotsasia.com/Unitree-Go2-Standard-Battery-Charger-GO2-CHARGER.htm",
+    "category": "accessories",
+    "subcategory": "robot-chargers",
+    "note": "Unitree Go2 Standard Battery Charger (GO2-CHARGER)"
+  },
+  {
+    "url": "https://www.robotsasia.com/BrainCo-Revo-2-Basic-Left-Dexterous-Hand.htm",
+    "category": "accessories",
+    "subcategory": "robot-hands",
+    "note": "BrainCo Revo 2 Basic Left Dexterous Bionic Hand (XRL)"
+  },
+  {
+    "url": "https://www.robotsasia.com/X-Square-Artixonhand-Artixon-Five-Finger-Dexterous-Hand.htm",
+    "category": "accessories",
+    "subcategory": "robot-hands",
+    "note": "X Square Artixon Five-Finger Dexterous Hand — different brand from existing BrainCo/AgiBot"
+  },
+  {
+    "url": "https://www.robotsasia.com/BWSENSING-BWS5000E-Dual-Axis-Digital-Output-Inclinometer.htm",
+    "category": "accessories",
+    "subcategory": "sensors",
+    "note": "BWSENSING BWS5000E — dual-axis digital output inclinometer (different output from existing BWS2500 CAN)"
+  },
+  {
+    "url": "https://www.robotsasia.com/BWSENSING-BWN427-Cost-Effective-Dual-Axis-Digital-Output-With-Modbus-Inclinometer.htm",
+    "category": "accessories",
+    "subcategory": "sensors",
+    "note": "BWSENSING BWN427 — dual-axis Modbus digital output inclinometer"
+  }
+]

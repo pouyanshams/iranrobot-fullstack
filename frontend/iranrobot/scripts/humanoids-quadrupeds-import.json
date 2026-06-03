@@ -1,0 +1,90 @@
+[
+  {
+    "url": "https://www.robotsasia.com/Agibot-A3-Interactive-Service-Humanoid-Robot.htm",
+    "category": "humanoid",
+    "subcategory": "bipedal-humanoids",
+    "note": "AgiBot A3 — interactive service bipedal humanoid (new brand for this sub)"
+  },
+  {
+    "url": "https://www.robotsasia.com/Booster-K1-Humanoid-Robot-Rental.htm",
+    "category": "humanoid",
+    "subcategory": "bipedal-humanoids",
+    "useCases": ["education"],
+    "note": "Booster K1 EDU — small bipedal EDU humanoid; new brand (Booster Robotics)"
+  },
+  {
+    "url": "https://www.robotsasia.com/MagicLab-MagicBot-Z1-Humanoid-Robot.htm",
+    "category": "humanoid",
+    "subcategory": "bipedal-humanoids",
+    "note": "MagicLab MagicBot Z1 Standard — adds MagicLab to humanoids (was only in quadrupeds before)"
+  },
+  {
+    "url": "https://www.robotsasia.com/Agibot-G2-General-Purpose-Wheeled-Humanoid-Robot.htm",
+    "category": "humanoid",
+    "subcategory": "wheeled-humanoids",
+    "note": "AgiBot G2 — industrial-grade wheeled humanoid; new brand for sub"
+  },
+  {
+    "url": "https://www.robotsasia.com/Unitree-G1-D-Wheeled-Humanoid-Robot.htm",
+    "category": "humanoid",
+    "subcategory": "wheeled-humanoids",
+    "note": "Unitree G1-D U1 — fixed-base dual-arm wheeled variant (distinct from bipedal G1)"
+  },
+  {
+    "url": "https://www.robotsasia.com/MagicLab-MagicBot-G1-Humanoid-Robot.htm",
+    "category": "humanoid",
+    "subcategory": "wheeled-humanoids",
+    "note": "MagicLab MagicBot G1 — same brand family as Z1 but distinct wheeled platform"
+  },
+  {
+    "url": "https://www.robotsasia.com/Astribot-S1-U-S1-U-Upper-Body-Humanoid-Robot.htm",
+    "category": "humanoid",
+    "subcategory": "upper-body-humanoids",
+    "note": "Astribot S1-U — new brand; bimanual torso platform for pedestal mounting"
+  },
+  {
+    "url": "https://www.robotsasia.com/PNDbotics-Adam-U-Pro-Max-Upper-Body-Humanoid-Robot.htm",
+    "category": "humanoid",
+    "subcategory": "upper-body-humanoids",
+    "note": "PNDbotics Adam-U Pro Max — distinct SKU from base Adam-U (richer compute + F/T sensing)"
+  },
+  {
+    "url": "https://www.robotsasia.com/Unitree-Aliengo.htm",
+    "category": "quadruped",
+    "subcategory": "standard-quadrupeds",
+    "note": "Unitree Aliengo — legacy mid-size quadruped platform (distinct from Go2/B1/B2 lines)"
+  },
+  {
+    "url": "https://www.robotsasia.com/Unitree-B2.htm",
+    "category": "quadruped",
+    "subcategory": "standard-quadrupeds",
+    "useCases": ["inspection"],
+    "note": "Unitree B2 — next-gen industrial successor to B1"
+  },
+  {
+    "url": "https://www.robotsasia.com/Unitree-Go2-Air-Quadruped-Robot-Dog.htm",
+    "category": "quadruped",
+    "subcategory": "standard-quadrupeds",
+    "note": "Unitree Go2 Air — consumer-tier Go2 variant distinct from Go2 EDU Standard"
+  },
+  {
+    "url": "https://www.robotsasia.com/Unitree-B2-W.htm",
+    "category": "quadruped",
+    "subcategory": "wheeled-quadrupeds",
+    "useCases": ["inspection"],
+    "note": "Unitree B2-W — industrial wheel-leg hybrid (distinct line from Go2-W)"
+  },
+  {
+    "url": "https://www.robotsasia.com/AgiBot-D1-Ultra-W-Wheeled-Quadruped-Robot-Dog.htm",
+    "category": "quadruped",
+    "subcategory": "wheeled-quadrupeds",
+    "note": "AgiBot D1 Ultra-W — wheeled variant of D1 Ultra"
+  },
+  {
+    "url": "https://www.robotsasia.com/PUDU-D5-W-Wheeled-Quadruped-Robot.htm",
+    "category": "quadruped",
+    "subcategory": "wheeled-quadrupeds",
+    "useCases": ["inspection"],
+    "note": "PUDU D5-W — new brand (PUDU Robotics); IP67 industrial wheeled quadruped"
+  }
+]

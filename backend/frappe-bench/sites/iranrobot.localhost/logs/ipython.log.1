@@ -1,0 +1,1485 @@
+2026-06-02 10:59:43,255 INFO ipython === bench console session ===
+2026-06-02 10:59:43,255 INFO ipython import frappe
+2026-06-02 10:59:43,255 INFO ipython for dt in ["Robot Category", "Robot Product", "Robot Product Image", "Robot Product Spec"]:
+    meta = frappe.get_meta(dt)
+    n_fields = len(meta.fields)
+    permissions = [(p.role, p.read, p.write, p.create) for p in meta.permissions]
+    print(f"OK  {dt:25s}  fields={n_fields:3d}  istable={meta.istable}  module={meta.module}  permissions={permissions}")
+print("---")
+2026-06-02 10:59:43,255 INFO ipython # Also confirm the controller classes are importable
+2026-06-02 10:59:43,255 INFO ipython import importlib
+2026-06-02 10:59:43,255 INFO ipython === session end ===
+2026-06-02 11:53:33,528 INFO ipython === bench console session ===
+2026-06-02 11:53:33,529 INFO ipython import frappe
+2026-06-02 11:53:33,529 INFO ipython from frappe.model.rename_doc import rename_doc
+2026-06-02 11:53:33,529 INFO ipython print("==========================================")
+2026-06-02 11:53:33,529 INFO ipython print("PHASE 1 CLEANUP + VALIDATION DIAGNOSIS")
+2026-06-02 11:53:33,529 INFO ipython print("==========================================")
+2026-06-02 11:53:33,529 INFO ipython # ===========================================================================
+2026-06-02 11:53:33,529 INFO ipython # PART A: INVESTIGATION (read-only — runs BEFORE we mutate state)
+2026-06-02 11:53:33,529 INFO ipython # ===========================================================================
+2026-06-02 11:53:33,529 INFO ipython print("\n############# PART A: VALIDATION INVESTIGATION #############")
+2026-06-02 11:53:33,529 INFO ipython # --- A.1: Is the controller class loaded? ---
+2026-06-02 11:53:33,529 INFO ipython print("\n[A.1] Is RobotCategory controller importable?")
+2026-06-02 11:53:33,529 INFO ipython try:
+    from iranrobot_backend.catalog.doctype.robot_category.robot_category import (
+        RobotCategory,
+        SLUG_PATTERN,
+    )
+    print(f"  IMPORT OK -- class={RobotCategory.__name__}  module={RobotCategory.__module__}")
+    print(f"  SLUG_PATTERN.pattern = {SLUG_PATTERN.pattern!r}")
+    print(f"  pattern.match('Humanoids') -> {bool(SLUG_PATTERN.match('Humanoids'))}")
+    print(f"  pattern.match('humanoids') -> {bool(SLUG_PATTERN.match('humanoids'))}")
+    print(f"  has validate method      -> {hasattr(RobotCategory, 'validate')}")
+    print(f"  has _normalize_slug      -> {hasattr(RobotCategory, '_normalize_slug')}")
+    print(f"  has _validate_slug_format -> {hasattr(RobotCategory, '_validate_slug_format')}")
+except Exception as e:
+    print(f"  IMPORT FAILED: {type(e).__name__}: {e}")
+2026-06-02 11:53:33,529 INFO ipython # --- A.2: Does frappe.new_doc actually instantiate RobotCategory? ---
+2026-06-02 11:53:33,529 INFO ipython print("\n[A.2] Does frappe.new_doc('Robot Category') use the custom class?")
+2026-06-02 11:53:33,529 INFO ipython test_doc = frappe.new_doc("Robot Category")
+2026-06-02 11:53:33,529 INFO ipython print(f"  type(new_doc)             = {type(test_doc).__name__}")
+2026-06-02 11:53:33,529 INFO ipython print(f"  type(new_doc).__module__  = {type(test_doc).__module__}")
+2026-06-02 11:53:33,529 INFO ipython print(f"  isinstance(RobotCategory) = {isinstance(test_doc, RobotCategory)}")
+2026-06-02 11:53:33,529 INFO ipython # --- A.3: Try to insert an uppercase slug via the ORM ---
+2026-06-02 11:53:33,529 INFO ipython print("\n[A.3] Attempt to insert a Robot Category with uppercase slug 'ZZZ-DIAG-UPPER':")
+2026-06-02 11:53:33,529 INFO ipython test_doc.slug = "ZZZ-DIAG-UPPER"
+2026-06-02 11:53:33,529 INFO ipython test_doc.label_fa = "بررسی"
+2026-06-02 11:53:33,529 INFO ipython test_doc.label_en = "Diagnostic"
+2026-06-02 11:53:33,529 INFO ipython try:
+    test_doc.insert(ignore_permissions=True)
+    print(f"  INSERT SUCCEEDED -- name={test_doc.name!r}  slug={test_doc.slug!r}")
+    print("  >>> If slug is lowercase, validate() ran. If uppercase, validate() was bypassed. <<<")
+    # cleanup the diagnostic doc
+    frappe.delete_doc("Robot Category", test_doc.name, force=True, ignore_permissions=True)
+    print(f"  (cleaned up diagnostic doc)")
+except frappe.ValidationError as e:
+    print(f"  REJECTED by ValidationError (validation IS enforced): {e}")
+except Exception as e:
+    print(f"  FAILED with {type(e).__name__}: {e}")
+2026-06-02 11:53:33,529 INFO ipython # --- A.4: Try inserting via frappe.get_doc({...}) which is what the Desk UI uses ---
+2026-06-02 11:53:33,529 INFO ipython print("\n[A.4] Attempt to insert via frappe.get_doc({...}) -- same path the Desk UI uses:")
+2026-06-02 11:53:33,529 INFO ipython try:
+    d = frappe.get_doc({
+        "doctype": "Robot Category",
+        "slug": "ZZZ-DIAG-VIA-DICT",
+        "label_fa": "بررسی",
+        "label_en": "Diag2",
+    })
+    d.insert(ignore_permissions=True)
+    print(f"  INSERT SUCCEEDED -- name={d.name!r}  slug={d.slug!r}")
+    frappe.delete_doc("Robot Category", d.name, force=True, ignore_permissions=True)
+    print(f"  (cleaned up)")
+except frappe.ValidationError as e:
+    print(f"  REJECTED by ValidationError: {e}")
+except Exception as e:
+    print(f"  FAILED with {type(e).__name__}: {e}")
+2026-06-02 11:53:33,529 INFO ipython # --- A.5: Check existing 'Humanoids' row for any flag that would explain the bypass ---
+2026-06-02 11:53:33,529 INFO ipython print("\n[A.5] Inspect existing 'Humanoids' row for clues:")
+2026-06-02 11:53:33,529 INFO ipython row = frappe.db.sql(
+    "SELECT name, slug, label_en, owner, creation FROM `tabRobot Category` WHERE name = 'Humanoids'",
+    as_dict=True,
+)
+2026-06-02 11:53:33,529 INFO ipython print(f"  row: {row}")
+2026-06-02 11:53:33,529 INFO ipython frappe.db.commit()
+2026-06-02 11:53:33,530 INFO ipython # ===========================================================================
+2026-06-02 11:53:33,530 INFO ipython # PART B: CLEANUP
+2026-06-02 11:53:33,530 INFO ipython # ===========================================================================
+2026-06-02 11:53:33,530 INFO ipython print("\n############# PART B: CLEANUP #############")
+2026-06-02 11:53:33,530 INFO ipython # --- B.1: Delete TEST product ---
+2026-06-02 11:53:33,530 INFO ipython print("\n[B.1] Delete Robot Product 'AiMOGA-Mornine-TEST':")
+2026-06-02 11:53:33,530 INFO ipython if frappe.db.exists("Robot Product", "AiMOGA-Mornine-TEST"):
+    frappe.delete_doc("Robot Product", "AiMOGA-Mornine-TEST", force=True, ignore_permissions=True)
+    print("  DELETED")
+else:
+    print("  NOT FOUND (already deleted?)")
+2026-06-02 11:53:33,530 INFO ipython # --- B.2: Rename 'Humanoids' -> 'humanoids' ---
+2026-06-02 11:53:33,530 INFO ipython print("\n[B.2] Rename Robot Category 'Humanoids' -> 'humanoids':")
+2026-06-02 11:53:33,530 INFO ipython if frappe.db.exists("Robot Category", "Humanoids"):
+    rename_doc(
+        "Robot Category",
+        "Humanoids",
+        "humanoids",
+        merge=False,
+        ignore_permissions=True,
+        show_alert=False,
+    )
+    # rename_doc only updates the `name` column + cascading FK links.
+    # The `slug` field still holds the old uppercase value -- normalize it.
+    frappe.db.set_value("Robot Category", "humanoids", "slug", "humanoids", update_modified=True)
+    print("  RENAMED + slug field normalized to 'humanoids'")
+elif frappe.db.exists("Robot Category", "humanoids"):
+    print("  ALREADY 'humanoids' (rename was previously applied)")
+else:
+    print("  NOT FOUND")
+2026-06-02 11:53:33,530 INFO ipython frappe.db.commit()
+2026-06-02 11:53:33,530 INFO ipython # ===========================================================================
+2026-06-02 11:53:33,530 INFO ipython # PART C: POST-CLEANUP STATE
+2026-06-02 11:53:33,530 INFO ipython # ===========================================================================
+2026-06-02 11:53:33,530 INFO ipython print("\n############# PART C: POST-CLEANUP STATE #############")
+2026-06-02 11:53:33,530 INFO ipython print("\n[C.1] All Robot Category rows:")
+2026-06-02 11:53:33,530 INFO ipython cats = frappe.get_all(
+    "Robot Category",
+    fields=["name", "slug", "label_fa", "label_en", "parent_category", "is_published", "owner", "creation"],
+    order_by="creation asc",
+)
+2026-06-02 11:53:33,530 INFO ipython for c in cats:
+    print(f"  {c}")
+2026-06-02 11:53:33,530 INFO ipython print("\n[C.2] All Robot Product rows:")
+2026-06-02 11:53:33,530 INFO ipython prods = frappe.get_all(
+    "Robot Product",
+    fields=["name", "product_id", "product_name_en", "category", "subcategory", "is_published", "owner"],
+    order_by="creation asc",
+)
+2026-06-02 11:53:33,530 INFO ipython for p in prods:
+    print(f"  {p}")
+2026-06-02 11:53:33,530 INFO ipython print("\n[C.3] bipedal-humanoids parent_category cascade check:")
+2026-06-02 11:53:33,530 INFO ipython parent = frappe.db.get_value("Robot Category", "bipedal-humanoids", "parent_category")
+2026-06-02 11:53:33,530 INFO ipython print(f"  bipedal-humanoids.parent_category = {parent!r}  (expected 'humanoids')")
+2026-06-02 11:53:33,530 INFO ipython print("\nDONE.")
+2026-06-02 11:53:33,530 INFO ipython === session end ===
+2026-06-02 11:54:48,815 INFO ipython === bench console session ===
+2026-06-02 11:54:48,816 INFO ipython import frappe
+2026-06-02 11:54:48,816 INFO ipython import inspect
+2026-06-02 11:54:48,816 INFO ipython print("==========================================")
+2026-06-02 11:54:48,816 INFO ipython print("VALIDATION DEEP-DIVE")
+2026-06-02 11:54:48,816 INFO ipython print("==========================================")
+2026-06-02 11:54:48,816 INFO ipython from iranrobot_backend.catalog.doctype.robot_category.robot_category import RobotCategory
+2026-06-02 11:54:48,816 INFO ipython # --- D.1: Is the validate() we imported actually attached to the class? ---
+2026-06-02 11:54:48,816 INFO ipython print("\n[D.1] Confirm validate method identity:")
+2026-06-02 11:54:48,816 INFO ipython print(f"  RobotCategory.validate.__qualname__ = {RobotCategory.validate.__qualname__}")
+2026-06-02 11:54:48,816 INFO ipython print(f"  RobotCategory.validate.__module__   = {RobotCategory.validate.__module__}")
+2026-06-02 11:54:48,816 INFO ipython print(f"  source file: {inspect.getsourcefile(RobotCategory.validate)}")
+2026-06-02 11:54:48,816 INFO ipython print(f"  first source line: {inspect.getsourcelines(RobotCategory.validate)[1]}")
+2026-06-02 11:54:48,816 INFO ipython # --- D.2: Instrument validate() with a monkey-patch and insert ---
+2026-06-02 11:54:48,816 INFO ipython print("\n[D.2] Monkey-patch validate() with a tracer, then insert an uppercase-slug doc:")
+2026-06-02 11:54:48,816 INFO ipython calls = []
+2026-06-02 11:54:48,816 INFO ipython original_validate = RobotCategory.validate
+2026-06-02 11:54:48,816 INFO ipython def traced_validate(self):
+    calls.append({
+        "called": True,
+        "slug_before": self.slug,
+        "name_before": self.name,
+    })
+    return original_validate(self)
+2026-06-02 11:54:48,816 INFO ipython RobotCategory.validate = traced_validate
+2026-06-02 11:54:48,816 INFO ipython try:
+    d = frappe.get_doc({
+        "doctype": "Robot Category",
+        "slug": "ZZZ-TRACE-UPPER",
+        "label_fa": "ت",
+        "label_en": "T",
+    })
+    try:
+        d.insert(ignore_permissions=True)
+        print(f"  INSERT succeeded -- name={d.name!r}  slug={d.slug!r}")
+    except Exception as e:
+        print(f"  INSERT raised  {type(e).__name__}: {e}")
+    print(f"  validate() trace records: {calls}")
+finally:
+    RobotCategory.validate = original_validate
+    # clean any diag rows that did survive
+    for diag in ("ZZZ-TRACE-UPPER", "zzz-trace-upper"):
+        if frappe.db.exists("Robot Category", diag):
+            frappe.delete_doc("Robot Category", diag, force=True, ignore_permissions=True)
+2026-06-02 11:54:48,816 INFO ipython # --- D.3: Call validate() directly to prove the method itself works ---
+2026-06-02 11:54:48,816 INFO ipython print("\n[D.3] Call validate() directly, no insert:")
+2026-06-02 11:54:48,816 INFO ipython d2 = frappe.new_doc("Robot Category")
+2026-06-02 11:54:48,816 INFO ipython d2.slug = "ZZZ-DIRECT-UPPER"
+2026-06-02 11:54:48,816 INFO ipython d2.label_fa = "ت"
+2026-06-02 11:54:48,816 INFO ipython d2.label_en = "T"
+2026-06-02 11:54:48,816 INFO ipython print(f"  before validate(): slug={d2.slug!r}")
+2026-06-02 11:54:48,816 INFO ipython try:
+    d2.validate()
+    print(f"  after  validate(): slug={d2.slug!r}  (no error raised)")
+except frappe.ValidationError as e:
+    print(f"  validate() raised ValidationError: {e}")
+except Exception as e:
+    print(f"  validate() raised {type(e).__name__}: {e}")
+2026-06-02 11:54:48,816 INFO ipython # --- D.4: Check run_method routing ---
+2026-06-02 11:54:48,816 INFO ipython print("\n[D.4] Inspect what run_method('validate') would resolve to:")
+2026-06-02 11:54:48,816 INFO ipython d3 = frappe.new_doc("Robot Category")
+2026-06-02 11:54:48,816 INFO ipython print(f"  d3.run_method   = {d3.run_method}")
+2026-06-02 11:54:48,816 INFO ipython hook_methods = frappe.get_hooks("doc_events", {}).get("Robot Category", {}) or {}
+2026-06-02 11:54:48,817 INFO ipython print(f"  hooks for 'Robot Category' doc_events: {hook_methods}")
+2026-06-02 11:54:48,817 INFO ipython all_doc_events = frappe.get_hooks("doc_events", {})
+2026-06-02 11:54:48,817 INFO ipython print(f"  hooks for '*' doc_events: {all_doc_events.get('*', {})}")
+2026-06-02 11:54:48,817 INFO ipython # --- D.5: Check whether anything sets ignore_validate on inserts ---
+2026-06-02 11:54:48,817 INFO ipython print("\n[D.5] Inspect frappe.flags during this session:")
+2026-06-02 11:54:48,817 INFO ipython flag_keys = ("in_install", "in_install_app", "in_migrate", "in_patch", "ignore_validate", "in_test")
+2026-06-02 11:54:48,817 INFO ipython for k in flag_keys:
+    print(f"  frappe.flags.{k} = {getattr(frappe.flags, k, '<unset>')}")
+2026-06-02 11:54:48,817 INFO ipython # --- D.6: Look at Document._validate signature to find the validate call site ---
+2026-06-02 11:54:48,817 INFO ipython print("\n[D.6] Inspect frappe.model.document.Document._validate source to confirm it calls validate:")
+2026-06-02 11:54:48,817 INFO ipython from frappe.model.document import Document
+2026-06-02 11:54:48,817 INFO ipython try:
+    src = inspect.getsource(Document._validate)
+    print("---- Document._validate source ----")
+    print(src)
+    print("---- end ----")
+except Exception as e:
+    print(f"  could not get source: {e}")
+2026-06-02 11:54:48,817 INFO ipython frappe.db.rollback()  # discard any uncommitted state from this diagnostic
+2026-06-02 11:54:48,817 INFO ipython print("\nDONE.")
+2026-06-02 11:54:48,817 INFO ipython === session end ===
+2026-06-02 11:56:49,669 INFO ipython === bench console session ===
+2026-06-02 11:56:49,670 INFO ipython import frappe
+2026-06-02 11:56:49,670 INFO ipython import inspect
+2026-06-02 11:56:49,670 INFO ipython def main():
+    print("==========================================")
+    print("VALIDATION DEEP-DIVE v2")
+    print("==========================================")
+2026-06-02 11:56:49,670 INFO ipython     from iranrobot_backend.catalog.doctype.robot_category.robot_category import RobotCategory
+2026-06-02 11:56:49,670 INFO ipython     # --- E.1: Look at Document.insert and run_before_save_methods to see the real call sites ---
+2026-06-02 11:56:49,670 INFO ipython     print("\n[E.1] Source of Document.insert (just the validate-related portion):")
+2026-06-02 11:56:49,670 INFO ipython     from frappe.model.document import Document
+2026-06-02 11:56:49,670 INFO ipython     src = inspect.getsource(Document.insert)
+2026-06-02 11:56:49,670 INFO ipython     # print only lines mentioning validate / run_method / save / run_before
+2026-06-02 11:56:49,670 INFO ipython     interesting = [
+        ln for ln in src.splitlines()
+        if any(k in ln for k in ("validate", "run_method", "run_before_save", "run_post_save", "flags.in_insert"))
+    ]
+2026-06-02 11:56:49,670 INFO ipython     for ln in interesting:
+        print("    " + ln.strip())
+2026-06-02 11:56:49,670 INFO ipython     print("\n[E.2] Source of Document.run_before_save_methods:")
+2026-06-02 11:56:49,670 INFO ipython     try:
+        src = inspect.getsource(Document.run_before_save_methods)
+        for ln in src.splitlines():
+            print("    " + ln.rstrip())
+    except Exception as e:
+        print(f"    not found: {e}")
+2026-06-02 11:56:49,670 INFO ipython     # --- E.3: Run a SELF-CONTAINED traced insert (closure stays intact) ---
+2026-06-02 11:56:49,670 INFO ipython     print("\n[E.3] Trace validate() during a real insert (closure-safe):")
+2026-06-02 11:56:49,670 INFO ipython     trace = []
+2026-06-02 11:56:49,670 INFO ipython     original_validate = RobotCategory.validate
+2026-06-02 11:56:49,670 INFO ipython     def traced(self):
+        trace.append({
+            "called_at": "validate",
+            "slug_before_normalize": self.slug,
+            "doc_flags_ignore_validate": getattr(self.flags, "ignore_validate", "<unset>"),
+            "doc_flags_in_insert": getattr(self.flags, "in_insert", "<unset>"),
+        })
+        result = original_validate(self)
+        trace.append({
+            "called_at": "validate_returned",
+            "slug_after_normalize": self.slug,
+        })
+        return result
+2026-06-02 11:56:49,670 INFO ipython     RobotCategory.validate = traced
+2026-06-02 11:56:49,670 INFO ipython     diag_name = None
+2026-06-02 11:56:49,670 INFO ipython     try:
+        d = frappe.get_doc({
+            "doctype": "Robot Category",
+            "slug": "ZZZ-TRACE2-UPPER",
+            "label_fa": "ت",
+            "label_en": "T",
+        })
+        try:
+            d.insert(ignore_permissions=True)
+            diag_name = d.name
+            print(f"    INSERT ok -- name={d.name!r}  slug={d.slug!r}")
+        except frappe.ValidationError as e:
+            print(f"    INSERT rejected by ValidationError: {e}")
+        except Exception as e:
+            print(f"    INSERT failed with {type(e).__name__}: {e}")
+
+        print(f"    trace entries: {len(trace)}")
+        for entry in trace:
+            print(f"      {entry}")
+
+        # Read back from SQL to see what actually hit the DB
+        if diag_name:
+            row = frappe.db.sql(
+                "SELECT name, slug FROM `tabRobot Category` WHERE name = %s",
+                diag_name,
+                as_dict=True,
+            )
+            print(f"    raw SQL row: {row}")
+    finally:
+        RobotCategory.validate = original_validate
+        for candidate in ("ZZZ-TRACE2-UPPER", "zzz-trace2-upper", diag_name or ""):
+            if candidate and frappe.db.exists("Robot Category", candidate):
+                frappe.delete_doc("Robot Category", candidate, force=True, ignore_permissions=True)
+        frappe.db.commit()
+2026-06-02 11:56:49,670 INFO ipython     # --- E.4: What about ignore_validate getting set anywhere on the doc? ---
+2026-06-02 11:56:49,670 INFO ipython     print("\n[E.4] Inspect Document flags after a fresh new_doc:")
+2026-06-02 11:56:49,670 INFO ipython     d = frappe.new_doc("Robot Category")
+2026-06-02 11:56:49,670 INFO ipython     print(f"    d.flags = {dict(d.flags)}")
+2026-06-02 11:56:49,671 INFO ipython     print(f"    d.flags.ignore_validate = {getattr(d.flags, 'ignore_validate', '<unset>')}")
+2026-06-02 11:56:49,671 INFO ipython     print(f"    frappe.flags.ignore_validate = {getattr(frappe.flags, 'ignore_validate', '<unset>')}")
+2026-06-02 11:56:49,671 INFO ipython     # --- E.5: Compare a save() vs insert() pathway for validation ---
+2026-06-02 11:56:49,671 INFO ipython     print("\n[E.5] Verify save() also runs validate() on existing doc:")
+2026-06-02 11:56:49,671 INFO ipython     if frappe.db.exists("Robot Category", "humanoids"):
+        d = frappe.get_doc("Robot Category", "humanoids")
+        print(f"    loaded humanoids -- slug={d.slug!r}")
+        d.slug = "HUMANOIDS-MIXED"  # poison
+        trace2 = []
+        original = RobotCategory.validate
+        def traced2(self):
+            trace2.append({"slug_in": self.slug})
+            r = original(self)
+            trace2.append({"slug_out": self.slug})
+            return r
+        RobotCategory.validate = traced2
+        try:
+            try:
+                d.save(ignore_permissions=True)
+                print(f"    save() ok -- slug after save = {d.slug!r}")
+            except frappe.ValidationError as e:
+                print(f"    save() rejected: {e}")
+            except Exception as e:
+                print(f"    save() failed with {type(e).__name__}: {e}")
+            print(f"    save() trace: {trace2}")
+        finally:
+            RobotCategory.validate = original
+        # Restore the slug field to the correct value regardless of test outcome
+        frappe.db.set_value("Robot Category", "humanoids", "slug", "humanoids", update_modified=False)
+        frappe.db.commit()
+2026-06-02 11:56:49,671 INFO ipython     print("\nDONE.")
+2026-06-02 11:56:49,671 INFO ipython main()
+2026-06-02 11:56:49,671 INFO ipython === session end ===
+2026-06-02 11:58:23,951 INFO ipython === bench console session ===
+2026-06-02 11:58:23,951 INFO ipython import inspect
+2026-06-02 11:58:23,951 INFO ipython import frappe
+2026-06-02 11:58:23,951 INFO ipython from frappe.model.document import Document
+2026-06-02 11:58:23,951 INFO ipython def main():
+    print("==========================================")
+    print("VALIDATION ROOT-CAUSE CONFIRMATION")
+    print("==========================================")
+2026-06-02 11:58:23,951 INFO ipython     # --- F.1: Show the source of _sync_autoname_field (the suspected reverter) ---
+2026-06-02 11:58:23,951 INFO ipython     print("\n[F.1] Source of Document._sync_autoname_field:")
+2026-06-02 11:58:23,951 INFO ipython     print(inspect.getsource(Document._sync_autoname_field))
+2026-06-02 11:58:23,951 INFO ipython     # --- F.2: Show the source of set_new_name to confirm name is set from slug BEFORE validate ---
+2026-06-02 11:58:23,952 INFO ipython     print("\n[F.2] Source of Document.set_new_name (relevant portion):")
+2026-06-02 11:58:23,952 INFO ipython     src = inspect.getsource(Document.set_new_name)
+2026-06-02 11:58:23,952 INFO ipython     for ln in src.splitlines():
+        print("    " + ln.rstrip())
+2026-06-02 11:58:23,952 INFO ipython     # --- F.3: Show frappe.model.naming.set_name_from_naming_options behavior ---
+2026-06-02 11:58:23,952 INFO ipython     print("\n[F.3] frappe.model.naming.set_name_from_naming_options source:")
+2026-06-02 11:58:23,952 INFO ipython     try:
+        from frappe.model.naming import set_name_from_naming_options
+        print(inspect.getsource(set_name_from_naming_options))
+    except Exception as e:
+        print(f"    not found: {e}")
+2026-06-02 11:58:23,952 INFO ipython     # --- F.4: Reproduce end-to-end with a step-by-step check (no closures, use globals) ---
+2026-06-02 11:58:23,952 INFO ipython     print("\n[F.4] Step-by-step trace of one insert (using a module-global tracer):")
+2026-06-02 11:58:23,952 INFO ipython     # Use the module's globals for tracing, since this is invoked from a single function call
+2026-06-02 11:58:23,952 INFO ipython     # (closure over `STEPS` would be broken by IPython's cell-by-cell execution if we used
+2026-06-02 11:58:23,952 INFO ipython     # a closure, but inside one function frame called once, it works).
+2026-06-02 11:58:23,952 INFO ipython     STEPS = []
+2026-06-02 11:58:23,952 INFO ipython     from iranrobot_backend.catalog.doctype.robot_category.robot_category import RobotCategory
+2026-06-02 11:58:23,952 INFO ipython     original_validate = RobotCategory.validate
+2026-06-02 11:58:23,952 INFO ipython     original_normalize = RobotCategory._normalize_slug
+2026-06-02 11:58:23,952 INFO ipython     original_sync = Document._sync_autoname_field
+2026-06-02 11:58:23,952 INFO ipython     def traced_validate(self):
+        STEPS.append(("validate ENTER", "slug=", self.slug, "name=", self.name))
+        r = original_validate(self)
+        STEPS.append(("validate EXIT ", "slug=", self.slug, "name=", self.name))
+        return r
+2026-06-02 11:58:23,952 INFO ipython     def traced_normalize(self):
+        STEPS.append(("_normalize_slug ENTER", "slug=", self.slug))
+        r = original_normalize(self)
+        STEPS.append(("_normalize_slug EXIT ", "slug=", self.slug))
+        return r
+2026-06-02 11:58:23,952 INFO ipython     def traced_sync(self):
+        STEPS.append(("_sync_autoname_field ENTER", "slug=", self.slug, "name=", self.name))
+        r = original_sync(self)
+        STEPS.append(("_sync_autoname_field EXIT ", "slug=", self.slug, "name=", self.name))
+        return r
+2026-06-02 11:58:23,952 INFO ipython     RobotCategory.validate = traced_validate
+2026-06-02 11:58:23,952 INFO ipython     RobotCategory._normalize_slug = traced_normalize
+2026-06-02 11:58:23,952 INFO ipython     Document._sync_autoname_field = traced_sync
+2026-06-02 11:58:23,952 INFO ipython     diag_name = None
+2026-06-02 11:58:23,952 INFO ipython     try:
+        d = frappe.get_doc({
+            "doctype": "Robot Category",
+            "slug": "ZZZ-FINAL-UPPER",
+            "label_fa": "ت",
+            "label_en": "T",
+        })
+        try:
+            d.insert(ignore_permissions=True)
+            diag_name = d.name
+            print(f"    INSERT ok -- name={d.name!r}  slug={d.slug!r}")
+        except frappe.ValidationError as e:
+            print(f"    INSERT rejected: {e}")
+        except Exception as e:
+            print(f"    INSERT failed {type(e).__name__}: {e}")
+
+        # Read what actually landed in MariaDB
+        if diag_name:
+            row = frappe.db.sql(
+                "SELECT name, slug FROM `tabRobot Category` WHERE name = %s",
+                diag_name,
+                as_dict=True,
+            )
+            print(f"    SQL row: {row}")
+
+        print(f"\n    Step trace ({len(STEPS)} events):")
+        for s in STEPS:
+            print(f"      {s}")
+    finally:
+        RobotCategory.validate = original_validate
+        RobotCategory._normalize_slug = original_normalize
+        Document._sync_autoname_field = original_sync
+        for candidate in ("ZZZ-FINAL-UPPER", "zzz-final-upper", diag_name or ""):
+            if candidate and frappe.db.exists("Robot Category", candidate):
+                frappe.delete_doc("Robot Category", candidate, force=True, ignore_permissions=True)
+        frappe.db.commit()
+2026-06-02 11:58:23,952 INFO ipython     print("\nDONE.")
+2026-06-02 11:58:23,952 INFO ipython main()
+2026-06-02 11:58:23,952 INFO ipython === session end ===
+2026-06-02 12:07:16,549 INFO ipython === bench console session ===
+2026-06-02 12:07:16,549 INFO ipython import frappe
+2026-06-02 12:07:16,549 INFO ipython import inspect
+2026-06-02 12:07:16,549 INFO ipython def main():
+    print("==========================================")
+    print("SLUG NORMALIZATION FIX -- VERIFICATION")
+    print("==========================================")
+2026-06-02 12:07:16,549 INFO ipython     # Re-import controllers to pick up the new code (defensive; bench console starts fresh)
+2026-06-02 12:07:16,549 INFO ipython     from iranrobot_backend.catalog.doctype.robot_category.robot_category import RobotCategory
+2026-06-02 12:07:16,549 INFO ipython     from iranrobot_backend.catalog.doctype.robot_product.robot_product import RobotProduct
+2026-06-02 12:07:16,549 INFO ipython     from iranrobot_backend.catalog import slug as slug_mod
+2026-06-02 12:07:16,549 INFO ipython     print("\n[G.0] Confirm new controller code is loaded:")
+2026-06-02 12:07:16,549 INFO ipython     print(f"  RobotCategory.autoname defined: {hasattr(RobotCategory, 'autoname')}")
+2026-06-02 12:07:16,549 INFO ipython     print(f"  RobotProduct.autoname defined : {hasattr(RobotProduct, 'autoname')}")
+2026-06-02 12:07:16,549 INFO ipython     print(f"  RobotCategory.autoname source : {inspect.getsourcefile(RobotCategory.autoname)}")
+2026-06-02 12:07:16,549 INFO ipython     print(f"  slug module file              : {slug_mod.__file__}")
+2026-06-02 12:07:16,549 INFO ipython     print(f"  SLUG_PATTERN                  : {slug_mod.SLUG_PATTERN.pattern!r}")
+2026-06-02 12:07:16,550 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:16,550 INFO ipython     # TEST 1: insert uppercase slug -- must be saved as lowercase
+2026-06-02 12:07:16,550 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:16,550 INFO ipython     print("\n[T1] Insert Robot Category with slug='TEST-UPPER-SLUG':")
+2026-06-02 12:07:16,550 INFO ipython     cleanup_names = []
+2026-06-02 12:07:16,550 INFO ipython     try:
+        d = frappe.get_doc({
+            "doctype": "Robot Category",
+            "slug": "TEST-UPPER-SLUG",
+            "label_fa": "تست",
+            "label_en": "Test Upper",
+        })
+        try:
+            d.insert(ignore_permissions=True)
+            cleanup_names.append(d.name)
+            print(f"  INSERT ok -- doc.name={d.name!r}  doc.slug={d.slug!r}")
+            row = frappe.db.sql(
+                "SELECT name, slug FROM `tabRobot Category` WHERE name = %s",
+                d.name,
+                as_dict=True,
+            )
+            print(f"  SQL row    : {row}")
+            ok = d.name == "test-upper-slug" and d.slug == "test-upper-slug"
+            print(f"  PASS: {ok}  (expected name='test-upper-slug', slug='test-upper-slug')")
+        except Exception as e:
+            print(f"  FAIL -- insert raised {type(e).__name__}: {e}")
+    finally:
+        pass
+2026-06-02 12:07:16,550 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:16,550 INFO ipython     # TEST 2: insert slug with spaces -- must become kebab-case
+2026-06-02 12:07:16,550 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:16,550 INFO ipython     print("\n[T2] Insert Robot Category with slug='Bipedal Humanoids':")
+2026-06-02 12:07:16,550 INFO ipython     try:
+        d = frappe.get_doc({
+            "doctype": "Robot Category",
+            "slug": "Bipedal Humanoids",
+            "label_fa": "تست۲",
+            "label_en": "Test 2",
+        })
+        try:
+            d.insert(ignore_permissions=True)
+            cleanup_names.append(d.name)
+            print(f"  INSERT ok -- doc.name={d.name!r}  doc.slug={d.slug!r}")
+            ok = d.name == "bipedal-humanoids-temp-check" or d.name == "bipedal-humanoids"
+            # Note: 'bipedal-humanoids' already exists as a real record. This insert WILL collide.
+            # We expect either a DuplicateEntryError (good -- proves normalization works) or success.
+            print(f"  (note: this slug normalizes to a name that may collide with existing 'bipedal-humanoids')")
+        except frappe.exceptions.DuplicateEntryError as e:
+            print(f"  DUPLICATE (expected): {e}")
+            print(f"  PASS: normalization produced 'bipedal-humanoids' which collided -- proves spaces -> hyphens worked")
+        except Exception as e:
+            print(f"  Result: {type(e).__name__}: {e}")
+    finally:
+        pass
+2026-06-02 12:07:16,550 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:16,550 INFO ipython     # TEST 3: insert slug with invalid character -- must be rejected
+2026-06-02 12:07:16,550 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:16,550 INFO ipython     print("\n[T3] Insert Robot Category with slug='humanoids!':")
+2026-06-02 12:07:16,550 INFO ipython     try:
+        d = frappe.get_doc({
+            "doctype": "Robot Category",
+            "slug": "humanoids!",
+            "label_fa": "تست!",
+            "label_en": "Test bang",
+        })
+        try:
+            d.insert(ignore_permissions=True)
+            cleanup_names.append(d.name)
+            print(f"  FAIL -- insert SUCCEEDED with name={d.name!r}  slug={d.slug!r}  (should have rejected)")
+        except frappe.ValidationError as e:
+            print(f"  PASS: rejected with ValidationError -- {e}")
+        except Exception as e:
+            print(f"  Result: {type(e).__name__}: {e}")
+    finally:
+        pass
+2026-06-02 12:07:16,550 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:16,550 INFO ipython     # TEST 4: insert slug with leading hyphen -- normalized then validated
+2026-06-02 12:07:16,550 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:16,550 INFO ipython     print("\n[T4] Insert Robot Category with slug='-leading-hyphen':")
+2026-06-02 12:07:16,550 INFO ipython     try:
+        d = frappe.get_doc({
+            "doctype": "Robot Category",
+            "slug": "-leading-hyphen",
+            "label_fa": "تست",
+            "label_en": "Test leading hyphen",
+        })
+        try:
+            d.insert(ignore_permissions=True)
+            cleanup_names.append(d.name)
+            print(f"  INSERT ok -- doc.name={d.name!r}  doc.slug={d.slug!r}")
+            ok = d.name == "leading-hyphen" and d.slug == "leading-hyphen"
+            print(f"  PASS: {ok}  (expected name='leading-hyphen', leading hyphen stripped)")
+        except Exception as e:
+            print(f"  Result: {type(e).__name__}: {e}")
+    finally:
+        pass
+2026-06-02 12:07:16,550 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:16,550 INFO ipython     # TEST 5: insert Robot Product with uppercase product_id -- must be lowercased
+2026-06-02 12:07:16,550 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:16,550 INFO ipython     print("\n[T5] Insert Robot Product with product_id='TEST-UPPER-PROD' (full required fields):")
+2026-06-02 12:07:16,550 INFO ipython     try:
+        d = frappe.get_doc({
+            "doctype": "Robot Product",
+            "product_id": "TEST-UPPER-PROD",
+            "slug": "TEST-UPPER-PROD",
+            "is_published": 0,
+            "category": "humanoids",
+            "product_name_fa": "تست",
+            "product_name_en": "Test Upper Prod",
+            "brand": "TestBrand",
+            "origin_fa": "تست",
+            "origin_en": "Test",
+            "tagline_fa": "تست",
+            "tagline_en": "Test",
+            "description_fa": "تست",
+            "description_en": "Test",
+            "in_stock": 1,
+            "lead_time_days": 30,
+            "mode_buy": 0,
+            "mode_rent": 0,
+            "mode_procure": 1,
+            "price_label_fa": "استعلام قیمت",
+            "price_label_en": "Request quote",
+        })
+        try:
+            d.insert(ignore_permissions=True)
+            cleanup_names.append(("Robot Product", d.name))
+            print(f"  INSERT ok -- doc.name={d.name!r}  doc.product_id={d.product_id!r}  doc.slug={d.slug!r}")
+            ok = (d.name == "test-upper-prod" and
+                  d.product_id == "test-upper-prod" and
+                  d.slug == "test-upper-prod")
+            print(f"  PASS: {ok}  (expected all three == 'test-upper-prod')")
+        except Exception as e:
+            print(f"  Result: {type(e).__name__}: {e}")
+    finally:
+        pass
+2026-06-02 12:07:16,550 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:16,550 INFO ipython     # CLEANUP of test docs
+2026-06-02 12:07:16,550 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:16,550 INFO ipython     print("\n[CLEANUP] Removing test docs created above:")
+2026-06-02 12:07:16,550 INFO ipython     test_cat_names = ["test-upper-slug", "leading-hyphen", "TEST-UPPER-SLUG", "-leading-hyphen",
+                      "humanoids!", "Bipedal Humanoids"]
+2026-06-02 12:07:16,550 INFO ipython     for n in test_cat_names:
+        if frappe.db.exists("Robot Category", n):
+            frappe.delete_doc("Robot Category", n, force=True, ignore_permissions=True)
+            print(f"  deleted Robot Category {n!r}")
+    for n in ["test-upper-prod", "TEST-UPPER-PROD"]:
+        if frappe.db.exists("Robot Product", n):
+            frappe.delete_doc("Robot Product", n, force=True, ignore_permissions=True)
+            print(f"  deleted Robot Product {n!r}")
+    frappe.db.commit()
+2026-06-02 12:07:16,550 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:16,550 INFO ipython     # FINAL STATE: confirm humanoids + bipedal-humanoids are intact
+2026-06-02 12:07:16,550 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:16,550 INFO ipython     print("\n==========================================")
+2026-06-02 12:07:16,551 INFO ipython     print("FINAL STATE")
+2026-06-02 12:07:16,551 INFO ipython     print("==========================================")
+2026-06-02 12:07:16,551 INFO ipython     print("\nRobot Category:")
+2026-06-02 12:07:16,551 INFO ipython     for c in frappe.get_all(
+        "Robot Category",
+        fields=["name", "slug", "label_fa", "label_en", "parent_category", "is_published"],
+        order_by="creation asc",
+    ):
+        print(f"  {c}")
+2026-06-02 12:07:16,551 INFO ipython     print("\nRobot Product:")
+2026-06-02 12:07:16,551 INFO ipython     for p in frappe.get_all(
+        "Robot Product",
+        fields=["name", "product_id", "slug", "product_name_en", "category", "subcategory", "is_published"],
+        order_by="creation asc",
+    ):
+        print(f"  {p}")
+2026-06-02 12:07:16,551 INFO ipython     print("\nDONE.")
+2026-06-02 12:07:16,551 INFO ipython main()
+2026-06-02 12:07:16,551 INFO ipython === session end ===
+2026-06-02 12:07:40,174 INFO ipython === bench console session ===
+2026-06-02 12:07:40,174 INFO ipython import frappe
+2026-06-02 12:07:40,174 INFO ipython import inspect
+2026-06-02 12:07:40,174 INFO ipython def main():
+    print("==========================================")
+    print("SLUG NORMALIZATION FIX -- VERIFICATION")
+    print("==========================================")
+2026-06-02 12:07:40,174 INFO ipython     # Re-import controllers to pick up the new code (defensive; bench console starts fresh)
+2026-06-02 12:07:40,174 INFO ipython     from iranrobot_backend.catalog.doctype.robot_category.robot_category import RobotCategory
+2026-06-02 12:07:40,174 INFO ipython     from iranrobot_backend.catalog.doctype.robot_product.robot_product import RobotProduct
+2026-06-02 12:07:40,174 INFO ipython     from iranrobot_backend.catalog import slug as slug_mod
+2026-06-02 12:07:40,174 INFO ipython     print("\n[G.0] Confirm new controller code is loaded:")
+2026-06-02 12:07:40,174 INFO ipython     print(f"  RobotCategory.autoname defined: {hasattr(RobotCategory, 'autoname')}")
+2026-06-02 12:07:40,174 INFO ipython     print(f"  RobotProduct.autoname defined : {hasattr(RobotProduct, 'autoname')}")
+2026-06-02 12:07:40,174 INFO ipython     print(f"  RobotCategory.autoname source : {inspect.getsourcefile(RobotCategory.autoname)}")
+2026-06-02 12:07:40,174 INFO ipython     print(f"  slug module file              : {slug_mod.__file__}")
+2026-06-02 12:07:40,174 INFO ipython     print(f"  SLUG_PATTERN                  : {slug_mod.SLUG_PATTERN.pattern!r}")
+2026-06-02 12:07:40,174 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:40,174 INFO ipython     # TEST 1: insert uppercase slug -- must be saved as lowercase
+2026-06-02 12:07:40,174 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:40,174 INFO ipython     print("\n[T1] Insert Robot Category with slug='TEST-UPPER-SLUG':")
+2026-06-02 12:07:40,175 INFO ipython     cleanup_names = []
+2026-06-02 12:07:40,175 INFO ipython     try:
+        d = frappe.get_doc({
+            "doctype": "Robot Category",
+            "slug": "TEST-UPPER-SLUG",
+            "label_fa": "تست",
+            "label_en": "Test Upper",
+        })
+        try:
+            d.insert(ignore_permissions=True)
+            cleanup_names.append(d.name)
+            print(f"  INSERT ok -- doc.name={d.name!r}  doc.slug={d.slug!r}")
+            row = frappe.db.sql(
+                "SELECT name, slug FROM `tabRobot Category` WHERE name = %s",
+                d.name,
+                as_dict=True,
+            )
+            print(f"  SQL row    : {row}")
+            ok = d.name == "test-upper-slug" and d.slug == "test-upper-slug"
+            print(f"  PASS: {ok}  (expected name='test-upper-slug', slug='test-upper-slug')")
+        except Exception as e:
+            print(f"  FAIL -- insert raised {type(e).__name__}: {e}")
+    finally:
+        pass
+2026-06-02 12:07:40,175 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:40,175 INFO ipython     # TEST 2: insert slug with spaces -- must become kebab-case
+2026-06-02 12:07:40,175 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:40,175 INFO ipython     print("\n[T2] Insert Robot Category with slug='Bipedal Humanoids':")
+2026-06-02 12:07:40,175 INFO ipython     try:
+        d = frappe.get_doc({
+            "doctype": "Robot Category",
+            "slug": "Bipedal Humanoids",
+            "label_fa": "تست۲",
+            "label_en": "Test 2",
+        })
+        try:
+            d.insert(ignore_permissions=True)
+            cleanup_names.append(d.name)
+            print(f"  INSERT ok -- doc.name={d.name!r}  doc.slug={d.slug!r}")
+            ok = d.name == "bipedal-humanoids-temp-check" or d.name == "bipedal-humanoids"
+            # Note: 'bipedal-humanoids' already exists as a real record. This insert WILL collide.
+            # We expect either a DuplicateEntryError (good -- proves normalization works) or success.
+            print(f"  (note: this slug normalizes to a name that may collide with existing 'bipedal-humanoids')")
+        except frappe.exceptions.DuplicateEntryError as e:
+            print(f"  DUPLICATE (expected): {e}")
+            print(f"  PASS: normalization produced 'bipedal-humanoids' which collided -- proves spaces -> hyphens worked")
+        except Exception as e:
+            print(f"  Result: {type(e).__name__}: {e}")
+    finally:
+        pass
+2026-06-02 12:07:40,175 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:40,175 INFO ipython     # TEST 3: insert slug with invalid character -- must be rejected
+2026-06-02 12:07:40,175 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:40,175 INFO ipython     print("\n[T3] Insert Robot Category with slug='humanoids!':")
+2026-06-02 12:07:40,175 INFO ipython     try:
+        d = frappe.get_doc({
+            "doctype": "Robot Category",
+            "slug": "humanoids!",
+            "label_fa": "تست!",
+            "label_en": "Test bang",
+        })
+        try:
+            d.insert(ignore_permissions=True)
+            cleanup_names.append(d.name)
+            print(f"  FAIL -- insert SUCCEEDED with name={d.name!r}  slug={d.slug!r}  (should have rejected)")
+        except frappe.ValidationError as e:
+            print(f"  PASS: rejected with ValidationError -- {e}")
+        except Exception as e:
+            print(f"  Result: {type(e).__name__}: {e}")
+    finally:
+        pass
+2026-06-02 12:07:40,175 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:40,175 INFO ipython     # TEST 4: insert slug with leading hyphen -- normalized then validated
+2026-06-02 12:07:40,175 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:40,175 INFO ipython     print("\n[T4] Insert Robot Category with slug='-leading-hyphen':")
+2026-06-02 12:07:40,175 INFO ipython     try:
+        d = frappe.get_doc({
+            "doctype": "Robot Category",
+            "slug": "-leading-hyphen",
+            "label_fa": "تست",
+            "label_en": "Test leading hyphen",
+        })
+        try:
+            d.insert(ignore_permissions=True)
+            cleanup_names.append(d.name)
+            print(f"  INSERT ok -- doc.name={d.name!r}  doc.slug={d.slug!r}")
+            ok = d.name == "leading-hyphen" and d.slug == "leading-hyphen"
+            print(f"  PASS: {ok}  (expected name='leading-hyphen', leading hyphen stripped)")
+        except Exception as e:
+            print(f"  Result: {type(e).__name__}: {e}")
+    finally:
+        pass
+2026-06-02 12:07:40,175 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:40,175 INFO ipython     # TEST 5: insert Robot Product with uppercase product_id -- must be lowercased
+2026-06-02 12:07:40,175 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:40,175 INFO ipython     print("\n[T5] Insert Robot Product with product_id='TEST-UPPER-PROD' (full required fields):")
+2026-06-02 12:07:40,175 INFO ipython     try:
+        d = frappe.get_doc({
+            "doctype": "Robot Product",
+            "product_id": "TEST-UPPER-PROD",
+            "slug": "TEST-UPPER-PROD",
+            "is_published": 0,
+            "category": "humanoids",
+            "product_name_fa": "تست",
+            "product_name_en": "Test Upper Prod",
+            "brand": "TestBrand",
+            "origin_fa": "تست",
+            "origin_en": "Test",
+            "tagline_fa": "تست",
+            "tagline_en": "Test",
+            "description_fa": "تست",
+            "description_en": "Test",
+            "in_stock": 1,
+            "lead_time_days": 30,
+            "mode_buy": 0,
+            "mode_rent": 0,
+            "mode_procure": 1,
+            "price_label_fa": "استعلام قیمت",
+            "price_label_en": "Request quote",
+        })
+        try:
+            d.insert(ignore_permissions=True)
+            cleanup_names.append(("Robot Product", d.name))
+            print(f"  INSERT ok -- doc.name={d.name!r}  doc.product_id={d.product_id!r}  doc.slug={d.slug!r}")
+            ok = (d.name == "test-upper-prod" and
+                  d.product_id == "test-upper-prod" and
+                  d.slug == "test-upper-prod")
+            print(f"  PASS: {ok}  (expected all three == 'test-upper-prod')")
+        except Exception as e:
+            print(f"  Result: {type(e).__name__}: {e}")
+    finally:
+        pass
+2026-06-02 12:07:40,175 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:40,175 INFO ipython     # CLEANUP of test docs
+2026-06-02 12:07:40,175 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:40,175 INFO ipython     print("\n[CLEANUP] Removing test docs created above:")
+2026-06-02 12:07:40,175 INFO ipython     test_cat_names = ["test-upper-slug", "leading-hyphen", "TEST-UPPER-SLUG", "-leading-hyphen",
+                      "humanoids!", "Bipedal Humanoids"]
+2026-06-02 12:07:40,175 INFO ipython     for n in test_cat_names:
+        if frappe.db.exists("Robot Category", n):
+            frappe.delete_doc("Robot Category", n, force=True, ignore_permissions=True)
+            print(f"  deleted Robot Category {n!r}")
+    for n in ["test-upper-prod", "TEST-UPPER-PROD"]:
+        if frappe.db.exists("Robot Product", n):
+            frappe.delete_doc("Robot Product", n, force=True, ignore_permissions=True)
+            print(f"  deleted Robot Product {n!r}")
+    frappe.db.commit()
+2026-06-02 12:07:40,175 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:40,175 INFO ipython     # FINAL STATE: confirm humanoids + bipedal-humanoids are intact
+2026-06-02 12:07:40,175 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:07:40,175 INFO ipython     print("\n==========================================")
+2026-06-02 12:07:40,175 INFO ipython     print("FINAL STATE")
+2026-06-02 12:07:40,175 INFO ipython     print("==========================================")
+2026-06-02 12:07:40,176 INFO ipython     print("\nRobot Category:")
+2026-06-02 12:07:40,176 INFO ipython     for c in frappe.get_all(
+        "Robot Category",
+        fields=["name", "slug", "label_fa", "label_en", "parent_category", "is_published"],
+        order_by="creation asc",
+    ):
+        print(f"  {c}")
+2026-06-02 12:07:40,176 INFO ipython     print("\nRobot Product:")
+2026-06-02 12:07:40,176 INFO ipython     for p in frappe.get_all(
+        "Robot Product",
+        fields=["name", "product_id", "slug", "product_name_en", "category", "subcategory", "is_published"],
+        order_by="creation asc",
+    ):
+        print(f"  {p}")
+2026-06-02 12:07:40,176 INFO ipython     print("\nDONE.")
+2026-06-02 12:07:40,176 INFO ipython main()
+2026-06-02 12:07:40,176 INFO ipython === session end ===
+2026-06-02 12:08:06,122 INFO ipython === bench console session ===
+2026-06-02 12:08:06,123 INFO ipython import frappe
+2026-06-02 12:08:06,123 INFO ipython import inspect
+2026-06-02 12:08:06,123 INFO ipython def main():
+    print("==========================================")
+    print("SLUG NORMALIZATION FIX -- VERIFICATION")
+    print("==========================================")
+2026-06-02 12:08:06,123 INFO ipython     # Re-import controllers to pick up the new code (defensive; bench console starts fresh)
+2026-06-02 12:08:06,123 INFO ipython     from iranrobot_backend.catalog.doctype.robot_category.robot_category import RobotCategory
+2026-06-02 12:08:06,123 INFO ipython     from iranrobot_backend.catalog.doctype.robot_product.robot_product import RobotProduct
+2026-06-02 12:08:06,123 INFO ipython     from iranrobot_backend.catalog import slug as slug_mod
+2026-06-02 12:08:06,123 INFO ipython     print("\n[G.0] Confirm new controller code is loaded:")
+2026-06-02 12:08:06,123 INFO ipython     print(f"  RobotCategory.autoname defined: {hasattr(RobotCategory, 'autoname')}")
+2026-06-02 12:08:06,123 INFO ipython     print(f"  RobotProduct.autoname defined : {hasattr(RobotProduct, 'autoname')}")
+2026-06-02 12:08:06,123 INFO ipython     print(f"  RobotCategory.autoname source : {inspect.getsourcefile(RobotCategory.autoname)}")
+2026-06-02 12:08:06,123 INFO ipython     print(f"  slug module file              : {slug_mod.__file__}")
+2026-06-02 12:08:06,123 INFO ipython     print(f"  SLUG_PATTERN                  : {slug_mod.SLUG_PATTERN.pattern!r}")
+2026-06-02 12:08:06,123 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:08:06,123 INFO ipython     # TEST 1: insert uppercase slug -- must be saved as lowercase
+2026-06-02 12:08:06,123 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:08:06,123 INFO ipython     print("\n[T1] Insert Robot Category with slug='TEST-UPPER-SLUG':")
+2026-06-02 12:08:06,123 INFO ipython     cleanup_names = []
+2026-06-02 12:08:06,123 INFO ipython     try:
+        d = frappe.get_doc({
+            "doctype": "Robot Category",
+            "slug": "TEST-UPPER-SLUG",
+            "label_fa": "تست",
+            "label_en": "Test Upper",
+        })
+        try:
+            d.insert(ignore_permissions=True)
+            cleanup_names.append(d.name)
+            print(f"  INSERT ok -- doc.name={d.name!r}  doc.slug={d.slug!r}")
+            row = frappe.db.sql(
+                "SELECT name, slug FROM `tabRobot Category` WHERE name = %s",
+                d.name,
+                as_dict=True,
+            )
+            print(f"  SQL row    : {row}")
+            ok = d.name == "test-upper-slug" and d.slug == "test-upper-slug"
+            print(f"  PASS: {ok}  (expected name='test-upper-slug', slug='test-upper-slug')")
+        except Exception as e:
+            print(f"  FAIL -- insert raised {type(e).__name__}: {e}")
+    finally:
+        pass
+2026-06-02 12:08:06,123 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:08:06,123 INFO ipython     # TEST 2: insert slug with spaces -- must become kebab-case
+2026-06-02 12:08:06,123 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:08:06,123 INFO ipython     print("\n[T2] Insert Robot Category with slug='Bipedal Humanoids':")
+2026-06-02 12:08:06,123 INFO ipython     try:
+        d = frappe.get_doc({
+            "doctype": "Robot Category",
+            "slug": "Bipedal Humanoids",
+            "label_fa": "تست۲",
+            "label_en": "Test 2",
+        })
+        try:
+            d.insert(ignore_permissions=True)
+            cleanup_names.append(d.name)
+            print(f"  INSERT ok -- doc.name={d.name!r}  doc.slug={d.slug!r}")
+            ok = d.name == "bipedal-humanoids-temp-check" or d.name == "bipedal-humanoids"
+            # Note: 'bipedal-humanoids' already exists as a real record. This insert WILL collide.
+            # We expect either a DuplicateEntryError (good -- proves normalization works) or success.
+            print(f"  (note: this slug normalizes to a name that may collide with existing 'bipedal-humanoids')")
+        except frappe.exceptions.DuplicateEntryError as e:
+            print(f"  DUPLICATE (expected): {e}")
+            print(f"  PASS: normalization produced 'bipedal-humanoids' which collided -- proves spaces -> hyphens worked")
+        except Exception as e:
+            print(f"  Result: {type(e).__name__}: {e}")
+    finally:
+        pass
+2026-06-02 12:08:06,123 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:08:06,123 INFO ipython     # TEST 3: insert slug with invalid character -- must be rejected
+2026-06-02 12:08:06,123 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:08:06,123 INFO ipython     print("\n[T3] Insert Robot Category with slug='humanoids!':")
+2026-06-02 12:08:06,123 INFO ipython     try:
+        d = frappe.get_doc({
+            "doctype": "Robot Category",
+            "slug": "humanoids!",
+            "label_fa": "تست!",
+            "label_en": "Test bang",
+        })
+        try:
+            d.insert(ignore_permissions=True)
+            cleanup_names.append(d.name)
+            print(f"  FAIL -- insert SUCCEEDED with name={d.name!r}  slug={d.slug!r}  (should have rejected)")
+        except frappe.ValidationError as e:
+            print(f"  PASS: rejected with ValidationError -- {e}")
+        except Exception as e:
+            print(f"  Result: {type(e).__name__}: {e}")
+    finally:
+        pass
+2026-06-02 12:08:06,123 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:08:06,123 INFO ipython     # TEST 4: insert slug with leading hyphen -- normalized then validated
+2026-06-02 12:08:06,123 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:08:06,124 INFO ipython     print("\n[T4] Insert Robot Category with slug='-leading-hyphen':")
+2026-06-02 12:08:06,124 INFO ipython     try:
+        d = frappe.get_doc({
+            "doctype": "Robot Category",
+            "slug": "-leading-hyphen",
+            "label_fa": "تست",
+            "label_en": "Test leading hyphen",
+        })
+        try:
+            d.insert(ignore_permissions=True)
+            cleanup_names.append(d.name)
+            print(f"  INSERT ok -- doc.name={d.name!r}  doc.slug={d.slug!r}")
+            ok = d.name == "leading-hyphen" and d.slug == "leading-hyphen"
+            print(f"  PASS: {ok}  (expected name='leading-hyphen', leading hyphen stripped)")
+        except Exception as e:
+            print(f"  Result: {type(e).__name__}: {e}")
+    finally:
+        pass
+2026-06-02 12:08:06,124 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:08:06,124 INFO ipython     # TEST 5: insert Robot Product with uppercase product_id -- must be lowercased
+2026-06-02 12:08:06,124 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:08:06,124 INFO ipython     print("\n[T5] Insert Robot Product with product_id='TEST-UPPER-PROD' (full required fields):")
+2026-06-02 12:08:06,124 INFO ipython     try:
+        d = frappe.get_doc({
+            "doctype": "Robot Product",
+            "product_id": "TEST-UPPER-PROD",
+            "slug": "TEST-UPPER-PROD",
+            "is_published": 0,
+            "category": "humanoids",
+            "product_name_fa": "تست",
+            "product_name_en": "Test Upper Prod",
+            "brand": "TestBrand",
+            "origin_fa": "تست",
+            "origin_en": "Test",
+            "tagline_fa": "تست",
+            "tagline_en": "Test",
+            "description_fa": "تست",
+            "description_en": "Test",
+            "in_stock": 1,
+            "lead_time_days": 30,
+            "mode_buy": 0,
+            "mode_rent": 0,
+            "mode_procure": 1,
+            "price_label_fa": "استعلام قیمت",
+            "price_label_en": "Request quote",
+        })
+        try:
+            d.insert(ignore_permissions=True)
+            cleanup_names.append(("Robot Product", d.name))
+            print(f"  INSERT ok -- doc.name={d.name!r}  doc.product_id={d.product_id!r}  doc.slug={d.slug!r}")
+            ok = (d.name == "test-upper-prod" and
+                  d.product_id == "test-upper-prod" and
+                  d.slug == "test-upper-prod")
+            print(f"  PASS: {ok}  (expected all three == 'test-upper-prod')")
+        except Exception as e:
+            print(f"  Result: {type(e).__name__}: {e}")
+    finally:
+        pass
+2026-06-02 12:08:06,124 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:08:06,124 INFO ipython     # CLEANUP of test docs
+2026-06-02 12:08:06,124 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:08:06,124 INFO ipython     print("\n[CLEANUP] Removing test docs created above:")
+2026-06-02 12:08:06,124 INFO ipython     test_cat_names = ["test-upper-slug", "leading-hyphen", "TEST-UPPER-SLUG", "-leading-hyphen",
+                      "humanoids!", "Bipedal Humanoids"]
+2026-06-02 12:08:06,124 INFO ipython     for n in test_cat_names:
+        if frappe.db.exists("Robot Category", n):
+            frappe.delete_doc("Robot Category", n, force=True, ignore_permissions=True)
+            print(f"  deleted Robot Category {n!r}")
+    for n in ["test-upper-prod", "TEST-UPPER-PROD"]:
+        if frappe.db.exists("Robot Product", n):
+            frappe.delete_doc("Robot Product", n, force=True, ignore_permissions=True)
+            print(f"  deleted Robot Product {n!r}")
+    frappe.db.commit()
+2026-06-02 12:08:06,124 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:08:06,124 INFO ipython     # FINAL STATE: confirm humanoids + bipedal-humanoids are intact
+2026-06-02 12:08:06,124 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 12:08:06,124 INFO ipython     print("\n==========================================")
+2026-06-02 12:08:06,124 INFO ipython     print("FINAL STATE")
+2026-06-02 12:08:06,124 INFO ipython     print("==========================================")
+2026-06-02 12:08:06,124 INFO ipython     print("\nRobot Category:")
+2026-06-02 12:08:06,124 INFO ipython     for c in frappe.get_all(
+        "Robot Category",
+        fields=["name", "slug", "label_fa", "label_en", "parent_category", "is_published"],
+        order_by="creation asc",
+    ):
+        print(f"  {c}")
+2026-06-02 12:08:06,124 INFO ipython     print("\nRobot Product:")
+2026-06-02 12:08:06,124 INFO ipython     for p in frappe.get_all(
+        "Robot Product",
+        fields=["name", "product_id", "slug", "product_name_en", "category", "subcategory", "is_published"],
+        order_by="creation asc",
+    ):
+        print(f"  {p}")
+2026-06-02 12:08:06,124 INFO ipython     print("\nDONE.")
+2026-06-02 12:08:06,124 INFO ipython main()
+2026-06-02 12:08:06,124 INFO ipython === session end ===
+2026-06-02 12:36:28,066 INFO ipython === bench console session ===
+2026-06-02 12:36:28,067 INFO ipython import frappe
+2026-06-02 12:36:28,067 INFO ipython def main():
+    print("=" * 70)
+    print("SPOT CHECK")
+    print("=" * 70)
+2026-06-02 12:36:28,067 INFO ipython     # Counts
+2026-06-02 12:36:28,067 INFO ipython     cat_count = frappe.db.count("Robot Category")
+2026-06-02 12:36:28,067 INFO ipython     prod_count = frappe.db.count("Robot Product")
+2026-06-02 12:36:28,067 INFO ipython     img_count = frappe.db.count("Robot Product Image")
+2026-06-02 12:36:28,067 INFO ipython     spec_count = frappe.db.count("Robot Product Spec")
+2026-06-02 12:36:28,067 INFO ipython     print(f"\nRow counts:")
+2026-06-02 12:36:28,067 INFO ipython     print(f"  Robot Category     : {cat_count}")
+2026-06-02 12:36:28,067 INFO ipython     print(f"  Robot Product      : {prod_count}")
+2026-06-02 12:36:28,067 INFO ipython     print(f"  Robot Product Image: {img_count}")
+2026-06-02 12:36:28,067 INFO ipython     print(f"  Robot Product Spec : {spec_count}")
+2026-06-02 12:36:28,067 INFO ipython     # Category tree
+2026-06-02 12:36:28,067 INFO ipython     print(f"\nCategory tree (top-level + child counts):")
+2026-06-02 12:36:28,067 INFO ipython     tops = frappe.get_all("Robot Category", filters={"parent_category": ["is", "not set"]},
+                          fields=["name", "label_fa", "label_en", "display_order"],
+                          order_by="display_order asc")
+2026-06-02 12:36:28,067 INFO ipython     for t in tops:
+        kids = frappe.db.count("Robot Category", filters={"parent_category": t["name"]})
+        plinks = frappe.db.count("Robot Product", filters={"category": t["name"]})
+        print(f"  {t['name']:14s} {t['label_en']:14s} ({t['label_fa']}) -- {kids} subs, {plinks} products link")
+2026-06-02 12:36:28,068 INFO ipython     # Spot-check AiMOGA Mornine (originally Phase 1 test product, now real)
+2026-06-02 12:36:28,068 INFO ipython     print(f"\nSpot-check: aimoga-mornine")
+2026-06-02 12:36:28,068 INFO ipython     d = frappe.get_doc("Robot Product", "aimoga-mornine")
+2026-06-02 12:36:28,068 INFO ipython     print(f"  product_id         : {d.product_id}")
+2026-06-02 12:36:28,068 INFO ipython     print(f"  slug               : {d.slug}")
+2026-06-02 12:36:28,068 INFO ipython     print(f"  product_name_en    : {d.product_name_en}")
+2026-06-02 12:36:28,068 INFO ipython     print(f"  product_name_fa    : {d.product_name_fa}")
+2026-06-02 12:36:28,068 INFO ipython     print(f"  brand              : {d.brand}")
+2026-06-02 12:36:28,068 INFO ipython     print(f"  category           : {d.category}")
+2026-06-02 12:36:28,068 INFO ipython     print(f"  subcategory        : {d.subcategory}")
+2026-06-02 12:36:28,068 INFO ipython     print(f"  is_published       : {d.is_published}")
+2026-06-02 12:36:28,068 INFO ipython     print(f"  is_featured        : {d.is_featured}")
+2026-06-02 12:36:28,068 INFO ipython     print(f"  is_new_arrival     : {d.is_new_arrival}")
+2026-06-02 12:36:28,068 INFO ipython     print(f"  display_order      : {d.display_order}")
+2026-06-02 12:36:28,068 INFO ipython     print(f"  lead_time_days     : {d.lead_time_days}")
+2026-06-02 12:36:28,068 INFO ipython     print(f"  in_stock           : {d.in_stock}")
+2026-06-02 12:36:28,068 INFO ipython     print(f"  mode_buy/rent/proc : {d.mode_buy}/{d.mode_rent}/{d.mode_procure}")
+2026-06-02 12:36:28,068 INFO ipython     print(f"  price_label_fa     : {d.price_label_fa!r}")
+2026-06-02 12:36:28,068 INFO ipython     print(f"  price_label_en     : {d.price_label_en!r}")
+2026-06-02 12:36:28,068 INFO ipython     print(f"  origin_en          : {d.origin_en!r}")
+2026-06-02 12:36:28,068 INFO ipython     print(f"  images ({len(d.images)} rows):")
+2026-06-02 12:36:28,068 INFO ipython     for r in d.images:
+        print(f"    is_hero={r.is_hero}  image={r.image!r}")
+    print(f"  specs ({len(d.specs)} rows):")
+2026-06-02 12:36:28,068 INFO ipython     for r in d.specs:
+        print(f"    {r.label_en!r}: {r.value_en!r}  |  {r.label_fa!r}: {r.value_fa!r}")
+2026-06-02 12:36:28,068 INFO ipython     # Spot-check brainco-revo-2-touch (reclassified to accessories/robot-hands)
+2026-06-02 12:36:28,068 INFO ipython     print(f"\nSpot-check: brainco-revo-2-touch (reclassified)")
+2026-06-02 12:36:28,068 INFO ipython     d = frappe.get_doc("Robot Product", "brainco-revo-2-touch")
+2026-06-02 12:36:28,068 INFO ipython     print(f"  category           : {d.category}      (expected: accessories)")
+2026-06-02 12:36:28,068 INFO ipython     print(f"  subcategory        : {d.subcategory}   (expected: robot-hands)")
+2026-06-02 12:36:28,068 INFO ipython     print(f"  product_name_en    : {d.product_name_en}")
+2026-06-02 12:36:28,068 INFO ipython     print(f"  images             : {len(d.images)} row(s)")
+2026-06-02 12:36:28,068 INFO ipython     print(f"  specs              : {len(d.specs)} row(s)")
+2026-06-02 12:36:28,068 INFO ipython     # Verify is_featured == 1 only for one product
+2026-06-02 12:36:28,068 INFO ipython     feat = frappe.get_all("Robot Product", filters={"is_featured": 1},
+                          fields=["name", "product_name_en"])
+2026-06-02 12:36:28,068 INFO ipython     print(f"\nFeatured products (expect exactly 1):")
+2026-06-02 12:36:28,068 INFO ipython     for f in feat:
+        print(f"  - {f['name']}: {f['product_name_en']}")
+2026-06-02 12:36:28,068 INFO ipython     # Verify solutions taxonomy has zero products linked
+2026-06-02 12:36:28,069 INFO ipython     sol_prods = frappe.db.count("Robot Product", filters={"category": "solutions"})
+2026-06-02 12:36:28,069 INFO ipython     sol_subs = ["education", "warehouse", "inspection", "security", "healthcare", "custom"]
+2026-06-02 12:36:28,069 INFO ipython     sol_sub_prods = sum(
+        frappe.db.count("Robot Product", filters={"category": s}) for s in sol_subs
+    )
+2026-06-02 12:36:28,069 INFO ipython     print(f"\nSolutions taxonomy product linkage:")
+2026-06-02 12:36:28,069 INFO ipython     print(f"  products with category=solutions      : {sol_prods}  (expected 0)")
+2026-06-02 12:36:28,069 INFO ipython     print(f"  products with category=any solution sub: {sol_sub_prods}  (expected 0)")
+2026-06-02 12:36:28,069 INFO ipython     # Per-top-level distribution
+2026-06-02 12:36:28,069 INFO ipython     print(f"\nProducts per top-level category:")
+2026-06-02 12:36:28,069 INFO ipython     for slug in ["humanoids", "quadrupeds", "amrs", "cobots", "drones", "ugvs", "accessories", "solutions"]:
+        n = frappe.db.count("Robot Product", filters={"category": slug})
+        print(f"  {slug:14s}: {n}")
+2026-06-02 12:36:28,069 INFO ipython     print(f"\nDONE.")
+2026-06-02 12:36:28,069 INFO ipython main()
+2026-06-02 12:36:28,069 INFO ipython === session end ===
+2026-06-02 12:36:45,754 INFO ipython === bench console session ===
+2026-06-02 12:36:45,754 INFO ipython import frappe
+2026-06-02 12:36:45,754 INFO ipython def main():
+    print("=" * 70)
+    print("SPOT CHECK")
+    print("=" * 70)
+2026-06-02 12:36:45,754 INFO ipython     # Counts
+2026-06-02 12:36:45,754 INFO ipython     cat_count = frappe.db.count("Robot Category")
+2026-06-02 12:36:45,754 INFO ipython     prod_count = frappe.db.count("Robot Product")
+2026-06-02 12:36:45,754 INFO ipython     img_count = frappe.db.count("Robot Product Image")
+2026-06-02 12:36:45,754 INFO ipython     spec_count = frappe.db.count("Robot Product Spec")
+2026-06-02 12:36:45,754 INFO ipython     print(f"\nRow counts:")
+2026-06-02 12:36:45,755 INFO ipython     print(f"  Robot Category     : {cat_count}")
+2026-06-02 12:36:45,755 INFO ipython     print(f"  Robot Product      : {prod_count}")
+2026-06-02 12:36:45,755 INFO ipython     print(f"  Robot Product Image: {img_count}")
+2026-06-02 12:36:45,755 INFO ipython     print(f"  Robot Product Spec : {spec_count}")
+2026-06-02 12:36:45,755 INFO ipython     # Category tree
+2026-06-02 12:36:45,755 INFO ipython     print(f"\nCategory tree (top-level + child counts):")
+2026-06-02 12:36:45,755 INFO ipython     tops = frappe.get_all("Robot Category", filters={"parent_category": ["is", "not set"]},
+                          fields=["name", "label_fa", "label_en", "display_order"],
+                          order_by="display_order asc")
+2026-06-02 12:36:45,755 INFO ipython     for t in tops:
+        kids = frappe.db.count("Robot Category", filters={"parent_category": t["name"]})
+        plinks = frappe.db.count("Robot Product", filters={"category": t["name"]})
+        print(f"  {t['name']:14s} {t['label_en']:14s} ({t['label_fa']}) -- {kids} subs, {plinks} products link")
+2026-06-02 12:36:45,755 INFO ipython     # Spot-check AiMOGA Mornine (originally Phase 1 test product, now real)
+2026-06-02 12:36:45,755 INFO ipython     print(f"\nSpot-check: aimoga-mornine")
+2026-06-02 12:36:45,755 INFO ipython     d = frappe.get_doc("Robot Product", "aimoga-mornine")
+2026-06-02 12:36:45,755 INFO ipython     print(f"  product_id         : {d.product_id}")
+2026-06-02 12:36:45,755 INFO ipython     print(f"  slug               : {d.slug}")
+2026-06-02 12:36:45,755 INFO ipython     print(f"  product_name_en    : {d.product_name_en}")
+2026-06-02 12:36:45,755 INFO ipython     print(f"  product_name_fa    : {d.product_name_fa}")
+2026-06-02 12:36:45,755 INFO ipython     print(f"  brand              : {d.brand}")
+2026-06-02 12:36:45,755 INFO ipython     print(f"  category           : {d.category}")
+2026-06-02 12:36:45,755 INFO ipython     print(f"  subcategory        : {d.subcategory}")
+2026-06-02 12:36:45,755 INFO ipython     print(f"  is_published       : {d.is_published}")
+2026-06-02 12:36:45,755 INFO ipython     print(f"  is_featured        : {d.is_featured}")
+2026-06-02 12:36:45,755 INFO ipython     print(f"  is_new_arrival     : {d.is_new_arrival}")
+2026-06-02 12:36:45,755 INFO ipython     print(f"  display_order      : {d.display_order}")
+2026-06-02 12:36:45,755 INFO ipython     print(f"  lead_time_days     : {d.lead_time_days}")
+2026-06-02 12:36:45,755 INFO ipython     print(f"  in_stock           : {d.in_stock}")
+2026-06-02 12:36:45,755 INFO ipython     print(f"  mode_buy/rent/proc : {d.mode_buy}/{d.mode_rent}/{d.mode_procure}")
+2026-06-02 12:36:45,755 INFO ipython     print(f"  price_label_fa     : {d.price_label_fa!r}")
+2026-06-02 12:36:45,755 INFO ipython     print(f"  price_label_en     : {d.price_label_en!r}")
+2026-06-02 12:36:45,755 INFO ipython     print(f"  origin_en          : {d.origin_en!r}")
+2026-06-02 12:36:45,755 INFO ipython     print(f"  images ({len(d.images)} rows):")
+2026-06-02 12:36:45,755 INFO ipython     for r in d.images:
+        print(f"    is_hero={r.is_hero}  image={r.image!r}")
+    print(f"  specs ({len(d.specs)} rows):")
+2026-06-02 12:36:45,755 INFO ipython     for r in d.specs:
+        print(f"    {r.label_en!r}: {r.value_en!r}  |  {r.label_fa!r}: {r.value_fa!r}")
+2026-06-02 12:36:45,755 INFO ipython     # Spot-check brainco-revo-2-touch (reclassified to accessories/robot-hands)
+2026-06-02 12:36:45,755 INFO ipython     print(f"\nSpot-check: brainco-revo-2-touch (reclassified)")
+2026-06-02 12:36:45,755 INFO ipython     d = frappe.get_doc("Robot Product", "brainco-revo-2-touch")
+2026-06-02 12:36:45,755 INFO ipython     print(f"  category           : {d.category}      (expected: accessories)")
+2026-06-02 12:36:45,755 INFO ipython     print(f"  subcategory        : {d.subcategory}   (expected: robot-hands)")
+2026-06-02 12:36:45,755 INFO ipython     print(f"  product_name_en    : {d.product_name_en}")
+2026-06-02 12:36:45,756 INFO ipython     print(f"  images             : {len(d.images)} row(s)")
+2026-06-02 12:36:45,756 INFO ipython     print(f"  specs              : {len(d.specs)} row(s)")
+2026-06-02 12:36:45,756 INFO ipython     # Verify is_featured == 1 only for one product
+2026-06-02 12:36:45,756 INFO ipython     feat = frappe.get_all("Robot Product", filters={"is_featured": 1},
+                          fields=["name", "product_name_en"])
+2026-06-02 12:36:45,756 INFO ipython     print(f"\nFeatured products (expect exactly 1):")
+2026-06-02 12:36:45,756 INFO ipython     for f in feat:
+        print(f"  - {f['name']}: {f['product_name_en']}")
+2026-06-02 12:36:45,756 INFO ipython     # Verify solutions taxonomy has zero products linked
+2026-06-02 12:36:45,756 INFO ipython     sol_prods = frappe.db.count("Robot Product", filters={"category": "solutions"})
+2026-06-02 12:36:45,756 INFO ipython     sol_subs = ["education", "warehouse", "inspection", "security", "healthcare", "custom"]
+2026-06-02 12:36:45,756 INFO ipython     sol_sub_prods = sum(
+        frappe.db.count("Robot Product", filters={"category": s}) for s in sol_subs
+    )
+2026-06-02 12:36:45,756 INFO ipython     print(f"\nSolutions taxonomy product linkage:")
+2026-06-02 12:36:45,756 INFO ipython     print(f"  products with category=solutions      : {sol_prods}  (expected 0)")
+2026-06-02 12:36:45,756 INFO ipython     print(f"  products with category=any solution sub: {sol_sub_prods}  (expected 0)")
+2026-06-02 12:36:45,756 INFO ipython     # Per-top-level distribution
+2026-06-02 12:36:45,756 INFO ipython     print(f"\nProducts per top-level category:")
+2026-06-02 12:36:45,756 INFO ipython     for slug in ["humanoids", "quadrupeds", "amrs", "cobots", "drones", "ugvs", "accessories", "solutions"]:
+        n = frappe.db.count("Robot Product", filters={"category": slug})
+        print(f"  {slug:14s}: {n}")
+2026-06-02 12:36:45,756 INFO ipython     print(f"\nDONE.")
+2026-06-02 12:36:45,756 INFO ipython main()
+2026-06-02 12:36:45,756 INFO ipython === session end ===
+2026-06-02 14:33:00,699 INFO ipython === bench console session ===
+2026-06-02 14:33:00,700 INFO ipython import json
+2026-06-02 14:33:00,700 INFO ipython import frappe
+2026-06-02 14:33:00,700 INFO ipython from iranrobot_backend.api import catalog
+2026-06-02 14:33:00,700 INFO ipython def J(x, max_len=600):
+    """Compact JSON dump, truncated."""
+    s = json.dumps(x, ensure_ascii=False, default=str)
+    return s if len(s) <= max_len else s[:max_len] + f"... <truncated, total {len(s)} chars>"
+2026-06-02 14:33:00,700 INFO ipython def main():
+    print("=" * 72)
+    print("PHASE 2 -- CATALOG API TESTS")
+    print("=" * 72)
+2026-06-02 14:33:00,700 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:00,700 INFO ipython     # 1. get_categories
+2026-06-02 14:33:00,700 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:00,700 INFO ipython     print("\n[T1] get_categories()")
+2026-06-02 14:33:00,700 INFO ipython     r = catalog.get_categories()
+2026-06-02 14:33:00,700 INFO ipython     assert r["ok"], r
+2026-06-02 14:33:00,700 INFO ipython     cats = r["data"]["categories"]
+2026-06-02 14:33:00,700 INFO ipython     print(f"  top-level count : {len(cats)}")
+2026-06-02 14:33:00,700 INFO ipython     print(f"  ok              : {r['ok']}")
+2026-06-02 14:33:00,700 INFO ipython     total_cats = len(cats)
+2026-06-02 14:33:00,700 INFO ipython     sub_total = 0
+2026-06-02 14:33:00,700 INFO ipython     sample = None
+2026-06-02 14:33:00,700 INFO ipython     for c in cats:
+        sub_total += len(c["children"])
+        print(f"    {c['name']:14s} children={len(c['children']):2d} count={c['product_count']:3d}")
+        if c["name"] == "humanoids":
+            sample = c
+    print(f"  TOTAL CATEGORIES (top + subs) = {total_cats + sub_total}  (expected 24)")
+2026-06-02 14:33:00,700 INFO ipython     if sample:
+        print(f"  sample humanoids node:")
+        print(f"    label_en={sample['label_en']}  label_fa={sample['label_fa']}  icon={sample['icon']}")
+        print(f"    children count={len(sample['children'])}: {[c['name'] for c in sample['children']]}")
+2026-06-02 14:33:00,700 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:00,700 INFO ipython     # 2. get_products (no filter)
+2026-06-02 14:33:00,701 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:00,701 INFO ipython     print("\n[T2] get_products() default")
+2026-06-02 14:33:00,701 INFO ipython     r = catalog.get_products()
+2026-06-02 14:33:00,701 INFO ipython     assert r["ok"], r
+2026-06-02 14:33:00,701 INFO ipython     page = r["data"]
+2026-06-02 14:33:00,701 INFO ipython     print(f"  total           : {page['pagination']['total']}  (expected 74)")
+2026-06-02 14:33:00,701 INFO ipython     print(f"  returned        : {page['pagination']['returned']}  (expected 24)")
+2026-06-02 14:33:00,701 INFO ipython     print(f"  has_next        : {page['pagination']['has_next']}  (expected True)")
+2026-06-02 14:33:00,701 INFO ipython     print(f"  page 1 first 3  :")
+2026-06-02 14:33:00,701 INFO ipython     for p in page["products"][:3]:
+        print(f"    {p['product_id']:30s}  cat={p['category']:14s}  sub={str(p.get('subcategory') or '-'):20s}  brand={p['brand']:18s}")
+    print(f"  first product hero_image: {page['products'][0].get('hero_image')!r}")
+2026-06-02 14:33:00,701 INFO ipython     print(f"  bool fields on first product: in_stock={page['products'][0]['in_stock']!r}  is_featured={page['products'][0]['is_featured']!r}")
+2026-06-02 14:33:00,701 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:00,701 INFO ipython     # 3. get_products filtered by top-level categories
+2026-06-02 14:33:00,701 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:00,701 INFO ipython     print("\n[T3] get_products(category=...) per top-level slug")
+2026-06-02 14:33:00,701 INFO ipython     for cat in ("humanoids", "quadrupeds", "drones", "accessories", "cobots"):
+        r = catalog.get_products(category=cat, limit="100")
+        assert r["ok"], r
+        print(f"  category={cat:14s} total={r['data']['pagination']['total']:3d}")
+2026-06-02 14:33:00,701 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:00,701 INFO ipython     # 4. get_products filtered by subcategory
+2026-06-02 14:33:00,701 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:00,701 INFO ipython     print("\n[T4] get_products(subcategory=...) per sub slug")
+2026-06-02 14:33:00,701 INFO ipython     for sub in ("bipedal-humanoids", "wheeled-humanoids", "standard-quadrupeds", "robot-hands"):
+        r = catalog.get_products(subcategory=sub, limit="100")
+        assert r["ok"], r
+        print(f"  subcategory={sub:24s} total={r['data']['pagination']['total']:3d}")
+2026-06-02 14:33:00,701 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:00,701 INFO ipython     # 5. Virtual categories: new / new-arrivals
+2026-06-02 14:33:00,701 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:00,701 INFO ipython     print("\n[T5] virtual categories")
+2026-06-02 14:33:00,701 INFO ipython     for v in ("new", "new-arrivals"):
+        r = catalog.get_products(category=v, limit="100")
+        assert r["ok"], r
+        total = r["data"]["pagination"]["total"]
+        all_new = all(p["is_new_arrival"] for p in r["data"]["products"])
+        print(f"  category={v:14s} total={total:3d}  all_new_arrival={all_new}")
+2026-06-02 14:33:00,701 INFO ipython     # Cross-check: explicit is_new_arrival=1
+2026-06-02 14:33:00,701 INFO ipython     r = catalog.get_products(is_new_arrival="1", limit="100")
+2026-06-02 14:33:00,701 INFO ipython     assert r["ok"]
+2026-06-02 14:33:00,701 INFO ipython     print(f"  is_new_arrival=1 (explicit) total={r['data']['pagination']['total']}")
+2026-06-02 14:33:00,701 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:00,701 INFO ipython     # 6. get_product_detail
+2026-06-02 14:33:00,701 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:00,701 INFO ipython     print("\n[T6] get_product_detail(slug='aimoga-mornine')")
+2026-06-02 14:33:00,701 INFO ipython     r = catalog.get_product_detail(slug="aimoga-mornine")
+2026-06-02 14:33:00,702 INFO ipython     assert r["ok"], r
+2026-06-02 14:33:00,702 INFO ipython     p = r["data"]["product"]
+2026-06-02 14:33:00,702 INFO ipython     print(f"  product_id      : {p['product_id']}")
+2026-06-02 14:33:00,702 INFO ipython     print(f"  category        : {p['category']}  subcategory: {p['subcategory']}")
+2026-06-02 14:33:00,702 INFO ipython     print(f"  product_name_en : {p['product_name_en']}")
+2026-06-02 14:33:00,702 INFO ipython     print(f"  origin_en       : {p['origin_en']}")
+2026-06-02 14:33:00,702 INFO ipython     print(f"  description_en  : {(p['description_en'] or '')[:100]}...")
+2026-06-02 14:33:00,702 INFO ipython     print(f"  is_featured     : {p['is_featured']}  is_new_arrival: {p['is_new_arrival']}")
+2026-06-02 14:33:00,702 INFO ipython     print(f"  hero_image      : {p.get('hero_image')!r}")
+2026-06-02 14:33:00,702 INFO ipython     print(f"  images          : {len(p['images'])} row(s) (expected 1)")
+2026-06-02 14:33:00,702 INFO ipython     for img in p['images']:
+        print(f"    is_hero={img['is_hero']} image={img['image']!r}")
+    print(f"  specs           : {len(p['specs'])} row(s) (expected 6)")
+2026-06-02 14:33:00,702 INFO ipython     for s in p['specs'][:2]:
+        print(f"    {s['label_en']!r}: {s['value_en']!r} | {s['label_fa']!r}: {s['value_fa']!r}")
+    print(f"  related_products: {len(p['related_products'])} (expected 4)")
+2026-06-02 14:33:00,702 INFO ipython     for rp in p['related_products']:
+        print(f"    {rp['product_id']:30s}  sub={rp['subcategory']}")
+2026-06-02 14:33:00,702 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:00,702 INFO ipython     # 7. Not found
+2026-06-02 14:33:00,702 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:00,702 INFO ipython     print("\n[T7] get_product_detail(slug='does-not-exist')")
+2026-06-02 14:33:00,702 INFO ipython     r = catalog.get_product_detail(slug="does-not-exist")
+2026-06-02 14:33:00,702 INFO ipython     assert not r["ok"], r
+2026-06-02 14:33:00,702 INFO ipython     print(f"  ok={r['ok']}  error.code={r['error']['code']}  message={r['error']['message']!r}")
+2026-06-02 14:33:00,702 INFO ipython     # Invalid input
+2026-06-02 14:33:00,702 INFO ipython     print("\n[T7b] get_product_detail(slug=None)")
+2026-06-02 14:33:00,702 INFO ipython     r = catalog.get_product_detail()
+2026-06-02 14:33:00,702 INFO ipython     assert not r["ok"], r
+2026-06-02 14:33:00,702 INFO ipython     print(f"  ok={r['ok']}  error.code={r['error']['code']}  message={r['error']['message']!r}")
+2026-06-02 14:33:00,702 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:00,702 INFO ipython     # 8. Search
+2026-06-02 14:33:00,702 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:00,702 INFO ipython     print("\n[T8] get_products(search=...)")
+2026-06-02 14:33:00,702 INFO ipython     for term in ("Unitree", "AiMOGA", "XAG", "humanoid"):
+        r = catalog.get_products(search=term, limit="100")
+        assert r["ok"], r
+        print(f"  search={term:12s} total={r['data']['pagination']['total']:3d}")
+        for p in r["data"]["products"][:3]:
+            print(f"    -> {p['product_id']:40s}  brand={p['brand']}")
+2026-06-02 14:33:00,702 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:00,702 INFO ipython     # 9. get_featured_product
+2026-06-02 14:33:00,702 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:00,702 INFO ipython     print("\n[T9] get_featured_product()")
+2026-06-02 14:33:00,702 INFO ipython     r = catalog.get_featured_product()
+2026-06-02 14:33:00,703 INFO ipython     assert r["ok"], r
+2026-06-02 14:33:00,703 INFO ipython     p = r["data"]["product"]
+2026-06-02 14:33:00,703 INFO ipython     print(f"  featured        : {p['product_id']} ({p['product_name_en']!r})")
+2026-06-02 14:33:00,703 INFO ipython     print(f"  is_featured     : {p['is_featured']}  (expected True)")
+2026-06-02 14:33:00,703 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:00,703 INFO ipython     # 10. Pagination correctness
+2026-06-02 14:33:00,703 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:00,703 INFO ipython     print("\n[T10] pagination")
+2026-06-02 14:33:00,703 INFO ipython     page1 = catalog.get_products(limit="10", page="1")
+2026-06-02 14:33:00,703 INFO ipython     page2 = catalog.get_products(limit="10", page="2")
+2026-06-02 14:33:00,703 INFO ipython     page8 = catalog.get_products(limit="10", page="8")  # 74 / 10 -> 8 pages, last has 4
+2026-06-02 14:33:00,703 INFO ipython     ids_p1 = [p["product_id"] for p in page1["data"]["products"]]
+2026-06-02 14:33:00,703 INFO ipython     ids_p2 = [p["product_id"] for p in page2["data"]["products"]]
+2026-06-02 14:33:00,703 INFO ipython     overlap = set(ids_p1) & set(ids_p2)
+2026-06-02 14:33:00,703 INFO ipython     print(f"  page1 returned={len(ids_p1)}  page2 returned={len(ids_p2)}")
+2026-06-02 14:33:00,703 INFO ipython     print(f"  overlap (should be empty): {overlap}")
+2026-06-02 14:33:00,703 INFO ipython     print(f"  page8 returned={page8['data']['pagination']['returned']}  has_next={page8['data']['pagination']['has_next']}")
+2026-06-02 14:33:00,703 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:00,703 INFO ipython     # 11. Limit clamping
+2026-06-02 14:33:00,703 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:00,703 INFO ipython     print("\n[T11] limit clamping")
+2026-06-02 14:33:00,703 INFO ipython     r = catalog.get_products(limit="9999")  # should clamp to 100
+2026-06-02 14:33:00,703 INFO ipython     print(f"  limit=9999 -> effective limit={r['data']['pagination']['limit']}  (expected 100)")
+2026-06-02 14:33:00,703 INFO ipython     r = catalog.get_products(limit="0")  # bad input -> default 24
+2026-06-02 14:33:00,703 INFO ipython     print(f"  limit=0    -> effective limit={r['data']['pagination']['limit']}  (expected 24)")
+2026-06-02 14:33:00,703 INFO ipython     r = catalog.get_products(limit="abc")
+2026-06-02 14:33:00,703 INFO ipython     print(f"  limit=abc  -> effective limit={r['data']['pagination']['limit']}  (expected 24)")
+2026-06-02 14:33:00,703 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:00,703 INFO ipython     # 12. Bad sort
+2026-06-02 14:33:00,703 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:00,703 INFO ipython     print("\n[T12] invalid sort")
+2026-06-02 14:33:00,703 INFO ipython     r = catalog.get_products(sort="random")
+2026-06-02 14:33:00,703 INFO ipython     print(f"  ok={r['ok']}  code={r['error']['code']}  message={r['error']['message']!r}")
+2026-06-02 14:33:00,703 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:00,703 INFO ipython     # 13. get_homepage_catalog
+2026-06-02 14:33:00,703 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:00,703 INFO ipython     print("\n[T13] get_homepage_catalog()")
+2026-06-02 14:33:00,704 INFO ipython     r = catalog.get_homepage_catalog()
+2026-06-02 14:33:00,704 INFO ipython     assert r["ok"]
+2026-06-02 14:33:00,704 INFO ipython     d = r["data"]
+2026-06-02 14:33:00,704 INFO ipython     print(f"  featured        : {d['featured']['product_id'] if d['featured'] else None}")
+2026-06-02 14:33:00,704 INFO ipython     print(f"  new_arrivals    : {len(d['new_arrivals'])} (expected 8)")
+2026-06-02 14:33:00,704 INFO ipython     print(f"  categories      : {len(d['categories'])} top-level (expected 8)")
+2026-06-02 14:33:00,704 INFO ipython     print(f"  counts          : {d['counts']}")
+2026-06-02 14:33:00,704 INFO ipython     print("\n" + "=" * 72)
+2026-06-02 14:33:00,704 INFO ipython     print("ALL ASSERTIONS PASSED")
+2026-06-02 14:33:00,704 INFO ipython     print("=" * 72)
+2026-06-02 14:33:00,704 INFO ipython main()
+2026-06-02 14:33:00,704 INFO ipython === session end ===
+2026-06-02 14:33:26,552 INFO ipython === bench console session ===
+2026-06-02 14:33:26,552 INFO ipython import json
+2026-06-02 14:33:26,552 INFO ipython import frappe
+2026-06-02 14:33:26,552 INFO ipython from iranrobot_backend.api import catalog
+2026-06-02 14:33:26,552 INFO ipython def J(x, max_len=600):
+    """Compact JSON dump, truncated."""
+    s = json.dumps(x, ensure_ascii=False, default=str)
+    return s if len(s) <= max_len else s[:max_len] + f"... <truncated, total {len(s)} chars>"
+2026-06-02 14:33:26,552 INFO ipython def main():
+    print("=" * 72)
+    print("PHASE 2 -- CATALOG API TESTS")
+    print("=" * 72)
+2026-06-02 14:33:26,552 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:26,552 INFO ipython     # 1. get_categories
+2026-06-02 14:33:26,552 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:26,552 INFO ipython     print("\n[T1] get_categories()")
+2026-06-02 14:33:26,552 INFO ipython     r = catalog.get_categories()
+2026-06-02 14:33:26,552 INFO ipython     assert r["ok"], r
+2026-06-02 14:33:26,552 INFO ipython     cats = r["data"]["categories"]
+2026-06-02 14:33:26,552 INFO ipython     print(f"  top-level count : {len(cats)}")
+2026-06-02 14:33:26,552 INFO ipython     print(f"  ok              : {r['ok']}")
+2026-06-02 14:33:26,552 INFO ipython     total_cats = len(cats)
+2026-06-02 14:33:26,552 INFO ipython     sub_total = 0
+2026-06-02 14:33:26,552 INFO ipython     sample = None
+2026-06-02 14:33:26,553 INFO ipython     for c in cats:
+        sub_total += len(c["children"])
+        print(f"    {c['name']:14s} children={len(c['children']):2d} count={c['product_count']:3d}")
+        if c["name"] == "humanoids":
+            sample = c
+    print(f"  TOTAL CATEGORIES (top + subs) = {total_cats + sub_total}  (expected 24)")
+2026-06-02 14:33:26,553 INFO ipython     if sample:
+        print(f"  sample humanoids node:")
+        print(f"    label_en={sample['label_en']}  label_fa={sample['label_fa']}  icon={sample['icon']}")
+        print(f"    children count={len(sample['children'])}: {[c['name'] for c in sample['children']]}")
+2026-06-02 14:33:26,553 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:26,553 INFO ipython     # 2. get_products (no filter)
+2026-06-02 14:33:26,553 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:26,553 INFO ipython     print("\n[T2] get_products() default")
+2026-06-02 14:33:26,553 INFO ipython     r = catalog.get_products()
+2026-06-02 14:33:26,553 INFO ipython     assert r["ok"], r
+2026-06-02 14:33:26,553 INFO ipython     page = r["data"]
+2026-06-02 14:33:26,553 INFO ipython     print(f"  total           : {page['pagination']['total']}  (expected 74)")
+2026-06-02 14:33:26,553 INFO ipython     print(f"  returned        : {page['pagination']['returned']}  (expected 24)")
+2026-06-02 14:33:26,553 INFO ipython     print(f"  has_next        : {page['pagination']['has_next']}  (expected True)")
+2026-06-02 14:33:26,553 INFO ipython     print(f"  page 1 first 3  :")
+2026-06-02 14:33:26,553 INFO ipython     for p in page["products"][:3]:
+        print(f"    {p['product_id']:30s}  cat={p['category']:14s}  sub={str(p.get('subcategory') or '-'):20s}  brand={p['brand']:18s}")
+    print(f"  first product hero_image: {page['products'][0].get('hero_image')!r}")
+2026-06-02 14:33:26,553 INFO ipython     print(f"  bool fields on first product: in_stock={page['products'][0]['in_stock']!r}  is_featured={page['products'][0]['is_featured']!r}")
+2026-06-02 14:33:26,553 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:26,553 INFO ipython     # 3. get_products filtered by top-level categories
+2026-06-02 14:33:26,553 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:26,553 INFO ipython     print("\n[T3] get_products(category=...) per top-level slug")
+2026-06-02 14:33:26,553 INFO ipython     for cat in ("humanoids", "quadrupeds", "drones", "accessories", "cobots"):
+        r = catalog.get_products(category=cat, limit="100")
+        assert r["ok"], r
+        print(f"  category={cat:14s} total={r['data']['pagination']['total']:3d}")
+2026-06-02 14:33:26,553 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:26,553 INFO ipython     # 4. get_products filtered by subcategory
+2026-06-02 14:33:26,553 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:26,553 INFO ipython     print("\n[T4] get_products(subcategory=...) per sub slug")
+2026-06-02 14:33:26,553 INFO ipython     for sub in ("bipedal-humanoids", "wheeled-humanoids", "standard-quadrupeds", "robot-hands"):
+        r = catalog.get_products(subcategory=sub, limit="100")
+        assert r["ok"], r
+        print(f"  subcategory={sub:24s} total={r['data']['pagination']['total']:3d}")
+2026-06-02 14:33:26,553 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:26,553 INFO ipython     # 5. Virtual categories: new / new-arrivals
+2026-06-02 14:33:26,553 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:26,553 INFO ipython     print("\n[T5] virtual categories")
+2026-06-02 14:33:26,553 INFO ipython     for v in ("new", "new-arrivals"):
+        r = catalog.get_products(category=v, limit="100")
+        assert r["ok"], r
+        total = r["data"]["pagination"]["total"]
+        all_new = all(p["is_new_arrival"] for p in r["data"]["products"])
+        print(f"  category={v:14s} total={total:3d}  all_new_arrival={all_new}")
+2026-06-02 14:33:26,553 INFO ipython     # Cross-check: explicit is_new_arrival=1
+2026-06-02 14:33:26,553 INFO ipython     r = catalog.get_products(is_new_arrival="1", limit="100")
+2026-06-02 14:33:26,553 INFO ipython     assert r["ok"]
+2026-06-02 14:33:26,553 INFO ipython     print(f"  is_new_arrival=1 (explicit) total={r['data']['pagination']['total']}")
+2026-06-02 14:33:26,553 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:26,553 INFO ipython     # 6. get_product_detail
+2026-06-02 14:33:26,554 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:26,554 INFO ipython     print("\n[T6] get_product_detail(slug='aimoga-mornine')")
+2026-06-02 14:33:26,554 INFO ipython     r = catalog.get_product_detail(slug="aimoga-mornine")
+2026-06-02 14:33:26,554 INFO ipython     assert r["ok"], r
+2026-06-02 14:33:26,554 INFO ipython     p = r["data"]["product"]
+2026-06-02 14:33:26,554 INFO ipython     print(f"  product_id      : {p['product_id']}")
+2026-06-02 14:33:26,554 INFO ipython     print(f"  category        : {p['category']}  subcategory: {p['subcategory']}")
+2026-06-02 14:33:26,554 INFO ipython     print(f"  product_name_en : {p['product_name_en']}")
+2026-06-02 14:33:26,554 INFO ipython     print(f"  origin_en       : {p['origin_en']}")
+2026-06-02 14:33:26,554 INFO ipython     print(f"  description_en  : {(p['description_en'] or '')[:100]}...")
+2026-06-02 14:33:26,554 INFO ipython     print(f"  is_featured     : {p['is_featured']}  is_new_arrival: {p['is_new_arrival']}")
+2026-06-02 14:33:26,554 INFO ipython     print(f"  hero_image      : {p.get('hero_image')!r}")
+2026-06-02 14:33:26,554 INFO ipython     print(f"  images          : {len(p['images'])} row(s) (expected 1)")
+2026-06-02 14:33:26,554 INFO ipython     for img in p['images']:
+        print(f"    is_hero={img['is_hero']} image={img['image']!r}")
+    print(f"  specs           : {len(p['specs'])} row(s) (expected 6)")
+2026-06-02 14:33:26,554 INFO ipython     for s in p['specs'][:2]:
+        print(f"    {s['label_en']!r}: {s['value_en']!r} | {s['label_fa']!r}: {s['value_fa']!r}")
+    print(f"  related_products: {len(p['related_products'])} (expected 4)")
+2026-06-02 14:33:26,554 INFO ipython     for rp in p['related_products']:
+        print(f"    {rp['product_id']:30s}  sub={rp['subcategory']}")
+2026-06-02 14:33:26,554 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:26,554 INFO ipython     # 7. Not found
+2026-06-02 14:33:26,554 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:26,554 INFO ipython     print("\n[T7] get_product_detail(slug='does-not-exist')")
+2026-06-02 14:33:26,554 INFO ipython     r = catalog.get_product_detail(slug="does-not-exist")
+2026-06-02 14:33:26,554 INFO ipython     assert not r["ok"], r
+2026-06-02 14:33:26,554 INFO ipython     print(f"  ok={r['ok']}  error.code={r['error']['code']}  message={r['error']['message']!r}")
+2026-06-02 14:33:26,554 INFO ipython     # Invalid input
+2026-06-02 14:33:26,554 INFO ipython     print("\n[T7b] get_product_detail(slug=None)")
+2026-06-02 14:33:26,554 INFO ipython     r = catalog.get_product_detail()
+2026-06-02 14:33:26,554 INFO ipython     assert not r["ok"], r
+2026-06-02 14:33:26,554 INFO ipython     print(f"  ok={r['ok']}  error.code={r['error']['code']}  message={r['error']['message']!r}")
+2026-06-02 14:33:26,554 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:26,554 INFO ipython     # 8. Search
+2026-06-02 14:33:26,554 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:26,554 INFO ipython     print("\n[T8] get_products(search=...)")
+2026-06-02 14:33:26,554 INFO ipython     for term in ("Unitree", "AiMOGA", "XAG", "humanoid"):
+        r = catalog.get_products(search=term, limit="100")
+        assert r["ok"], r
+        print(f"  search={term:12s} total={r['data']['pagination']['total']:3d}")
+        for p in r["data"]["products"][:3]:
+            print(f"    -> {p['product_id']:40s}  brand={p['brand']}")
+2026-06-02 14:33:26,554 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:26,554 INFO ipython     # 9. get_featured_product
+2026-06-02 14:33:26,554 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:26,554 INFO ipython     print("\n[T9] get_featured_product()")
+2026-06-02 14:33:26,555 INFO ipython     r = catalog.get_featured_product()
+2026-06-02 14:33:26,555 INFO ipython     assert r["ok"], r
+2026-06-02 14:33:26,555 INFO ipython     p = r["data"]["product"]
+2026-06-02 14:33:26,555 INFO ipython     print(f"  featured        : {p['product_id']} ({p['product_name_en']!r})")
+2026-06-02 14:33:26,555 INFO ipython     print(f"  is_featured     : {p['is_featured']}  (expected True)")
+2026-06-02 14:33:26,555 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:26,555 INFO ipython     # 10. Pagination correctness
+2026-06-02 14:33:26,555 INFO ipython     # ------------------------------------------------------------------
+2026-06-02 14:33:26,555 INFO ipython     print("\n[T10] pagination")
+2026-06-02 14:33:26,555 INFO ipython     page1 = catalog.get_products(limit="10", page="1")
+2026-06-02 14:33:26,555 INFO ipython     page2 = catalog.get_products(limit="10", page="2")

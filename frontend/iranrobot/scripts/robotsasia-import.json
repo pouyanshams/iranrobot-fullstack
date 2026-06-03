@@ -1,0 +1,74 @@
+[
+  {
+    "url": "https://www.robotsasia.com/Unitree-Robotics-R1-Edu-Standard-U1.htm",
+    "category": "humanoid",
+    "useCases": ["education"],
+    "note": "Compact bipedal humanoid, education-focused (R1 EDU U1)"
+  },
+  {
+    "url": "https://www.robotsasia.com/Unitree-G1-Edu-Plus.htm",
+    "category": "humanoid",
+    "useCases": ["education"],
+    "note": "G1 EDU Plus with fake hands (G1EDU-U2)"
+  },
+  {
+    "url": "https://www.robotsasia.com/Unitree-G1EDU-U3.htm",
+    "category": "humanoid",
+    "useCases": ["education"],
+    "note": "G1 Ultimate A with 3-finger hands (G1EDU-U3)"
+  },
+  {
+    "url": "https://www.robotsasia.com/Senad-Parcel-Weighing-Dimensioning-Sorting-Machine.htm",
+    "category": "industrial",
+    "useCases": ["warehouse"],
+    "note": "Senad industrial parcel weighing/dimensioning/sorting machine"
+  },
+  {
+    "url": "https://www.robotsasia.com/Senad-DWS-Automatic-Small-Item-Sorting-System.htm",
+    "category": "industrial",
+    "useCases": ["warehouse"],
+    "note": "Senad DWS automatic small-item sorting system"
+  },
+  {
+    "url": "https://www.robotsasia.com/Unitree-B1.htm",
+    "category": "quadruped",
+    "useCases": ["inspection"],
+    "note": "Unitree B1 quadruped robot dog"
+  },
+  {
+    "url": "https://www.robotsasia.com/AgiBot-D1-Ultra-Quadruped-Robot-Dog.htm",
+    "category": "quadruped",
+    "useCases": ["inspection"],
+    "note": "AgiBot D1 Ultra quadruped (different variant than the existing D1 Pro)"
+  },
+  {
+    "url": "https://www.robotsasia.com/MagicLab-MagicDog-Y1-Quadruped-Robot.htm",
+    "category": "quadruped",
+    "useCases": ["security"],
+    "note": "MagicLab MagicDog Y1 quadruped"
+  },
+  {
+    "url": "https://www.robotsasia.com/AgiBot-D1-Ultra-Security-Inspection-Kit-Quadruped-Robot-Dog.htm",
+    "category": "quadruped",
+    "useCases": ["security", "inspection"],
+    "note": "AgiBot D1 Ultra security/inspection kit variant"
+  },
+  {
+    "url": "https://www.robotsasia.com/UBTECH-Cruzr-Intelligent-Commercial-Service-Robot.htm",
+    "category": "humanoid",
+    "useCases": ["healthcare"],
+    "note": "UBTECH Cruzr 1S wheeled humanoid for commercial/healthcare service"
+  },
+  {
+    "url": "https://www.robotsasia.com/Deyee-PKAIPR-Polyenergy-King-AI-Physiotherapy-Robot.htm",
+    "category": "service",
+    "useCases": ["healthcare"],
+    "note": "Deyee Polyenergy-King AI physiotherapy robot"
+  },
+  {
+    "url": "https://www.robotsasia.com/Brainco-Revo-2-Touch.htm",
+    "category": "industrial",
+    "useCases": ["healthcare"],
+    "note": "BrainCo Revo 2 Touch biomimetic dexterous hand"
+  }
+]

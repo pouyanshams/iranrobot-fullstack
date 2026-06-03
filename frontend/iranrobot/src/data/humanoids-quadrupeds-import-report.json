@@ -1,0 +1,131 @@
+{
+  "startedAt": "2026-06-01T07:52:36.820Z",
+  "results": [
+    {
+      "url": "https://www.robotsasia.com/Agibot-A3-Interactive-Service-Humanoid-Robot.htm",
+      "status": "imported",
+      "sku": null,
+      "images": 1,
+      "bucket": "bipedal-humanoids",
+      "category": "humanoid",
+      "subcategory": "bipedal-humanoids"
+    },
+    {
+      "url": "https://www.robotsasia.com/Booster-K1-Humanoid-Robot-Rental.htm",
+      "status": "imported",
+      "sku": null,
+      "images": 1,
+      "bucket": "bipedal-humanoids",
+      "category": "humanoid",
+      "subcategory": "bipedal-humanoids"
+    },
+    {
+      "url": "https://www.robotsasia.com/MagicLab-MagicBot-Z1-Humanoid-Robot.htm",
+      "status": "imported",
+      "sku": null,
+      "images": 1,
+      "bucket": "bipedal-humanoids",
+      "category": "humanoid",
+      "subcategory": "bipedal-humanoids"
+    },
+    {
+      "url": "https://www.robotsasia.com/Agibot-G2-General-Purpose-Wheeled-Humanoid-Robot.htm",
+      "status": "imported",
+      "sku": null,
+      "images": 1,
+      "bucket": "wheeled-humanoids",
+      "category": "humanoid",
+      "subcategory": "wheeled-humanoids"
+    },
+    {
+      "url": "https://www.robotsasia.com/Unitree-G1-D-Wheeled-Humanoid-Robot.htm",
+      "status": "imported",
+      "sku": null,
+      "images": 1,
+      "bucket": "wheeled-humanoids",
+      "category": "humanoid",
+      "subcategory": "wheeled-humanoids"
+    },
+    {
+      "url": "https://www.robotsasia.com/MagicLab-MagicBot-G1-Humanoid-Robot.htm",
+      "status": "imported",
+      "sku": null,
+      "images": 1,
+      "bucket": "wheeled-humanoids",
+      "category": "humanoid",
+      "subcategory": "wheeled-humanoids"
+    },
+    {
+      "url": "https://www.robotsasia.com/Astribot-S1-U-S1-U-Upper-Body-Humanoid-Robot.htm",
+      "status": "imported",
+      "sku": null,
+      "images": 1,
+      "bucket": "upper-body-humanoids",
+      "category": "humanoid",
+      "subcategory": "upper-body-humanoids"
+    },
+    {
+      "url": "https://www.robotsasia.com/PNDbotics-Adam-U-Pro-Max-Upper-Body-Humanoid-Robot.htm",
+      "status": "imported",
+      "sku": null,
+      "images": 1,
+      "bucket": "upper-body-humanoids",
+      "category": "humanoid",
+      "subcategory": "upper-body-humanoids"
+    },
+    {
+      "url": "https://www.robotsasia.com/Unitree-Aliengo.htm",
+      "status": "imported",
+      "sku": null,
+      "images": 1,
+      "bucket": "standard-quadrupeds",
+      "category": "quadruped",
+      "subcategory": "standard-quadrupeds"
+    },
+    {
+      "url": "https://www.robotsasia.com/Unitree-B2.htm",
+      "status": "imported",
+      "sku": null,
+      "images": 1,
+      "bucket": "standard-quadrupeds",
+      "category": "quadruped",
+      "subcategory": "standard-quadrupeds"
+    },
+    {
+      "url": "https://www.robotsasia.com/Unitree-Go2-Air-Quadruped-Robot-Dog.htm",
+      "status": "imported",
+      "sku": null,
+      "images": 1,
+      "bucket": "standard-quadrupeds",
+      "category": "quadruped",
+      "subcategory": "standard-quadrupeds"
+    },
+    {
+      "url": "https://www.robotsasia.com/Unitree-B2-W.htm",
+      "status": "imported",
+      "sku": null,
+      "images": 1,
+      "bucket": "wheeled-quadrupeds",
+      "category": "quadruped",
+      "subcategory": "wheeled-quadrupeds"
+    },
+    {
+      "url": "https://www.robotsasia.com/AgiBot-D1-Ultra-W-Wheeled-Quadruped-Robot-Dog.htm",
+      "status": "imported",
+      "sku": null,
+      "images": 1,
+      "bucket": "wheeled-quadrupeds",
+      "category": "quadruped",
+      "subcategory": "wheeled-quadrupeds"
+    },
+    {
+      "url": "https://www.robotsasia.com/PUDU-D5-W-Wheeled-Quadruped-Robot.htm",
+      "status": "imported",
+      "sku": null,
+      "images": 1,
+      "bucket": "wheeled-quadrupeds",
+      "category": "quadruped",
+      "subcategory": "wheeled-quadrupeds"
+    }
+  ]
+}
