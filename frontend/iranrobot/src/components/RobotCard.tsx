@@ -23,6 +23,16 @@ export function RobotCard({ robot, variant = 'grid' }: RobotCardProps) {
 
   const specs = lang === 'en' ? robot.specsEn : robot.specs
 
+  // The featured-card editorial extras (Why it's popular / Best for / Key specs)
+  // are optional and only ship for hand-curated products in the bundled data
+  // file -- the Phase 2 catalog API does not surface these fields. We compute
+  // this flag here and use it to drive layout decisions that depend on whether
+  // the card will actually render editorial content (row-span, footer push,
+  // specs-grid fallback) so empty featured cards no longer leave dead space.
+  const editorialBullets = lang === 'en' ? robot.editorialBulletsEn : robot.editorialBullets
+  const editorialBestFor = lang === 'en' ? robot.bestForEn : robot.bestFor
+  const hasEditorial = featured && ((editorialBullets?.length || 0) > 0 || (editorialBestFor?.length || 0) > 0)
+
   return (
     <motion.article
       layout
@@ -31,10 +41,17 @@ export function RobotCard({ robot, variant = 'grid' }: RobotCardProps) {
       className={[
         'group relative bg-white rounded-3xl overflow-hidden border border-line',
         'shadow-soft hover:shadow-soft-lg transition-shadow duration-300',
-        // On desktop, the featured card spans 2 rows. Make it a flex-col so its
-        // inner content can grow vertically and absorb the row-span height — no
-        // empty space below the editorial section. Mobile is untouched.
-        featured ? 'lg:col-span-2 lg:row-span-2 lg:flex lg:flex-col' : '',
+        // All cards are flex-col so the inner content can distribute vertically
+        // when the parent grid stretches the article (CSS Grid `align-items:
+        // stretch` default + Home's `lg:auto-rows-fr`). Without this, block-
+        // flow content stayed at the top and left empty space at the bottom of
+        // every taller-than-content card.
+        'flex flex-col',
+        // Featured stays double-wide. The double-tall span is reserved for
+        // cards that actually have editorial content to fill the extra row --
+        // otherwise the card stays single-row and aligns with its siblings.
+        featured ? 'lg:col-span-2' : '',
+        hasEditorial ? 'lg:row-span-2' : '',
       ].join(' ')}
     >
       <button
@@ -61,10 +78,12 @@ export function RobotCard({ robot, variant = 'grid' }: RobotCardProps) {
 
       <div
         className={[
-          'p-5 sm:p-6',
-          // Desktop only: grow vertically inside the featured flex-col article so
-          // children below can use lg:flex-1 to absorb the row-span slack.
-          featured ? 'sm:p-8 lg:flex lg:flex-1 lg:flex-col' : '',
+          // flex-1 grows this section to fill the article when the article is
+          // taller than its content; flex-col enables `mt-auto` on the footer
+          // (and the featured EditorialSection's lg:flex-1 chain) to pin the
+          // button row to the bottom rather than leaving empty space below it.
+          'p-5 sm:p-6 flex flex-col flex-1',
+          featured ? 'sm:p-8' : '',
         ].join(' ')}
       >
         <div className="flex items-start justify-between gap-3">
@@ -86,7 +105,16 @@ export function RobotCard({ robot, variant = 'grid' }: RobotCardProps) {
           ) : null}
         </div>
 
-        <p className={['text-sm text-muted mt-3 leading-7', featured ? 'sm:text-base' : 'line-clamp-2'].join(' ')}>
+        {/*
+          The catalog API ships a substantive ~120–160-character tagline; with
+          the old `line-clamp-2` it always cut off around line 2 and left an
+          empty gap above the price block. Showing up to 4 lines lets the
+          tagline render in full for most products, fills the available card
+          height naturally, and still truncates gracefully for the occasional
+          longer description. Featured cards stay unclamped so the bigger card
+          can keep its airier feel.
+        */}
+        <p className={['text-sm text-muted mt-3 leading-7', featured ? 'sm:text-base' : 'line-clamp-4'].join(' ')}>
           {t(robot.tagline, robot.taglineEn)}
         </p>
 
@@ -103,8 +131,24 @@ export function RobotCard({ robot, variant = 'grid' }: RobotCardProps) {
           </div>
         ) : null}
 
-        {/* ===== Footer: price stacked above the buttons row ===== */}
-        <div className="mt-5 space-y-4">
+        {/*
+          Footer: price stacked above the buttons row.
+          Whenever no editorial section follows the footer in the DOM, we push
+          the footer to the article's bottom via `mt-auto`. That covers every
+          non-featured card AND featured cards that lack curated editorial
+          content (the Phase 2 catalog API doesn't surface those fields, so
+          most featured cards land in this branch). `pt-5` keeps a minimum
+          visual gap below the description even when the card is natural
+          height. When editorial content IS present, we leave the footer at
+          its natural position and let the EditorialSection absorb desktop
+          row-span slack via its own lg:flex-1 chain.
+        */}
+        <div
+          className={[
+            'space-y-4',
+            hasEditorial ? 'mt-5' : 'mt-auto pt-5',
+          ].join(' ')}
+        >
           {/* Price block */}
           <div className="min-w-0">
             <div className="text-[11px] text-faint">{t('قیمت پایه', 'Base price')}</div>

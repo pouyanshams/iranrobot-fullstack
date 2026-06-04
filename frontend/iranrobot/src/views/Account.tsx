@@ -22,8 +22,13 @@ import {
   LayoutDashboard,
   LifeBuoy,
   LogOut,
+  MapPin,
   Package,
+  Pencil,
+  Plus,
+  Receipt,
   ShoppingBag,
+  Trash2,
   User as UserIcon,
 } from 'lucide-react'
 import { Section } from '../components/Section'
@@ -40,17 +45,33 @@ import {
   type MyRequestsPayload,
   type MySupportTicket,
   type ProcurementRequestDetail,
+  type QuotationResponseAction,
   type QuoteRequestDetail,
   type RequestKind,
   type SupportTicketDetail,
   getMyRequests,
   getMyRequestDetail,
+  respondToQuotation,
 } from '../api/requests'
+import {
+  type AddressPayload,
+  type AddressType,
+  type CustomerAddress,
+  deleteMyAddress,
+  fetchMyAddresses,
+  saveMyAddress,
+} from '../api/account'
+import {
+  type CustomerOrder,
+  type CustomerOrderDetail,
+  fetchMyOrders,
+  fetchMyOrderDetail,
+} from '../api/orders'
 import { FrappeApiError } from '../lib/frappeApi'
 
-type AccountSection = 'overview' | 'requests' | 'quotes' | 'procurement' | 'support' | 'profile'
+type AccountSection = 'overview' | 'requests' | 'quotes' | 'procurement' | 'support' | 'orders' | 'profile'
 
-const VALID_SECTIONS: AccountSection[] = ['overview', 'requests', 'quotes', 'procurement', 'support', 'profile']
+const VALID_SECTIONS: AccountSection[] = ['overview', 'requests', 'quotes', 'procurement', 'support', 'orders', 'profile']
 
 function normalizeSection(param: string | undefined): AccountSection {
   if (!param) return 'overview'
@@ -131,6 +152,7 @@ export function AccountView() {
       {section === 'quotes' ? <QuoteListView /> : null}
       {section === 'procurement' ? <ProcurementListView /> : null}
       {section === 'support' ? <SupportListView /> : null}
+      {section === 'orders' ? <OrdersListView /> : null}
       {section === 'profile' ? <ProfileFormView user={user} /> : null}
     </AccountLayout>
   )
@@ -153,6 +175,8 @@ const SIDEBAR_ITEMS: SidebarItem[] = [
   { section: 'quotes', Icon: ShoppingBag, fa: 'استعلام‌ها', en: 'Quote requests' },
   { section: 'procurement', Icon: Package, fa: 'درخواست تأمین', en: 'Procurement' },
   { section: 'support', Icon: LifeBuoy, fa: 'پشتیبانی', en: 'Support' },
+  // Phase 7C -- read-only Sales Order surface fed by iranrobot_backend.api.orders.
+  { section: 'orders', Icon: Receipt, fa: 'سفارش‌ها', en: 'Orders' },
   { section: 'profile', Icon: UserIcon, fa: 'پروفایل', en: 'Profile' },
 ]
 
@@ -234,6 +258,47 @@ interface RequestsState {
   loading: boolean
   error: string | null
   reload: () => void
+}
+
+interface OrdersState {
+  data: CustomerOrder[] | null
+  loading: boolean
+  error: string | null
+  reload: () => void
+}
+
+function useMyOrders(limit = 20): OrdersState {
+  const [data, setData] = useState<CustomerOrder[] | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [tick, setTick] = useState(0)
+
+  useEffect(() => {
+    const controller = new AbortController()
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- standard "load on mount / refetch on key change" pattern
+    setLoading(true)
+    setError(null)
+    fetchMyOrders(limit, controller.signal)
+      .then((rows) => {
+        if (!controller.signal.aborted) {
+          setData(rows)
+          setLoading(false)
+        }
+      })
+      .catch((err: unknown) => {
+        if (controller.signal.aborted) return
+        const msg =
+          err instanceof FrappeApiError && err.code
+            ? err.message
+            : (err as Error)?.message || 'Failed to load orders'
+        setError(msg)
+        setLoading(false)
+      })
+    return () => controller.abort()
+  }, [limit, tick])
+
+  const reload = useCallback(() => setTick((n) => n + 1), [])
+  return { data, loading, error, reload }
 }
 
 function useMyRequests(limit = 20): RequestsState {
@@ -368,25 +433,29 @@ function OverviewView() {
   const { go } = useApp()
   const { currentUser } = useAuth()
   const state = useMyRequests(10)
+  const orderState = useMyOrders(10)
 
   const quoteCount = state.data?.quote_requests.length ?? 0
   const procCount = state.data?.procurement_requests.length ?? 0
   const supportCount = state.data?.support_tickets.length ?? 0
+  const orderCount = orderState.data?.length ?? 0
 
   const recent = useMemo(() => {
-    if (!state.data) return []
+    if (!state.data && !orderState.data) return []
     type RecentItem =
       | { kind: 'quote'; record: MyQuoteRequest }
       | { kind: 'procurement'; record: MyProcurementRequest }
       | { kind: 'support'; record: MySupportTicket }
+      | { kind: 'order'; record: CustomerOrder }
     const all: RecentItem[] = [
-      ...state.data.quote_requests.map((r) => ({ kind: 'quote' as const, record: r })),
-      ...state.data.procurement_requests.map((r) => ({ kind: 'procurement' as const, record: r })),
-      ...state.data.support_tickets.map((r) => ({ kind: 'support' as const, record: r })),
+      ...(state.data?.quote_requests ?? []).map((r) => ({ kind: 'quote' as const, record: r })),
+      ...(state.data?.procurement_requests ?? []).map((r) => ({ kind: 'procurement' as const, record: r })),
+      ...(state.data?.support_tickets ?? []).map((r) => ({ kind: 'support' as const, record: r })),
+      ...(orderState.data ?? []).map((r) => ({ kind: 'order' as const, record: r })),
     ]
     all.sort((a, b) => (b.record.creation || '').localeCompare(a.record.creation || ''))
     return all.slice(0, 5)
-  }, [state.data])
+  }, [state.data, orderState.data])
 
   return (
     <div className="grid gap-6">
@@ -414,7 +483,7 @@ function OverviewView() {
         }
       />
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <CountCard
           icon={<ShoppingBag size={20} />}
           label={t('استعلام‌ها', 'Quote requests')}
@@ -435,6 +504,13 @@ function OverviewView() {
           count={supportCount}
           onClick={() => go('account', 'support')}
           loading={state.loading}
+        />
+        <CountCard
+          icon={<Receipt size={20} />}
+          label={t('سفارش‌ها', 'Orders')}
+          count={orderCount}
+          onClick={() => go('account', 'orders')}
+          loading={orderState.loading}
         />
       </div>
 
@@ -478,7 +554,9 @@ function OverviewView() {
                           ? t('استعلام', 'Quote')
                           : it.kind === 'procurement'
                             ? t('تأمین', 'Procurement')
-                            : t('پشتیبانی', 'Support')}
+                            : it.kind === 'support'
+                              ? t('پشتیبانی', 'Support')
+                              : t('سفارش', 'Order')}
                       </span>
                       <span className="font-mono text-xs text-tech-blue">{it.record.name}</span>
                     </div>
@@ -487,10 +565,15 @@ function OverviewView() {
                         ? quotePreviewText(it.record, t)
                         : it.kind === 'procurement'
                           ? it.record.product_name || '—'
-                          : it.record.subject || '—'}
+                          : it.kind === 'support'
+                            ? it.record.subject || '—'
+                            : (() => {
+                                const r = it.record
+                                return `${r.customer_name || ''}${r.items_count ? ` · ${r.items_count} ${t('قلم', 'items')}` : ''}`.trim() || '—'
+                              })()}
                     </div>
                   </div>
-                  <StatusBadge kind={it.kind} status={it.record.status} />
+                  <StatusBadge kind={it.kind === 'order' ? 'order' : it.kind} status={it.record.status} />
                 </li>
               ))}
             </ul>
@@ -793,6 +876,289 @@ function SupportListView() {
 }
 
 // ---------------------------------------------------------------------------
+// Phase 7C -- Orders list + detail drawer
+// ---------------------------------------------------------------------------
+
+function OrdersListView() {
+  const { t, n } = useI18n()
+  const { go } = useApp()
+  const state = useMyOrders(50)
+  const [openDetail, setOpenDetail] = useState<string | null>(null)
+  const rows = state.data ?? []
+
+  return (
+    <div className="grid gap-5">
+      <PageHeader
+        title={t('سفارش‌ها', 'Orders')}
+        description={t(
+          'سفارش‌های ایجاد شده از سوی تیم فروش پس از پذیرش پیشنهاد قیمت.',
+          'Sales Orders our team created after you accepted a quotation.',
+        )}
+      />
+      {state.loading ? (
+        <LoadingSkeleton />
+      ) : state.error ? (
+        <ErrorState message={state.error} onRetry={state.reload} />
+      ) : rows.length === 0 ? (
+        <EmptyState
+          title={t('هنوز سفارشی ندارید', 'No orders yet')}
+          body={t(
+            'پس از پذیرش یک پیشنهاد قیمت، سفارش شما اینجا قابل پیگیری خواهد بود.',
+            'Once you accept a quotation, your Sales Order will appear here for tracking.',
+          )}
+          ctaLabel={t('مشاهده استعلام‌ها', 'View quote requests')}
+          onCta={() => go('account', 'quotes')}
+        />
+      ) : (
+        <ul className="grid gap-2">
+          {rows.map((r) => (
+            <li key={r.name}>
+              <OrderRow
+                order={r}
+                onOpen={() => setOpenDetail(r.name)}
+              />
+            </li>
+          ))}
+        </ul>
+      )}
+      <OrderDetailDrawer name={openDetail} onClose={() => setOpenDetail(null)} />
+      <p className="text-[11px] text-faint leading-5 text-center">
+        {t(
+          `${n(rows.length)} سفارش — همه‌ی قیمت‌ها بر اساس پیشنهاد پذیرفته‌شده هستند. صدور صورتحساب و پرداخت توسط تیم فروش انجام می‌شود.`,
+          `${rows.length} order(s) — all amounts mirror the accepted quotation. Invoicing and payment are handled by our sales team.`,
+        )}
+      </p>
+    </div>
+  )
+}
+
+function OrderRow({ order, onOpen }: { order: CustomerOrder; onOpen: () => void }) {
+  const { t, n } = useI18n()
+  const subtitleParts: string[] = []
+  if (order.transaction_date) subtitleParts.push(formatDate(order.transaction_date))
+  if (order.items_count) subtitleParts.push(`${n(order.items_count)} ${t('قلم', 'items')}`)
+  const subtitle = subtitleParts.join(' · ')
+
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      className="w-full text-start rounded-2xl bg-white border border-line p-4 shadow-soft hover:shadow-soft-lg hover:border-brand-100 transition-all"
+    >
+      <div className="flex items-start justify-between gap-3 flex-wrap sm:flex-nowrap">
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="font-mono text-xs text-tech-blue">{order.name}</span>
+            {order.linked_quotation ? (
+              <span className="text-[11px] text-faint">
+                · {t('از پیشنهاد', 'from')}{' '}
+                <span className="font-mono text-tech-blue">{order.linked_quotation}</span>
+              </span>
+            ) : null}
+          </div>
+          <div className="mt-1 text-sm font-bold text-fg truncate">
+            {order.customer_name || '—'}
+          </div>
+          <div className="mt-1 text-xs text-faint">{subtitle}</div>
+        </div>
+        <div className="shrink-0 flex flex-col items-end gap-2">
+          <StatusBadge kind="order" status={order.status} />
+          <div className="text-xs font-bold num-fa text-tech-blue whitespace-nowrap">
+            {formatMoney(order.grand_total, order.currency)}
+          </div>
+        </div>
+      </div>
+    </button>
+  )
+}
+
+function OrderDetailDrawer({
+  name,
+  onClose,
+}: {
+  name: string | null
+  onClose: () => void
+}) {
+  const { t } = useI18n()
+  const [detail, setDetail] = useState<CustomerOrderDetail | null>(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!name) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- canonical "clear on close" pattern
+      setDetail(null)
+      setError(null)
+      return
+    }
+    const controller = new AbortController()
+    setLoading(true)
+    setError(null)
+    setDetail(null)
+    fetchMyOrderDetail(name, controller.signal)
+      .then((rec) => {
+        if (controller.signal.aborted) return
+        setDetail(rec)
+        setLoading(false)
+      })
+      .catch((err: unknown) => {
+        if (controller.signal.aborted) return
+        const msg =
+          err instanceof FrappeApiError
+            ? err.code === 'NOT_FOUND'
+              ? t('این سفارش یافت نشد.', 'This order was not found.')
+              : err.message
+            : (err as Error)?.message || 'Failed to load order'
+        setError(msg)
+        setLoading(false)
+      })
+    return () => controller.abort()
+  }, [name, t])
+
+  if (!name) return null
+
+  return (
+    <div className="fixed inset-0 z-50">
+      <div
+        className="absolute inset-0 bg-ink-900/40 animate-fade-in"
+        onClick={onClose}
+        aria-hidden
+      />
+      <aside
+        className="absolute top-0 end-0 h-full w-[min(760px,96vw)] bg-white border-s border-line shadow-soft-lg flex flex-col"
+        role="dialog"
+        aria-modal="true"
+      >
+        <header className="px-5 py-4 border-b border-line flex items-center gap-3">
+          <button
+            type="button"
+            onClick={onClose}
+            className="size-9 grid place-items-center rounded-xl hover:bg-ink-50 text-fg transition-colors"
+            aria-label={t('بستن', 'Close')}
+          >
+            <ChevronLeft size={18} />
+          </button>
+          <div className="min-w-0">
+            <div className="text-xs text-faint">{t('سفارش', 'Sales order')}</div>
+            <div className="font-mono text-sm text-fg">{name}</div>
+          </div>
+        </header>
+        <div className="flex-1 overflow-y-auto overflow-x-hidden p-5">
+          {loading ? (
+            <LoadingSkeleton rows={4} />
+          ) : error ? (
+            <ErrorState message={error} onRetry={onClose} />
+          ) : detail ? (
+            <OrderDetailBody record={detail} />
+          ) : null}
+        </div>
+      </aside>
+    </div>
+  )
+}
+
+function OrderDetailBody({ record }: { record: CustomerOrderDetail }) {
+  const { t, n } = useI18n()
+  return (
+    <div className="grid gap-5">
+      <div>
+        <StatusBadge kind="order" status={record.status} />
+        <div className="mt-3 text-xs text-faint">
+          {t('تاریخ سفارش', 'Order date')}:{' '}
+          <span className="text-fg">{formatDate(record.transaction_date)}</span>
+        </div>
+        {record.delivery_date ? (
+          <div className="mt-1 text-xs text-faint">
+            {t('تاریخ تحویل برآوردی', 'Estimated delivery')}:{' '}
+            <span className="text-fg">{formatDate(record.delivery_date)}</span>
+          </div>
+        ) : null}
+        <div className="mt-1 text-xs text-faint">
+          {t('مجموع سفارش', 'Order total')}:{' '}
+          <span className="text-tech-blue font-bold num-fa">
+            {formatMoney(record.grand_total, record.currency)}
+          </span>
+        </div>
+      </div>
+
+      <Block label={t('اقلام سفارش', 'Items')}>
+        {(record.items || []).length === 0 ? (
+          <p className="text-sm text-muted">{t('بدون اقلام', 'No items')}</p>
+        ) : (
+          <ul className="grid gap-2">
+            {record.items.map((it) => (
+              <li
+                key={`${it.idx}:${it.item_code}`}
+                className="rounded-xl bg-soft border border-line p-3 max-w-full"
+              >
+                <div className="flex items-start justify-between gap-3 flex-wrap sm:flex-nowrap">
+                  <div className="min-w-0 flex-1 basis-full sm:basis-auto">
+                    <div className="text-sm font-bold text-fg break-words">
+                      {it.item_name || it.description || it.item_code}
+                    </div>
+                    <div className="mt-1 text-xs text-faint font-mono break-all">{it.item_code}</div>
+                  </div>
+                  <div className="text-end shrink-0 whitespace-nowrap">
+                    <div className="text-xs text-faint">
+                      {t('تعداد', 'Qty')}:{' '}
+                      <span className="font-bold text-fg num-fa">{n(it.qty ?? 0)}</span>
+                      {it.uom ? <span className="text-faint"> {it.uom}</span> : null}
+                    </div>
+                    {it.rate ? (
+                      <div className="text-[11px] text-faint num-fa">
+                        {formatMoney(it.rate, record.currency)} {t('هر واحد', 'ea')}
+                      </div>
+                    ) : null}
+                    {it.amount ? (
+                      <div className="mt-0.5 text-xs font-bold num-fa text-tech-blue">
+                        {formatMoney(it.amount, record.currency)}
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </Block>
+
+      {(record.linked_quotation || record.linked_quote_request) ? (
+        <Block label={t('پیوندها', 'Linked records')}>
+          <dl className="grid gap-2 text-xs">
+            {record.linked_quotation ? (
+              <div className="flex items-center justify-between gap-3 flex-wrap">
+                <dt className="text-faint">{t('پیشنهاد قیمت', 'Quotation')}</dt>
+                <dd className="font-mono text-tech-blue break-all">{record.linked_quotation}</dd>
+              </div>
+            ) : null}
+            {record.linked_quote_request ? (
+              <div className="flex items-center justify-between gap-3 flex-wrap">
+                <dt className="text-faint">{t('درخواست استعلام', 'Quote request')}</dt>
+                <dd className="font-mono text-tech-blue break-all">{record.linked_quote_request}</dd>
+              </div>
+            ) : null}
+          </dl>
+        </Block>
+      ) : null}
+
+      <p className="text-[11px] text-faint leading-5 text-center">
+        {t(
+          'این صفحه فقط برای مشاهده است. برای صدور صورتحساب، پرداخت یا تغییر سفارش با تیم فروش تماس بگیرید.',
+          'This page is read-only. Contact our sales team for invoicing, payment, or changes to this order.',
+        )}
+      </p>
+    </div>
+  )
+}
+
+function formatMoney(amount: number | null | undefined, currency: string | null | undefined): string {
+  if (amount == null) return '—'
+  const cur = (currency || 'USD').toUpperCase()
+  if (cur === 'USD') return `$${Number(amount).toLocaleString()}`
+  return `${Number(amount).toLocaleString()} ${cur}`
+}
+
+// ---------------------------------------------------------------------------
 // Row used by every list
 // ---------------------------------------------------------------------------
 
@@ -861,6 +1227,12 @@ function RequestDetailDrawer({
   >(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  // Phase 7B -- bump this counter after a successful customer respond_to_quotation
+  // call so the useEffect re-fetches the detail and the panel reflects the
+  // server-authoritative state (status badge, response banner, can_respond
+  // toggling to false).
+  const [refreshTick, setRefreshTick] = useState(0)
+  const refresh = useCallback(() => setRefreshTick((c) => c + 1), [])
 
   useEffect(() => {
     if (!open) {
@@ -891,7 +1263,7 @@ function RequestDetailDrawer({
         setLoading(false)
       })
     return () => controller.abort()
-  }, [open, t])
+  }, [open, refreshTick, t])
 
   if (!open) return null
 
@@ -903,7 +1275,7 @@ function RequestDetailDrawer({
         aria-hidden
       />
       <aside
-        className="absolute top-0 end-0 h-full w-[min(560px,94vw)] bg-white border-s border-line shadow-soft-lg flex flex-col"
+        className="absolute top-0 end-0 h-full w-[min(760px,96vw)] bg-white border-s border-line shadow-soft-lg flex flex-col"
         role="dialog"
         aria-modal="true"
       >
@@ -928,14 +1300,20 @@ function RequestDetailDrawer({
           </div>
         </header>
 
-        <div className="flex-1 overflow-y-auto p-5">
+        {/*
+          Phase 7A.1 drawer overflow fix: the content container is now
+          `overflow-y-auto overflow-x-hidden` so any over-eager fixed-width
+          child (font-mono codes, long product names) clips to the drawer
+          instead of forcing a horizontal scrollbar on the dialog itself.
+        */}
+        <div className="flex-1 overflow-y-auto overflow-x-hidden p-5">
           {loading ? (
             <LoadingSkeleton rows={4} />
           ) : error ? (
             <ErrorState message={error} onRetry={onClose} />
           ) : detail ? (
             detail.kind === 'quote' ? (
-              <QuoteDetailBody record={detail.record} />
+              <QuoteDetailBody record={detail.record} onRefresh={refresh} />
             ) : detail.kind === 'procurement' ? (
               <ProcurementDetailBody record={detail.record} />
             ) : (
@@ -950,41 +1328,82 @@ function RequestDetailDrawer({
 
 /**
  * Phase 7A -- read-only summary of the ERPNext Quotation linked to a Robot
- * Quote Request. Rendered above the request's own items table so the customer
- * can see "the staff team has issued a Quotation; here are the totals".
- *
- * No accept/reject buttons -- those land in Phase 7B.
+ * Quote Request. Phase 7B adds Accept/Reject buttons (gated by
+ * `record.can_respond`) and an after-response banner that confirms the
+ * decision and clears the action surface.
  */
-function QuotationPanel({ record }: { record: QuoteRequestDetail }) {
+function QuotationPanel({
+  record,
+  onRefresh,
+}: {
+  record: QuoteRequestDetail
+  onRefresh?: () => void
+}) {
   const { t, n, usd } = useI18n()
   const quotation = record.quotation
+
+  // Phase 7B response-flow local state. Lives in the panel because the
+  // server is the source of truth: after a successful POST, we just call
+  // `onRefresh()` and let the drawer re-fetch the canonical detail.
+  const [pendingAction, setPendingAction] = useState<QuotationResponseAction | null>(null)
+  const [note, setNote] = useState('')
+  const [submitting, setSubmitting] = useState(false)
+  const [submitErr, setSubmitErr] = useState<string | null>(null)
+
   if (!quotation) return null
 
   const totalLabel = quotation.currency && quotation.currency.toUpperCase() !== 'USD'
     ? `${quotation.grand_total_usd.toLocaleString()} ${quotation.currency}`
     : usd(quotation.grand_total_usd)
 
+  const responded = record.customer_response === 'Accepted' || record.customer_response === 'Rejected'
+  const canRespond = !!record.can_respond && !responded
+  const quotationIsDraft = (record.quotation_status || quotation.status) === 'Draft'
+
+  async function submit() {
+    if (!pendingAction || submitting) return
+    setSubmitErr(null)
+    setSubmitting(true)
+    try {
+      await respondToQuotation(record.name, pendingAction, note.trim() || undefined)
+      setPendingAction(null)
+      setNote('')
+      onRefresh?.()
+    } catch (e) {
+      setSubmitErr(formatRespondError(e, t))
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
+  function cancelPending() {
+    if (submitting) return
+    setPendingAction(null)
+    setNote('')
+    setSubmitErr(null)
+  }
+
   return (
-    <section>
+    <section className="min-w-0">
       <div className="text-xs uppercase tracking-wide font-bold text-faint mb-2">
         {t('پیشنهاد قیمت', 'Quotation')}
       </div>
-      <div className="rounded-2xl border border-brand-100 bg-brand-50/40 p-4">
-        <div className="flex items-start justify-between gap-3">
-          <div className="min-w-0">
+      <div className="rounded-2xl border border-brand-100 bg-brand-50/40 p-4 max-w-full">
+        <div className="flex items-start justify-between gap-3 flex-wrap sm:flex-nowrap">
+          <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="font-mono text-sm text-tech-blue">{quotation.quotation_id}</span>
+              <span className="font-mono text-sm text-tech-blue break-all">{quotation.quotation_id}</span>
               <StatusBadge kind="quotation" status={record.quotation_status || quotation.status} />
             </div>
-            <dl className="mt-3 grid grid-cols-2 gap-2 text-xs">
+            <dl className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
               {quotation.transaction_date ? (
-                <div>
+                <div className="min-w-0">
                   <dt className="text-faint">{t('تاریخ پیشنهاد', 'Issued')}</dt>
                   <dd className="mt-0.5 text-fg font-semibold">{formatDate(quotation.transaction_date)}</dd>
                 </div>
               ) : null}
               {quotation.valid_till ? (
-                <div>
+                <div className="min-w-0">
                   <dt className="text-faint">{t('معتبر تا', 'Valid till')}</dt>
                   <dd className="mt-0.5 text-fg font-semibold">{formatDate(quotation.valid_till)}</dd>
                 </div>
@@ -1000,13 +1419,13 @@ function QuotationPanel({ record }: { record: QuoteRequestDetail }) {
         {quotation.items && quotation.items.length > 0 ? (
           <ul className="mt-4 grid gap-2">
             {quotation.items.map((it) => (
-              <li key={`${it.idx}:${it.item_code}`} className="rounded-xl bg-white border border-line p-3">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="min-w-0">
-                    <div className="text-sm font-bold text-fg truncate">{it.item_name || it.description || it.item_code}</div>
-                    <div className="mt-1 text-xs text-faint font-mono">{it.item_code}</div>
+              <li key={`${it.idx}:${it.item_code}`} className="rounded-xl bg-white border border-line p-3 max-w-full">
+                <div className="flex items-start justify-between gap-3 flex-wrap sm:flex-nowrap">
+                  <div className="min-w-0 flex-1 basis-full sm:basis-auto">
+                    <div className="text-sm font-bold text-fg break-words">{it.item_name || it.description || it.item_code}</div>
+                    <div className="mt-1 text-xs text-faint font-mono break-all">{it.item_code}</div>
                   </div>
-                  <div className="text-end shrink-0">
+                  <div className="text-end shrink-0 whitespace-nowrap">
                     <div className="text-xs text-faint">
                       {t('تعداد', 'Qty')}: <span className="font-bold text-fg num-fa">{n(it.qty ?? 0)}</span>
                       {it.uom ? <span className="text-faint"> {it.uom}</span> : null}
@@ -1023,18 +1442,221 @@ function QuotationPanel({ record }: { record: QuoteRequestDetail }) {
             ))}
           </ul>
         ) : null}
-        <p className="mt-3 text-[11px] text-faint leading-5">
-          {t(
-            'این پیشنهاد توسط تیم فروش ایران‌ربات صادر شده است. برای پذیرش یا گفت‌وگو با کارشناس، با ما تماس بگیرید.',
-            'This proposal was issued by the IranRobot sales team. To accept or discuss it, contact our sales representative.',
-          )}
-        </p>
+        {responded ? (
+          <ResponseBanner
+            response={record.customer_response as 'Accepted' | 'Rejected'}
+            at={record.customer_response_at}
+            note={record.customer_response_note}
+          />
+        ) : canRespond ? (
+          pendingAction === null ? (
+            <div className="mt-4 grid gap-3">
+              <p className="text-xs text-fg leading-6">
+                {t(
+                  'لطفاً پیشنهاد را بررسی کنید و گزینه‌ی موردنظر را انتخاب نمایید.',
+                  'Please review the proposal and choose an option below.',
+                )}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <Button onClick={() => setPendingAction('accept')}>
+                  {t('پذیرش پیشنهاد', 'Accept quotation')}
+                </Button>
+                <Button variant="outline" onClick={() => setPendingAction('reject')}>
+                  {t('رد پیشنهاد', 'Reject quotation')}
+                </Button>
+              </div>
+              <p className="text-[11px] text-faint leading-5">
+                {t(
+                  'پذیرش به‌معنای تأیید پیشنهاد است؛ پرداخت یا سفارش فوراً انجام نمی‌شود. تیم فروش پس از تأیید با شما تماس می‌گیرد.',
+                  'Accepting confirms the proposal; it does NOT immediately process a payment or place an order. Our sales team will follow up after your acceptance.',
+                )}
+              </p>
+            </div>
+          ) : (
+            <PendingActionPanel
+              action={pendingAction}
+              note={note}
+              onNoteChange={setNote}
+              submitting={submitting}
+              error={submitErr}
+              onConfirm={submit}
+              onCancel={cancelPending}
+            />
+          )
+        ) : quotationIsDraft ? (
+          <p className="mt-3 text-[11px] text-faint leading-5">
+            {t(
+              'این پیشنهاد هنوز توسط تیم فروش نهایی نشده است. لطفاً پس از ارسال نهایی برای پاسخ مراجعه کنید.',
+              "This quotation is still being finalized by our sales team. Check back once it's been sent for your response.",
+            )}
+          </p>
+        ) : (
+          <p className="mt-3 text-[11px] text-faint leading-5">
+            {t(
+              'این پیشنهاد توسط تیم فروش ایران‌ربات صادر شده است.',
+              'This proposal was issued by the IranRobot sales team.',
+            )}
+          </p>
+        )}
       </div>
     </section>
   )
 }
 
-function QuoteDetailBody({ record }: { record: QuoteRequestDetail }) {
+function PendingActionPanel({
+  action,
+  note,
+  onNoteChange,
+  submitting,
+  error,
+  onConfirm,
+  onCancel,
+}: {
+  action: QuotationResponseAction
+  note: string
+  onNoteChange: (v: string) => void
+  submitting: boolean
+  error: string | null
+  onConfirm: () => void
+  onCancel: () => void
+}) {
+  const { t } = useI18n()
+  const isAccept = action === 'accept'
+
+  return (
+    <div className={[
+      'mt-4 rounded-2xl border p-4 grid gap-3',
+      isAccept ? 'border-emerald-200 bg-emerald-50/40' : 'border-amber-200 bg-amber-50/40',
+    ].join(' ')}>
+      <div className="text-sm font-bold text-fg">
+        {isAccept
+          ? t('تأیید پذیرش پیشنهاد', 'Confirm acceptance')
+          : t('تأیید رد پیشنهاد', 'Confirm rejection')}
+      </div>
+      <p className="text-xs text-muted leading-6">
+        {isAccept
+          ? t(
+              'با پذیرش، تیم فروش طی ۲۴ ساعت کاری با شما تماس می‌گیرد. هیچ پرداخت یا سفارشی به‌صورت خودکار انجام نخواهد شد.',
+              'On acceptance, our sales team will contact you within 24 business hours. No payment or order is created automatically.',
+            )
+          : t(
+              'می‌توانید دلیل رد پیشنهاد را به‌صورت اختیاری بنویسید تا تیم فروش پیگیری مناسب را انجام دهد.',
+              'You can optionally write why you are rejecting this quotation so our sales team can follow up appropriately.',
+            )}
+      </p>
+
+      {!isAccept ? (
+        <label className="grid gap-1.5">
+          <span className="text-xs font-semibold text-fg">{t('یادداشت (اختیاری)', 'Optional note')}</span>
+          <textarea
+            value={note}
+            onChange={(e) => onNoteChange(e.target.value)}
+            rows={3}
+            maxLength={2000}
+            placeholder={t(
+              'مثلاً: بودجه از پیش‌بینی فراتر است.',
+              'e.g. The quoted total is above our budget.',
+            )}
+            disabled={submitting}
+            className="block w-full rounded-2xl px-4 py-3 text-sm text-fg outline-none resize-none placeholder:text-ink-400 bg-white ring-1 ring-inset ring-line focus-within:ring-2 focus-within:ring-tech-blue/60"
+          />
+        </label>
+      ) : null}
+
+      {error ? (
+        <div className="rounded-lg bg-brand-50 border border-brand-100 text-brand-700 text-xs px-3 py-2 leading-6">
+          {error}
+        </div>
+      ) : null}
+
+      <div className="flex flex-wrap gap-2">
+        <Button onClick={onConfirm} disabled={submitting}>
+          {submitting
+            ? t('در حال ارسال...', 'Submitting...')
+            : isAccept
+              ? t('بله، می‌پذیرم', 'Yes, accept')
+              : t('بله، رد می‌کنم', 'Yes, reject')}
+        </Button>
+        <Button variant="outline" onClick={onCancel} disabled={submitting}>
+          {t('انصراف', 'Cancel')}
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+function ResponseBanner({
+  response,
+  at,
+  note,
+}: {
+  response: 'Accepted' | 'Rejected'
+  at: string | null | undefined
+  note: string | null | undefined
+}) {
+  const { t } = useI18n()
+  const isAccepted = response === 'Accepted'
+  return (
+    <div
+      className={[
+        'mt-4 rounded-2xl border p-4 grid gap-2',
+        isAccepted
+          ? 'border-emerald-200 bg-emerald-50/50'
+          : 'border-amber-200 bg-amber-50/50',
+      ].join(' ')}
+    >
+      <div className="flex items-center gap-2 flex-wrap">
+        <StatusBadge kind="quotation" status={response} />
+        {at ? <span className="text-[11px] text-faint">{formatDate(at)}</span> : null}
+      </div>
+      <p className="text-sm text-fg leading-6">
+        {isAccepted
+          ? t(
+              'شما این پیشنهاد را پذیرفته‌اید. تیم فروش به‌زودی برای ادامه‌ی کار با شما تماس می‌گیرد.',
+              'You accepted this quotation. Our sales team will follow up shortly.',
+            )
+          : t(
+              'شما این پیشنهاد را رد کرده‌اید. در صورت نیاز تیم ما برای بررسی بیشتر تماس می‌گیرد.',
+              'You rejected this quotation. Our team may contact you if needed.',
+            )}
+      </p>
+      {note ? (
+        <div className="rounded-xl bg-white/60 border border-line p-3">
+          <div className="text-[11px] text-faint mb-1">{t('یادداشت شما', 'Your note')}</div>
+          <p className="text-sm text-fg leading-6 whitespace-pre-wrap break-words">{note}</p>
+        </div>
+      ) : null}
+    </div>
+  )
+}
+
+function formatRespondError(e: unknown, t: (fa: string, en: string) => string): string {
+  if (e instanceof FrappeApiError) {
+    switch (e.code) {
+      case 'AUTH_REQUIRED':
+        return t('برای پاسخ به پیشنهاد وارد حساب شوید.', 'Sign in to respond to this quotation.')
+      case 'NOT_FOUND':
+        return t('این پیشنهاد در دسترس نیست.', 'This quotation is not available.')
+      case 'QUOTATION_NOT_FOUND':
+        return t('پیشنهاد متصل به این درخواست پیدا نشد.', 'The linked quotation was not found.')
+      case 'QUOTATION_NOT_READY':
+        return t('این پیشنهاد هنوز برای پاسخ آماده نیست.', 'This quotation is not ready for your response yet.')
+      case 'ALREADY_RESPONDED':
+        return t('شما قبلاً به این پیشنهاد پاسخ داده‌اید.', 'You have already responded to this quotation.')
+      case 'INVALID_ACTION':
+        return t('عملیات نامعتبر است.', 'Invalid action.')
+      case 'VALIDATION_ERROR':
+        return e.message
+      case 'NETWORK_ERROR':
+        return t('اتصال به سرور برقرار نشد.', 'Could not reach the server.')
+      default:
+        return e.message || t('ارسال پاسخ با خطا مواجه شد.', 'Could not submit your response.')
+    }
+  }
+  return t('ارسال پاسخ با خطا مواجه شد.', 'Could not submit your response.')
+}
+
+function QuoteDetailBody({ record, onRefresh }: { record: QuoteRequestDetail; onRefresh?: () => void }) {
   const { t, n, usd } = useI18n()
   return (
     <div className="grid gap-5">
@@ -1050,7 +1672,7 @@ function QuoteDetailBody({ record }: { record: QuoteRequestDetail }) {
         ) : null}
       </div>
 
-      {record.quotation ? <QuotationPanel record={record} /> : null}
+      {record.quotation ? <QuotationPanel record={record} onRefresh={onRefresh} /> : null}
 
       {record.message ? (
         <Block label={t('پیام شما', 'Your message')}>
@@ -1064,19 +1686,18 @@ function QuoteDetailBody({ record }: { record: QuoteRequestDetail }) {
         ) : (
           <ul className="grid gap-2">
             {record.items.map((it) => (
-              <li key={`${it.idx}:${it.robot_product}`} className="rounded-xl bg-soft border border-line p-3">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="min-w-0">
-                    <div className="text-sm font-bold text-fg truncate">{it.product_name}</div>
-                    <div className="mt-1 text-xs text-faint">
-                      <span className="font-mono text-tech-blue">{it.robot_product}</span>
-                      {' · '}
+              <li key={`${it.idx}:${it.robot_product}`} className="rounded-xl bg-soft border border-line p-3 max-w-full">
+                <div className="flex items-start justify-between gap-3 flex-wrap sm:flex-nowrap">
+                  <div className="min-w-0 flex-1 basis-full sm:basis-auto">
+                    <div className="text-sm font-bold text-fg break-words">{it.product_name}</div>
+                    <div className="mt-1 text-xs text-faint flex items-center gap-2 flex-wrap">
+                      <span className="font-mono text-tech-blue break-all">{it.robot_product}</span>
                       <Badge tone={it.mode === 'rent' ? 'rent' : it.mode === 'procure' ? 'tech' : 'brand'}>
                         {it.mode === 'rent' ? t('اجاره', 'Rent') : it.mode === 'procure' ? t('تأمین', 'Source') : t('خرید', 'Buy')}
                       </Badge>
                     </div>
                   </div>
-                  <div className="text-end shrink-0">
+                  <div className="text-end shrink-0 whitespace-nowrap">
                     <div className="text-xs text-faint">
                       {t('تعداد', 'Qty')}: <span className="font-bold text-fg num-fa">{n(it.quantity)}</span>
                     </div>
@@ -1267,6 +1888,8 @@ function ProfileFormView({ user }: { user: NonNullable<ReturnType<typeof useAuth
         </div>
       </form>
 
+      <AddressesSection />
+
       <div className="rounded-2xl border border-dashed border-line bg-white p-5 text-center">
         <p className="text-xs text-muted leading-6">
           {t(
@@ -1276,6 +1899,359 @@ function ProfileFormView({ user }: { user: NonNullable<ReturnType<typeof useAuth
         </p>
       </div>
     </div>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Phase 7A.1 -- Addresses section (rendered inside ProfileFormView)
+// ---------------------------------------------------------------------------
+
+const ADDRESS_TYPES: AddressType[] = ['Billing', 'Shipping', 'Office', 'Personal', 'Other']
+
+function emptyAddressDraft(): AddressPayload {
+  return {
+    address_type: 'Billing',
+    address_title: '',
+    address_line1: '',
+    address_line2: '',
+    city: '',
+    state: '',
+    country: 'Iran',
+    pincode: '',
+    phone: '',
+    email_id: '',
+    is_primary_address: false,
+    is_shipping_address: false,
+  }
+}
+
+function AddressesSection() {
+  const { t } = useI18n()
+  const [list, setList] = useState<CustomerAddress[] | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [editing, setEditing] = useState<CustomerAddress | 'new' | null>(null)
+  const [deletingName, setDeletingName] = useState<string | null>(null)
+
+  const load = useCallback(() => {
+    const controller = new AbortController()
+    setLoading(true)
+    setError(null)
+    fetchMyAddresses(controller.signal)
+      .then((rows) => {
+        if (controller.signal.aborted) return
+        setList(rows)
+        setLoading(false)
+      })
+      .catch((err: unknown) => {
+        if (controller.signal.aborted) return
+        const msg = err instanceof FrappeApiError ? err.message : (err as Error)?.message
+        setError(msg || t('بارگذاری آدرس‌ها ناموفق بود.', 'Could not load addresses.'))
+        setLoading(false)
+      })
+    return () => controller.abort()
+  }, [t])
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- canonical "load on mount" pattern; load() sets loading + clears error before kicking off the fetch
+    const cleanup = load()
+    return cleanup
+  }, [load])
+
+  async function handleSaved() {
+    setEditing(null)
+    load()
+  }
+
+  async function handleDelete(name: string) {
+    if (deletingName) return
+    setDeletingName(name)
+    setError(null)
+    try {
+      await deleteMyAddress(name)
+      // Optimistically prune; load() will reconcile.
+      setList((rows) => (rows ? rows.filter((r) => r.name !== name) : rows))
+      load()
+    } catch (err) {
+      const msg = err instanceof FrappeApiError ? err.message : (err as Error)?.message
+      setError(msg || t('حذف آدرس ناموفق بود.', 'Could not delete address.'))
+    } finally {
+      setDeletingName(null)
+    }
+  }
+
+  return (
+    <section className="bg-white border border-line rounded-3xl p-6 shadow-soft">
+      <header className="flex items-center justify-between gap-3 flex-wrap mb-4">
+        <div className="flex items-center gap-2 min-w-0">
+          <div className="grid size-9 place-items-center rounded-xl bg-brand-50 ring-1 ring-brand-100 text-brand-600 shrink-0">
+            <MapPin size={16} />
+          </div>
+          <h3 className="text-base font-bold text-fg truncate">{t('آدرس‌ها', 'Addresses')}</h3>
+        </div>
+        <Button type="button" variant="outline" onClick={() => setEditing('new')}>
+          <Plus size={14} />
+          {t('افزودن آدرس', 'Add address')}
+        </Button>
+      </header>
+
+      {loading ? (
+        <LoadingSkeleton rows={2} />
+      ) : error ? (
+        <ErrorState message={error} onRetry={load} />
+      ) : !list || list.length === 0 ? (
+        <p className="text-sm text-muted leading-7 text-center py-8">
+          {t('هنوز آدرسی ذخیره نشده است.', 'No saved addresses yet.')}
+        </p>
+      ) : (
+        <ul className="grid gap-3">
+          {list.map((addr) => (
+            <li key={addr.name} className="rounded-2xl border border-line bg-soft p-4">
+              <div className="flex items-start justify-between gap-3 flex-wrap sm:flex-nowrap">
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-sm font-bold text-fg truncate">
+                      {addr.address_title || t('بدون عنوان', 'Untitled')}
+                    </span>
+                    <Badge tone="brand">{addr.address_type || 'Billing'}</Badge>
+                    {addr.is_primary_address ? (
+                      <Badge tone="success">{t('اصلی', 'Primary')}</Badge>
+                    ) : null}
+                    {addr.is_shipping_address ? (
+                      <Badge tone="tech">{t('ارسال', 'Shipping')}</Badge>
+                    ) : null}
+                  </div>
+                  <p className="mt-2 text-sm text-fg leading-6 break-words">
+                    {[addr.address_line1, addr.address_line2].filter(Boolean).join('، ')}
+                  </p>
+                  <p className="mt-0.5 text-xs text-muted break-words">
+                    {[addr.city, addr.state, addr.country].filter(Boolean).join('، ')}
+                    {addr.pincode ? ` · ${addr.pincode}` : ''}
+                  </p>
+                  {(addr.phone || addr.email_id) ? (
+                    <p className="mt-1 text-xs text-faint break-all">
+                      {addr.phone}
+                      {addr.phone && addr.email_id ? ' · ' : ''}
+                      {addr.email_id}
+                    </p>
+                  ) : null}
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => setEditing(addr)}
+                    className="size-9 grid place-items-center rounded-lg border border-line bg-white text-fg hover:bg-ink-50 transition-colors"
+                    aria-label={t('ویرایش آدرس', 'Edit address')}
+                  >
+                    <Pencil size={14} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleDelete(addr.name)}
+                    disabled={deletingName === addr.name}
+                    className="size-9 grid place-items-center rounded-lg border border-line bg-white text-brand-600 hover:bg-brand-50 transition-colors disabled:opacity-50"
+                    aria-label={t('حذف آدرس', 'Delete address')}
+                  >
+                    <Trash2 size={14} />
+                  </button>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {editing ? (
+        <AddressEditor
+          initial={editing === 'new' ? emptyAddressDraft() : addressToDraft(editing)}
+          existingName={editing === 'new' ? undefined : editing.name}
+          onCancel={() => setEditing(null)}
+          onSaved={handleSaved}
+        />
+      ) : null}
+    </section>
+  )
+}
+
+function addressToDraft(a: CustomerAddress): AddressPayload {
+  return {
+    name: a.name,
+    address_title: a.address_title ?? '',
+    address_type: (a.address_type as AddressType) ?? 'Billing',
+    address_line1: a.address_line1 ?? '',
+    address_line2: a.address_line2 ?? '',
+    city: a.city ?? '',
+    state: a.state ?? '',
+    country: a.country ?? 'Iran',
+    pincode: a.pincode ?? '',
+    phone: a.phone ?? '',
+    email_id: a.email_id ?? '',
+    is_primary_address: !!a.is_primary_address,
+    is_shipping_address: !!a.is_shipping_address,
+  }
+}
+
+function AddressEditor({
+  initial,
+  existingName,
+  onCancel,
+  onSaved,
+}: {
+  initial: AddressPayload
+  existingName?: string
+  onCancel: () => void
+  onSaved: () => void
+}) {
+  const { t } = useI18n()
+  const [draft, setDraft] = useState<AddressPayload>(initial)
+  const [saving, setSaving] = useState(false)
+  const [err, setErr] = useState<string | null>(null)
+
+  function patch<K extends keyof AddressPayload>(key: K, val: AddressPayload[K]) {
+    setDraft((d) => ({ ...d, [key]: val }))
+  }
+
+  async function submit(e: React.FormEvent) {
+    e.preventDefault()
+    setErr(null)
+    if (!draft.address_line1.trim()) {
+      setErr(t('خط آدرس الزامی است.', 'Address line 1 is required.'))
+      return
+    }
+    if (!draft.city.trim()) {
+      setErr(t('شهر الزامی است.', 'City is required.'))
+      return
+    }
+    if (!draft.country.trim()) {
+      setErr(t('کشور الزامی است.', 'Country is required.'))
+      return
+    }
+    setSaving(true)
+    try {
+      await saveMyAddress({ ...draft, name: existingName })
+      onSaved()
+    } catch (e) {
+      const msg = e instanceof FrappeApiError ? e.message : (e as Error)?.message
+      setErr(msg || t('ذخیره آدرس ناموفق بود.', 'Could not save address.'))
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  return (
+    <form
+      onSubmit={submit}
+      className="mt-4 rounded-2xl border border-brand-100 bg-brand-50/30 p-5 grid gap-4"
+    >
+      <div className="flex items-center gap-2">
+        <h4 className="text-sm font-bold text-fg">
+          {existingName ? t('ویرایش آدرس', 'Edit address') : t('آدرس جدید', 'New address')}
+        </h4>
+      </div>
+      <div className="grid sm:grid-cols-2 gap-3">
+        <Input
+          label={t('عنوان', 'Address title')}
+          value={draft.address_title ?? ''}
+          onChange={(e) => patch('address_title', e.target.value)}
+          placeholder={t('مثلاً: دفتر مرکزی', 'e.g. Head office')}
+        />
+        <Select
+          label={t('نوع آدرس', 'Address type')}
+          value={draft.address_type ?? 'Billing'}
+          onChange={(e) => patch('address_type', e.target.value as AddressType)}
+        >
+          {ADDRESS_TYPES.map((tType) => (
+            <option key={tType} value={tType}>
+              {tType}
+            </option>
+          ))}
+        </Select>
+      </div>
+      <Input
+        label={t('خط آدرس ۱', 'Address line 1')}
+        value={draft.address_line1}
+        onChange={(e) => patch('address_line1', e.target.value)}
+      />
+      <Input
+        label={t('خط آدرس ۲', 'Address line 2')}
+        value={draft.address_line2 ?? ''}
+        onChange={(e) => patch('address_line2', e.target.value)}
+      />
+      <div className="grid sm:grid-cols-3 gap-3">
+        <Input
+          label={t('شهر', 'City')}
+          value={draft.city}
+          onChange={(e) => patch('city', e.target.value)}
+        />
+        <Input
+          label={t('استان', 'State')}
+          value={draft.state ?? ''}
+          onChange={(e) => patch('state', e.target.value)}
+        />
+        <Input
+          label={t('کد پستی', 'Postal code')}
+          value={draft.pincode ?? ''}
+          onChange={(e) => patch('pincode', e.target.value)}
+          dir="ltr"
+          inputMode="numeric"
+        />
+      </div>
+      <Input
+        label={t('کشور', 'Country')}
+        value={draft.country}
+        onChange={(e) => patch('country', e.target.value)}
+        hint={t('باید با لیست کشورهای ERPNext مطابقت داشته باشد.', 'Must match an ERPNext Country.')}
+      />
+      <div className="grid sm:grid-cols-2 gap-3">
+        <Input
+          label={t('تلفن', 'Phone')}
+          value={draft.phone ?? ''}
+          onChange={(e) => patch('phone', e.target.value)}
+          dir="ltr"
+          inputMode="tel"
+        />
+        <Input
+          label={t('ایمیل', 'Email')}
+          value={draft.email_id ?? ''}
+          onChange={(e) => patch('email_id', e.target.value)}
+          dir="ltr"
+          type="email"
+        />
+      </div>
+      <div className="grid sm:grid-cols-2 gap-3 text-sm">
+        <label className="flex items-center gap-3">
+          <input
+            type="checkbox"
+            className="size-4 accent-brand-600"
+            checked={!!draft.is_primary_address}
+            onChange={(e) => patch('is_primary_address', e.target.checked)}
+          />
+          <span>{t('آدرس صورت‌حساب اصلی', 'Primary billing address')}</span>
+        </label>
+        <label className="flex items-center gap-3">
+          <input
+            type="checkbox"
+            className="size-4 accent-brand-600"
+            checked={!!draft.is_shipping_address}
+            onChange={(e) => patch('is_shipping_address', e.target.checked)}
+          />
+          <span>{t('آدرس ارسال', 'Shipping address')}</span>
+        </label>
+      </div>
+      {err ? (
+        <div className="rounded-lg bg-brand-50 border border-brand-100 text-brand-700 text-xs px-3 py-2 leading-6">
+          {err}
+        </div>
+      ) : null}
+      <div className="flex items-center gap-3 flex-wrap">
+        <Button type="submit" disabled={saving}>
+          {saving ? t('در حال ذخیره...', 'Saving...') : existingName ? t('به‌روزرسانی', 'Update') : t('افزودن', 'Add')}
+        </Button>
+        <Button type="button" variant="outline" onClick={onCancel} disabled={saving}>
+          {t('انصراف', 'Cancel')}
+        </Button>
+      </div>
+    </form>
   )
 }
 

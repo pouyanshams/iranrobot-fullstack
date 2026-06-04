@@ -225,6 +225,14 @@ export interface QuoteRequestDetail {
   quotation_status?: QuotationStatus | null
   proposal_amount_usd?: number | null
   quotation?: QuotationBlock | null
+  /** Phase 7B -- customer accept/reject state. The server re-evaluates these
+   * conditions on every respond_to_quotation call, so a stale `can_respond:
+   * true` cached on the client can't be turned into a state-violating write. */
+  customer_response?: '' | 'Accepted' | 'Rejected' | null
+  customer_response_at?: string | null
+  customer_response_note?: string | null
+  can_respond?: boolean
+  response_allowed_actions?: QuotationResponseAction[]
 }
 
 /** Phase 7A -- Quotation status as projected to the customer. Mirrors the
@@ -295,6 +303,31 @@ export async function getMyRequestDetail(
   return frappeFetch<RequestDetailPayload>(
     `${BASE}.get_my_request_detail`,
     { kind, name },
+    signal,
+  )
+}
+
+// ---------- respond_to_quotation (Phase 7B) ----------
+
+export type QuotationResponseAction = 'accept' | 'reject'
+
+export interface RespondToQuotationResult {
+  request_id: string
+  quotation_status: QuotationStatus
+  customer_response: 'Accepted' | 'Rejected'
+  customer_response_at: string
+  customer_response_note: string
+}
+
+export async function respondToQuotation(
+  name: string,
+  action: QuotationResponseAction,
+  note?: string,
+  signal?: AbortSignal,
+): Promise<RespondToQuotationResult> {
+  return frappePost<RespondToQuotationResult>(
+    `${BASE}.respond_to_quotation`,
+    { name, action, note: note ?? '' },
     signal,
   )
 }

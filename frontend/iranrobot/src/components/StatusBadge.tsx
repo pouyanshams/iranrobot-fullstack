@@ -13,7 +13,7 @@ import { useI18n } from '../i18n'
 
 type BadgeTone = NonNullable<ComponentProps<typeof Badge>['tone']>
 
-type Kind = 'quote' | 'procurement' | 'support' | 'quotation'
+type Kind = 'quote' | 'procurement' | 'support' | 'quotation' | 'order'
 
 const QUOTE_MAP: Record<string, { fa: string; en: string; tone: BadgeTone }> = {
   New: { fa: 'جدید', en: 'New', tone: 'warning' },
@@ -46,6 +46,20 @@ const QUOTATION_MAP: Record<string, { fa: string; en: string; tone: BadgeTone }>
   Expired: { fa: 'منقضی شد', en: 'Expired', tone: 'neutral' },
 }
 
+// Phase 7C -- ERPNext Sales Order statuses surfaced on the customer Orders
+// page. "Closed" and "Cancelled" share neutral tones so the customer dashboard
+// doesn't visually alarm on terminal states.
+const ORDER_MAP: Record<string, { fa: string; en: string; tone: BadgeTone }> = {
+  Draft: { fa: 'پیش‌نویس', en: 'Draft', tone: 'neutral' },
+  'To Deliver and Bill': { fa: 'در انتظار ارسال و صدور صورتحساب', en: 'To Deliver and Bill', tone: 'warning' },
+  'To Bill': { fa: 'در انتظار صدور صورتحساب', en: 'To Bill', tone: 'tech' },
+  'To Deliver': { fa: 'در انتظار ارسال', en: 'To Deliver', tone: 'tech' },
+  Completed: { fa: 'تکمیل شد', en: 'Completed', tone: 'success' },
+  Closed: { fa: 'بسته شد', en: 'Closed', tone: 'neutral' },
+  Cancelled: { fa: 'لغو شد', en: 'Cancelled', tone: 'neutral' },
+  'On Hold': { fa: 'متوقف', en: 'On Hold', tone: 'warning' },
+}
+
 const SUPPORT_MAP: Record<string, { fa: string; en: string; tone: BadgeTone }> = {
   Open: { fa: 'باز', en: 'Open', tone: 'warning' },
   'In Progress': { fa: 'در حال بررسی', en: 'In Progress', tone: 'tech' },
@@ -67,7 +81,9 @@ function pick(kind: Kind, status: string | null | undefined) {
         ? PROCUREMENT_MAP
         : kind === 'quotation'
           ? QUOTATION_MAP
-          : SUPPORT_MAP
+          : kind === 'order'
+            ? ORDER_MAP
+            : SUPPORT_MAP
   return map[status] ?? { fa: status, en: status, tone: 'neutral' as BadgeTone }
 }
 
