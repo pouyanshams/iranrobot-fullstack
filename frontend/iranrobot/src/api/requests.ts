@@ -219,6 +219,40 @@ export interface QuoteRequestDetail {
   total_estimate_usd: number | null
   creation: string
   items: QuoteItemDetail[]
+  /** Phase 7A -- set when Sales staff has issued an ERPNext Quotation from
+   * this request. Customer dashboard displays a read-only summary. */
+  erpnext_quotation?: string | null
+  quotation_status?: QuotationStatus | null
+  proposal_amount_usd?: number | null
+  quotation?: QuotationBlock | null
+}
+
+/** Phase 7A -- Quotation status as projected to the customer. Mirrors the
+ * Robot Quote Request.quotation_status Select options. */
+export type QuotationStatus = '' | 'Draft' | 'Sent' | 'Accepted' | 'Rejected' | 'Expired'
+
+/** Phase 7A -- customer-safe Quotation projection. Internal notes, taxes,
+ * margins, addresses, terms, and base-currency fields are NEVER included. */
+export interface QuotationBlock {
+  quotation_id: string
+  status: string | null
+  transaction_date: string | null
+  valid_till: string | null
+  currency: string | null
+  grand_total_usd: number
+  customer_name: string | null
+  items: QuotationItem[]
+}
+
+export interface QuotationItem {
+  idx: number
+  item_code: string
+  item_name: string | null
+  description: string | null
+  qty: number | null
+  uom: string | null
+  rate: number | null
+  amount: number | null
 }
 
 export interface ProcurementRequestDetail {

@@ -948,6 +948,92 @@ function RequestDetailDrawer({
   )
 }
 
+/**
+ * Phase 7A -- read-only summary of the ERPNext Quotation linked to a Robot
+ * Quote Request. Rendered above the request's own items table so the customer
+ * can see "the staff team has issued a Quotation; here are the totals".
+ *
+ * No accept/reject buttons -- those land in Phase 7B.
+ */
+function QuotationPanel({ record }: { record: QuoteRequestDetail }) {
+  const { t, n, usd } = useI18n()
+  const quotation = record.quotation
+  if (!quotation) return null
+
+  const totalLabel = quotation.currency && quotation.currency.toUpperCase() !== 'USD'
+    ? `${quotation.grand_total_usd.toLocaleString()} ${quotation.currency}`
+    : usd(quotation.grand_total_usd)
+
+  return (
+    <section>
+      <div className="text-xs uppercase tracking-wide font-bold text-faint mb-2">
+        {t('پیشنهاد قیمت', 'Quotation')}
+      </div>
+      <div className="rounded-2xl border border-brand-100 bg-brand-50/40 p-4">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="font-mono text-sm text-tech-blue">{quotation.quotation_id}</span>
+              <StatusBadge kind="quotation" status={record.quotation_status || quotation.status} />
+            </div>
+            <dl className="mt-3 grid grid-cols-2 gap-2 text-xs">
+              {quotation.transaction_date ? (
+                <div>
+                  <dt className="text-faint">{t('تاریخ پیشنهاد', 'Issued')}</dt>
+                  <dd className="mt-0.5 text-fg font-semibold">{formatDate(quotation.transaction_date)}</dd>
+                </div>
+              ) : null}
+              {quotation.valid_till ? (
+                <div>
+                  <dt className="text-faint">{t('معتبر تا', 'Valid till')}</dt>
+                  <dd className="mt-0.5 text-fg font-semibold">{formatDate(quotation.valid_till)}</dd>
+                </div>
+              ) : null}
+            </dl>
+          </div>
+          <div className="text-end shrink-0">
+            <div className="text-[11px] text-faint uppercase tracking-wide">{t('مجموع پیشنهاد', 'Quoted total')}</div>
+            <div className="mt-1 text-base font-extrabold text-tech-blue num-fa">{totalLabel}</div>
+          </div>
+        </div>
+
+        {quotation.items && quotation.items.length > 0 ? (
+          <ul className="mt-4 grid gap-2">
+            {quotation.items.map((it) => (
+              <li key={`${it.idx}:${it.item_code}`} className="rounded-xl bg-white border border-line p-3">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <div className="text-sm font-bold text-fg truncate">{it.item_name || it.description || it.item_code}</div>
+                    <div className="mt-1 text-xs text-faint font-mono">{it.item_code}</div>
+                  </div>
+                  <div className="text-end shrink-0">
+                    <div className="text-xs text-faint">
+                      {t('تعداد', 'Qty')}: <span className="font-bold text-fg num-fa">{n(it.qty ?? 0)}</span>
+                      {it.uom ? <span className="text-faint"> {it.uom}</span> : null}
+                    </div>
+                    {it.rate ? (
+                      <div className="text-[11px] text-faint num-fa">{usd(it.rate)} {t('هر واحد', 'ea')}</div>
+                    ) : null}
+                    {it.amount ? (
+                      <div className="mt-0.5 text-xs font-bold num-fa text-tech-blue">{usd(it.amount)}</div>
+                    ) : null}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+        <p className="mt-3 text-[11px] text-faint leading-5">
+          {t(
+            'این پیشنهاد توسط تیم فروش ایران‌ربات صادر شده است. برای پذیرش یا گفت‌وگو با کارشناس، با ما تماس بگیرید.',
+            'This proposal was issued by the IranRobot sales team. To accept or discuss it, contact our sales representative.',
+          )}
+        </p>
+      </div>
+    </section>
+  )
+}
+
 function QuoteDetailBody({ record }: { record: QuoteRequestDetail }) {
   const { t, n, usd } = useI18n()
   return (
@@ -963,6 +1049,8 @@ function QuoteDetailBody({ record }: { record: QuoteRequestDetail }) {
           </div>
         ) : null}
       </div>
+
+      {record.quotation ? <QuotationPanel record={record} /> : null}
 
       {record.message ? (
         <Block label={t('پیام شما', 'Your message')}>
