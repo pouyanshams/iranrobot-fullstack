@@ -10,7 +10,6 @@ import type { ReactNode } from 'react'
 import type {
   CartLine,
   RouteName,
-  WalletTx,
 } from '../types'
 import { loadJSON, saveJSON, uid } from '../lib/storage'
 
@@ -31,11 +30,6 @@ interface AppContextValue {
   updateCartLine: (id: string, patch: Partial<CartLine>) => void
   removeCartLine: (id: string) => void
   clearCart: () => void
-  // Wallet
-  walletBalanceUsd: number
-  walletTxs: WalletTx[]
-  topupWallet: (amountUsd: number) => void
-  spendWallet: (amountUsd: number, label: string) => boolean
   // Onboarding
   onboardingSeen: boolean
   dismissOnboarding: () => void
@@ -146,52 +140,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const clearCart = useCallback(() => setCart([]), [])
 
-  const [walletBalanceUsd, setWalletBalance] = useState<number>(() =>
-    loadJSON('wallet.balance', 0),
-  )
-  const [walletTxs, setWalletTxs] = useState<WalletTx[]>(() =>
-    loadJSON('wallet.txs', [] as WalletTx[]),
-  )
-
-  useEffect(() => saveJSON('wallet.balance', walletBalanceUsd), [walletBalanceUsd])
-  useEffect(() => saveJSON('wallet.txs', walletTxs), [walletTxs])
-
-  const topupWallet = useCallback((amountUsd: number) => {
-    if (amountUsd <= 0) return
-    setWalletBalance((b) => b + amountUsd)
-    setWalletTxs((txs) => [
-      {
-        id: uid('tx'),
-        amountUsd,
-        type: 'topup',
-        label: 'افزایش موجودی کیف پول',
-        at: Date.now(),
-      },
-      ...txs,
-    ])
-  }, [])
-
-  const spendWallet = useCallback(
-    (amountUsd: number, label: string) => {
-      if (amountUsd <= 0) return true
-      let ok = false
-      setWalletBalance((b) => {
-        if (b >= amountUsd) {
-          ok = true
-          return b - amountUsd
-        }
-        return b
-      })
-      if (ok) {
-        setWalletTxs((txs) => [
-          { id: uid('tx'), amountUsd, type: 'spend', label, at: Date.now() },
-          ...txs,
-        ])
-      }
-      return ok
-    },
-    [],
-  )
+  // Phase 8C: legacy localStorage wallet (`wallet.balance`, `wallet.txs`,
+  // topupWallet, spendWallet) was removed. The wallet is now backend-backed
+  // via `src/api/wallet.ts` + `src/lib/useWallet.ts`. Stale localStorage keys
+  // from previous releases are simply ignored -- no read or write happens
+  // here. A future phase may add a one-shot cleanup if needed.
 
   const [onboardingSeen, setOnboardingSeen] = useState<boolean>(() =>
     loadJSON('onboarding.seen', false),
@@ -218,10 +171,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
       updateCartLine,
       removeCartLine,
       clearCart,
-      walletBalanceUsd,
-      walletTxs,
-      topupWallet,
-      spendWallet,
       onboardingSeen,
       onboardingOpen,
       dismissOnboarding,
@@ -236,10 +185,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
       updateCartLine,
       removeCartLine,
       clearCart,
-      walletBalanceUsd,
-      walletTxs,
-      topupWallet,
-      spendWallet,
       onboardingSeen,
       onboardingOpen,
       dismissOnboarding,

@@ -13,7 +13,7 @@ import { useI18n } from '../i18n'
 
 type BadgeTone = NonNullable<ComponentProps<typeof Badge>['tone']>
 
-type Kind = 'quote' | 'procurement' | 'support' | 'quotation' | 'order'
+type Kind = 'quote' | 'procurement' | 'support' | 'quotation' | 'order' | 'invoice' | 'payment' | 'wallet'
 
 const QUOTE_MAP: Record<string, { fa: string; en: string; tone: BadgeTone }> = {
   New: { fa: 'جدید', en: 'New', tone: 'warning' },
@@ -60,6 +60,39 @@ const ORDER_MAP: Record<string, { fa: string; en: string; tone: BadgeTone }> = {
   'On Hold': { fa: 'متوقف', en: 'On Hold', tone: 'warning' },
 }
 
+// Phase 7D -- ERPNext Sales Invoice + customer-side payment statuses. The
+// invoice map includes every status the customer can encounter (Draft on
+// staff-side, then the post-submit set); the payment map matches the 5-value
+// projection from the customer-facing API.
+const INVOICE_MAP: Record<string, { fa: string; en: string; tone: BadgeTone }> = {
+  Draft: { fa: 'پیش‌نویس', en: 'Draft', tone: 'neutral' },
+  Unpaid: { fa: 'پرداخت‌نشده', en: 'Unpaid', tone: 'warning' },
+  'Partly Paid': { fa: 'پرداخت جزئی', en: 'Partly Paid', tone: 'tech' },
+  Paid: { fa: 'پرداخت شد', en: 'Paid', tone: 'success' },
+  Overdue: { fa: 'گذشته از موعد', en: 'Overdue', tone: 'brand' },
+  Return: { fa: 'برگشت', en: 'Return', tone: 'neutral' },
+  'Credit Note Issued': { fa: 'یادداشت اعتباری صادر شد', en: 'Credit Note Issued', tone: 'neutral' },
+  Cancelled: { fa: 'لغو شد', en: 'Cancelled', tone: 'neutral' },
+}
+
+const PAYMENT_MAP: Record<string, { fa: string; en: string; tone: BadgeTone }> = {
+  Unpaid: { fa: 'پرداخت‌نشده', en: 'Unpaid', tone: 'warning' },
+  'Partly Paid': { fa: 'پرداخت جزئی', en: 'Partly Paid', tone: 'tech' },
+  Paid: { fa: 'پرداخت شد', en: 'Paid', tone: 'success' },
+  Overdue: { fa: 'گذشته از موعد', en: 'Overdue', tone: 'brand' },
+  Cancelled: { fa: 'لغو شد', en: 'Cancelled', tone: 'neutral' },
+  Unknown: { fa: 'نامشخص', en: 'Unknown', tone: 'neutral' },
+}
+
+// Phase 8B/8C -- Robot Wallet Top Up Request statuses surfaced on the
+// customer Wallet page.
+const WALLET_MAP: Record<string, { fa: string; en: string; tone: BadgeTone }> = {
+  Pending: { fa: 'در انتظار', en: 'Pending', tone: 'warning' },
+  Approved: { fa: 'تأیید شد', en: 'Approved', tone: 'success' },
+  Rejected: { fa: 'رد شد', en: 'Rejected', tone: 'neutral' },
+  Cancelled: { fa: 'لغو شد', en: 'Cancelled', tone: 'neutral' },
+}
+
 const SUPPORT_MAP: Record<string, { fa: string; en: string; tone: BadgeTone }> = {
   Open: { fa: 'باز', en: 'Open', tone: 'warning' },
   'In Progress': { fa: 'در حال بررسی', en: 'In Progress', tone: 'tech' },
@@ -83,7 +116,13 @@ function pick(kind: Kind, status: string | null | undefined) {
           ? QUOTATION_MAP
           : kind === 'order'
             ? ORDER_MAP
-            : SUPPORT_MAP
+            : kind === 'invoice'
+              ? INVOICE_MAP
+              : kind === 'payment'
+                ? PAYMENT_MAP
+                : kind === 'wallet'
+                  ? WALLET_MAP
+                  : SUPPORT_MAP
   return map[status] ?? { fa: status, en: status, tone: 'neutral' as BadgeTone }
 }
 

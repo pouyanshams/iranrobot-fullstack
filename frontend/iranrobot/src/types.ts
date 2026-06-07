@@ -94,14 +94,6 @@ export interface CartLine {
   addedAt: number
 }
 
-export interface WalletTx {
-  id: string
-  amountUsd: number
-  type: 'topup' | 'spend' | 'refund'
-  label: string
-  at: number
-}
-
 export type RouteName =
   | 'home'
   | 'catalog'

@@ -80,8 +80,8 @@ const SHOP_CATEGORIES: ShopCategory[] = [
 ]
 
 export function Header() {
-  const { route, go, cart, setCartOpen, walletBalanceUsd } = useApp()
-  const { t, n, usd, toggle, lang } = useI18n()
+  const { route, go, cart, setCartOpen } = useApp()
+  const { t, n, toggle, lang } = useI18n()
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [mobileShopOpen, setMobileShopOpen] = useState(false)
@@ -311,6 +311,9 @@ export function Header() {
             <span className="text-sm font-bold">{lang === 'fa' ? 'EN' : 'فا'}</span>
           </button>
 
+          {/* Phase 8C: balance display removed. The header link only opens
+              the wallet; the real balance lives on the wallet page itself,
+              fetched from the backend. */}
           <button
             type="button"
             onClick={() => go('wallet')}
@@ -318,7 +321,7 @@ export function Header() {
             aria-label={t('کیف پول', 'Wallet')}
           >
             <WalletIcon size={17} className="text-brand-600" />
-            <span className="text-sm font-semibold num-fa">{usd(walletBalanceUsd)}</span>
+            <span className="text-sm font-semibold">{t('کیف پول', 'Wallet')}</span>
           </button>
 
           {/* Phase 4 -- login button when guest, user menu when authenticated */}
@@ -445,10 +448,9 @@ export function Header() {
                     go('wallet')
                     setOpen(false)
                   }}
-                  className="h-11 px-4 rounded-lg text-sm font-semibold text-start text-ink-700 hover:text-brand-700 hover:bg-ink-50 flex items-center justify-between"
+                  className="h-11 px-4 rounded-lg text-sm font-semibold text-start text-ink-700 hover:text-brand-700 hover:bg-ink-50 flex items-center"
                 >
                   <span>{t('کیف پول', 'Wallet')}</span>
-                  <span className="num-fa text-brand-600">{usd(walletBalanceUsd)}</span>
                 </button>
               </div>
             </motion.div>

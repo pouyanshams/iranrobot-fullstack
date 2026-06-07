@@ -19,6 +19,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   ChevronLeft,
   ClipboardList,
+  FileText,
   LayoutDashboard,
   LifeBuoy,
   LogOut,
@@ -30,6 +31,7 @@ import {
   ShoppingBag,
   Trash2,
   User as UserIcon,
+  Wallet as WalletIcon,
 } from 'lucide-react'
 import { Section } from '../components/Section'
 import { Button } from '../components/Button'
@@ -67,11 +69,18 @@ import {
   fetchMyOrders,
   fetchMyOrderDetail,
 } from '../api/orders'
+import {
+  type CustomerInvoice,
+  type CustomerInvoiceDetail,
+  fetchMyInvoices,
+  fetchMyInvoiceDetail,
+} from '../api/invoices'
 import { FrappeApiError } from '../lib/frappeApi'
+import { WalletView } from './Wallet'
 
-type AccountSection = 'overview' | 'requests' | 'quotes' | 'procurement' | 'support' | 'orders' | 'profile'
+type AccountSection = 'overview' | 'requests' | 'quotes' | 'procurement' | 'support' | 'orders' | 'invoices' | 'wallet' | 'profile'
 
-const VALID_SECTIONS: AccountSection[] = ['overview', 'requests', 'quotes', 'procurement', 'support', 'orders', 'profile']
+const VALID_SECTIONS: AccountSection[] = ['overview', 'requests', 'quotes', 'procurement', 'support', 'orders', 'invoices', 'wallet', 'profile']
 
 function normalizeSection(param: string | undefined): AccountSection {
   if (!param) return 'overview'
@@ -153,6 +162,8 @@ export function AccountView() {
       {section === 'procurement' ? <ProcurementListView /> : null}
       {section === 'support' ? <SupportListView /> : null}
       {section === 'orders' ? <OrdersListView /> : null}
+      {section === 'invoices' ? <InvoicesListView /> : null}
+      {section === 'wallet' ? <WalletView embedded /> : null}
       {section === 'profile' ? <ProfileFormView user={user} /> : null}
     </AccountLayout>
   )
@@ -177,6 +188,10 @@ const SIDEBAR_ITEMS: SidebarItem[] = [
   { section: 'support', Icon: LifeBuoy, fa: 'پشتیبانی', en: 'Support' },
   // Phase 7C -- read-only Sales Order surface fed by iranrobot_backend.api.orders.
   { section: 'orders', Icon: Receipt, fa: 'سفارش‌ها', en: 'Orders' },
+  // Phase 7D -- read-only Sales Invoice + payment summary surface.
+  { section: 'invoices', Icon: FileText, fa: 'صورتحساب‌ها', en: 'Invoices' },
+  // Phase 8C -- backend-backed wallet (balance + top-up requests + history).
+  { section: 'wallet', Icon: WalletIcon, fa: 'کیف پول', en: 'Wallet' },
   { section: 'profile', Icon: UserIcon, fa: 'پروفایل', en: 'Profile' },
 ]
 
@@ -258,6 +273,47 @@ interface RequestsState {
   loading: boolean
   error: string | null
   reload: () => void
+}
+
+interface InvoicesState {
+  data: CustomerInvoice[] | null
+  loading: boolean
+  error: string | null
+  reload: () => void
+}
+
+function useMyInvoices(limit = 20): InvoicesState {
+  const [data, setData] = useState<CustomerInvoice[] | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [tick, setTick] = useState(0)
+
+  useEffect(() => {
+    const controller = new AbortController()
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- standard "load on mount / refetch on key change" pattern
+    setLoading(true)
+    setError(null)
+    fetchMyInvoices(limit, controller.signal)
+      .then((rows) => {
+        if (!controller.signal.aborted) {
+          setData(rows)
+          setLoading(false)
+        }
+      })
+      .catch((err: unknown) => {
+        if (controller.signal.aborted) return
+        const msg =
+          err instanceof FrappeApiError && err.code
+            ? err.message
+            : (err as Error)?.message || 'Failed to load invoices'
+        setError(msg)
+        setLoading(false)
+      })
+    return () => controller.abort()
+  }, [limit, tick])
+
+  const reload = useCallback(() => setTick((n) => n + 1), [])
+  return { data, loading, error, reload }
 }
 
 interface OrdersState {
@@ -434,28 +490,36 @@ function OverviewView() {
   const { currentUser } = useAuth()
   const state = useMyRequests(10)
   const orderState = useMyOrders(10)
+  const invoiceState = useMyInvoices(10)
 
   const quoteCount = state.data?.quote_requests.length ?? 0
   const procCount = state.data?.procurement_requests.length ?? 0
   const supportCount = state.data?.support_tickets.length ?? 0
   const orderCount = orderState.data?.length ?? 0
+  const invoiceCount = invoiceState.data?.length ?? 0
+  const outstandingTotal = useMemo(
+    () => (invoiceState.data ?? []).reduce((sum, inv) => sum + (inv.outstanding_amount ?? 0), 0),
+    [invoiceState.data],
+  )
 
   const recent = useMemo(() => {
-    if (!state.data && !orderState.data) return []
+    if (!state.data && !orderState.data && !invoiceState.data) return []
     type RecentItem =
       | { kind: 'quote'; record: MyQuoteRequest }
       | { kind: 'procurement'; record: MyProcurementRequest }
       | { kind: 'support'; record: MySupportTicket }
       | { kind: 'order'; record: CustomerOrder }
+      | { kind: 'invoice'; record: CustomerInvoice }
     const all: RecentItem[] = [
       ...(state.data?.quote_requests ?? []).map((r) => ({ kind: 'quote' as const, record: r })),
       ...(state.data?.procurement_requests ?? []).map((r) => ({ kind: 'procurement' as const, record: r })),
       ...(state.data?.support_tickets ?? []).map((r) => ({ kind: 'support' as const, record: r })),
       ...(orderState.data ?? []).map((r) => ({ kind: 'order' as const, record: r })),
+      ...(invoiceState.data ?? []).map((r) => ({ kind: 'invoice' as const, record: r })),
     ]
     all.sort((a, b) => (b.record.creation || '').localeCompare(a.record.creation || ''))
     return all.slice(0, 5)
-  }, [state.data, orderState.data])
+  }, [state.data, orderState.data, invoiceState.data])
 
   return (
     <div className="grid gap-6">
@@ -483,7 +547,7 @@ function OverviewView() {
         }
       />
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
         <CountCard
           icon={<ShoppingBag size={20} />}
           label={t('استعلام‌ها', 'Quote requests')}
@@ -511,6 +575,18 @@ function OverviewView() {
           count={orderCount}
           onClick={() => go('account', 'orders')}
           loading={orderState.loading}
+        />
+        <CountCard
+          icon={<FileText size={20} />}
+          label={t('صورتحساب‌ها', 'Invoices')}
+          count={invoiceCount}
+          onClick={() => go('account', 'invoices')}
+          loading={invoiceState.loading}
+          footer={
+            outstandingTotal > 0
+              ? `${t('بدهی', 'Outstanding')}: ${formatMoney(outstandingTotal, (invoiceState.data?.[0]?.currency) || 'USD')}`
+              : undefined
+          }
         />
       </div>
 
@@ -556,7 +632,9 @@ function OverviewView() {
                             ? t('تأمین', 'Procurement')
                             : it.kind === 'support'
                               ? t('پشتیبانی', 'Support')
-                              : t('سفارش', 'Order')}
+                              : it.kind === 'order'
+                                ? t('سفارش', 'Order')
+                                : t('صورتحساب', 'Invoice')}
                       </span>
                       <span className="font-mono text-xs text-tech-blue">{it.record.name}</span>
                     </div>
@@ -567,13 +645,18 @@ function OverviewView() {
                           ? it.record.product_name || '—'
                           : it.kind === 'support'
                             ? it.record.subject || '—'
-                            : (() => {
-                                const r = it.record
-                                return `${r.customer_name || ''}${r.items_count ? ` · ${r.items_count} ${t('قلم', 'items')}` : ''}`.trim() || '—'
-                              })()}
+                            : it.kind === 'order'
+                              ? (() => {
+                                  const r = it.record
+                                  return `${r.customer_name || ''}${r.items_count ? ` · ${r.items_count} ${t('قلم', 'items')}` : ''}`.trim() || '—'
+                                })()
+                              : (() => {
+                                  const r = it.record
+                                  return `${r.customer_name || ''} · ${formatMoney(r.grand_total, r.currency)}${r.outstanding_amount ? ` · ${t('باقی‌مانده', 'outstanding')}: ${formatMoney(r.outstanding_amount, r.currency)}` : ''}`.trim() || '—'
+                                })()}
                     </div>
                   </div>
-                  <StatusBadge kind={it.kind === 'order' ? 'order' : it.kind} status={it.record.status} />
+                  <StatusBadge kind={it.kind === 'order' ? 'order' : it.kind === 'invoice' ? 'invoice' : it.kind} status={it.record.status} />
                 </li>
               ))}
             </ul>
@@ -590,12 +673,16 @@ function CountCard({
   count,
   onClick,
   loading,
+  footer,
 }: {
   icon: React.ReactNode
   label: string
   count: number
   onClick: () => void
   loading: boolean
+  /** Optional secondary line under the label (Phase 7D uses this to show
+   *  the outstanding-invoices total on the Invoices count card). */
+  footer?: string
 }) {
   return (
     <button
@@ -614,6 +701,9 @@ function CountCard({
         )}
       </div>
       <div className="mt-3 text-sm font-semibold text-fg">{label}</div>
+      {footer ? (
+        <div className="mt-1 text-[11px] text-faint truncate">{footer}</div>
+      ) : null}
     </button>
   )
 }
@@ -1156,6 +1246,362 @@ function formatMoney(amount: number | null | undefined, currency: string | null 
   const cur = (currency || 'USD').toUpperCase()
   if (cur === 'USD') return `$${Number(amount).toLocaleString()}`
   return `${Number(amount).toLocaleString()} ${cur}`
+}
+
+// ---------------------------------------------------------------------------
+// Phase 7D -- Invoices list + detail drawer
+// ---------------------------------------------------------------------------
+
+function InvoicesListView() {
+  const { t, n } = useI18n()
+  const { go } = useApp()
+  const state = useMyInvoices(50)
+  const [openDetail, setOpenDetail] = useState<string | null>(null)
+  const rows = useMemo(() => state.data ?? [], [state.data])
+
+  const totalOutstanding = useMemo(
+    () => rows.reduce((sum, r) => sum + (r.outstanding_amount ?? 0), 0),
+    [rows],
+  )
+  const summaryCurrency = rows.find((r) => r.currency)?.currency ?? 'USD'
+
+  return (
+    <div className="grid gap-5">
+      <PageHeader
+        title={t('صورتحساب‌ها', 'Invoices')}
+        description={t(
+          'صورتحساب‌های ایجاد شده برای سفارش‌های شما توسط تیم فروش.',
+          'Invoices our sales team has issued against your orders.',
+        )}
+        rightSlot={
+          totalOutstanding > 0 ? (
+            <div className="text-end">
+              <div className="text-xs text-faint">{t('مجموع باقی‌مانده', 'Outstanding total')}</div>
+              <div className="text-lg font-extrabold text-brand-700 num-fa">
+                {formatMoney(totalOutstanding, summaryCurrency)}
+              </div>
+            </div>
+          ) : undefined
+        }
+      />
+      {state.loading ? (
+        <LoadingSkeleton />
+      ) : state.error ? (
+        <ErrorState message={state.error} onRetry={state.reload} />
+      ) : rows.length === 0 ? (
+        <EmptyState
+          title={t('هنوز صورتحسابی ندارید', 'No invoices yet')}
+          body={t(
+            'پس از تأیید سفارش‌ها، صورتحساب‌ها اینجا قابل پیگیری خواهند بود.',
+            'Once your orders are processed, invoices will appear here for tracking.',
+          )}
+          ctaLabel={t('مشاهده سفارش‌ها', 'View orders')}
+          onCta={() => go('account', 'orders')}
+        />
+      ) : (
+        <ul className="grid gap-2">
+          {rows.map((r) => (
+            <li key={r.name}>
+              <InvoiceRow invoice={r} onOpen={() => setOpenDetail(r.name)} />
+            </li>
+          ))}
+        </ul>
+      )}
+      <InvoiceDetailDrawer name={openDetail} onClose={() => setOpenDetail(null)} />
+      <p className="text-[11px] text-faint leading-5 text-center">
+        {t(
+          `${n(rows.length)} صورتحساب — پرداخت‌ها توسط تیم مالی به‌صورت دستی ثبت می‌شوند. در صورت پرسش از تیم فروش پیگیری کنید.`,
+          `${rows.length} invoice(s) — payments are recorded manually by our accounts team. Contact sales with any questions.`,
+        )}
+      </p>
+    </div>
+  )
+}
+
+function InvoiceRow({ invoice, onOpen }: { invoice: CustomerInvoice; onOpen: () => void }) {
+  const { t, n } = useI18n()
+  const subtitleParts: string[] = []
+  if (invoice.posting_date) subtitleParts.push(formatDate(invoice.posting_date))
+  if (invoice.items_count) subtitleParts.push(`${n(invoice.items_count)} ${t('قلم', 'items')}`)
+  if (invoice.due_date) subtitleParts.push(`${t('سررسید', 'Due')}: ${formatDate(invoice.due_date)}`)
+  const subtitle = subtitleParts.join(' · ')
+
+  const outstanding = invoice.outstanding_amount ?? 0
+  const grandTotal = invoice.grand_total ?? 0
+  const showOutstanding = outstanding > 0 && outstanding < grandTotal
+
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      className="w-full text-start rounded-2xl bg-white border border-line p-4 shadow-soft hover:shadow-soft-lg hover:border-brand-100 transition-all"
+    >
+      <div className="flex items-start justify-between gap-3 flex-wrap sm:flex-nowrap">
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="font-mono text-xs text-tech-blue">{invoice.name}</span>
+            {invoice.linked_sales_order ? (
+              <span className="text-[11px] text-faint">
+                · {t('از سفارش', 'from')}{' '}
+                <span className="font-mono text-tech-blue">{invoice.linked_sales_order}</span>
+              </span>
+            ) : null}
+          </div>
+          <div className="mt-1 text-sm font-bold text-fg truncate">
+            {invoice.customer_name || '—'}
+          </div>
+          <div className="mt-1 text-xs text-faint">{subtitle}</div>
+        </div>
+        <div className="shrink-0 flex flex-col items-end gap-2 whitespace-nowrap">
+          <div className="flex flex-col items-end gap-1.5">
+            <StatusBadge kind="invoice" status={invoice.status} />
+            <StatusBadge kind="payment" status={invoice.payment_status} />
+          </div>
+          <div className="text-xs font-bold num-fa text-tech-blue">
+            {formatMoney(invoice.grand_total, invoice.currency)}
+          </div>
+          {showOutstanding ? (
+            <div className="text-[11px] text-brand-700 font-semibold num-fa">
+              {t('باقی‌مانده', 'Outstanding')}: {formatMoney(invoice.outstanding_amount, invoice.currency)}
+            </div>
+          ) : null}
+        </div>
+      </div>
+    </button>
+  )
+}
+
+function InvoiceDetailDrawer({
+  name,
+  onClose,
+}: {
+  name: string | null
+  onClose: () => void
+}) {
+  const { t } = useI18n()
+  const [detail, setDetail] = useState<CustomerInvoiceDetail | null>(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!name) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- canonical "clear on close" pattern
+      setDetail(null)
+      setError(null)
+      return
+    }
+    const controller = new AbortController()
+    setLoading(true)
+    setError(null)
+    setDetail(null)
+    fetchMyInvoiceDetail(name, controller.signal)
+      .then((rec) => {
+        if (controller.signal.aborted) return
+        setDetail(rec)
+        setLoading(false)
+      })
+      .catch((err: unknown) => {
+        if (controller.signal.aborted) return
+        const msg =
+          err instanceof FrappeApiError
+            ? err.code === 'NOT_FOUND'
+              ? t('این صورتحساب یافت نشد.', 'This invoice was not found.')
+              : err.message
+            : (err as Error)?.message || 'Failed to load invoice'
+        setError(msg)
+        setLoading(false)
+      })
+    return () => controller.abort()
+  }, [name, t])
+
+  if (!name) return null
+
+  return (
+    <div className="fixed inset-0 z-50">
+      <div
+        className="absolute inset-0 bg-ink-900/40 animate-fade-in"
+        onClick={onClose}
+        aria-hidden
+      />
+      <aside
+        className="absolute top-0 end-0 h-full w-[min(760px,96vw)] bg-white border-s border-line shadow-soft-lg flex flex-col"
+        role="dialog"
+        aria-modal="true"
+      >
+        <header className="px-5 py-4 border-b border-line flex items-center gap-3">
+          <button
+            type="button"
+            onClick={onClose}
+            className="size-9 grid place-items-center rounded-xl hover:bg-ink-50 text-fg transition-colors"
+            aria-label={t('بستن', 'Close')}
+          >
+            <ChevronLeft size={18} />
+          </button>
+          <div className="min-w-0">
+            <div className="text-xs text-faint">{t('صورتحساب', 'Sales invoice')}</div>
+            <div className="font-mono text-sm text-fg">{name}</div>
+          </div>
+        </header>
+        <div className="flex-1 overflow-y-auto overflow-x-hidden p-5">
+          {loading ? (
+            <LoadingSkeleton rows={4} />
+          ) : error ? (
+            <ErrorState message={error} onRetry={onClose} />
+          ) : detail ? (
+            <InvoiceDetailBody record={detail} />
+          ) : null}
+        </div>
+      </aside>
+    </div>
+  )
+}
+
+function InvoiceDetailBody({ record }: { record: CustomerInvoiceDetail }) {
+  const { t, n } = useI18n()
+  const outstanding = record.outstanding_amount ?? 0
+  const grandTotal = record.grand_total ?? 0
+  const paid = record.paid_amount ?? Math.max(0, grandTotal - outstanding)
+
+  return (
+    <div className="grid gap-5">
+      <div>
+        <div className="flex items-center gap-2 flex-wrap">
+          <StatusBadge kind="invoice" status={record.status} />
+          <StatusBadge kind="payment" status={record.payment_status} />
+        </div>
+        <div className="mt-3 text-xs text-faint">
+          {t('تاریخ صدور', 'Posting date')}:{' '}
+          <span className="text-fg">{formatDate(record.posting_date)}</span>
+        </div>
+        {record.due_date ? (
+          <div className="mt-1 text-xs text-faint">
+            {t('سررسید', 'Due date')}:{' '}
+            <span className="text-fg">{formatDate(record.due_date)}</span>
+          </div>
+        ) : null}
+      </div>
+
+      <Block label={t('مالی', 'Financial summary')}>
+        <dl className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+          <Field label={t('مبلغ کل', 'Grand total')} value={formatMoney(grandTotal, record.currency)} />
+          <Field label={t('پرداخت‌شده', 'Paid')} value={formatMoney(paid, record.currency)} />
+          <Field label={t('باقی‌مانده', 'Outstanding')} value={formatMoney(outstanding, record.currency)} />
+          <Field label={t('وضعیت پرداخت', 'Payment status')} value={record.payment_status} />
+        </dl>
+      </Block>
+
+      <Block label={t('اقلام صورتحساب', 'Items')}>
+        {(record.items || []).length === 0 ? (
+          <p className="text-sm text-muted">{t('بدون اقلام', 'No items')}</p>
+        ) : (
+          <ul className="grid gap-2">
+            {record.items.map((it) => (
+              <li
+                key={`${it.idx}:${it.item_code}`}
+                className="rounded-xl bg-soft border border-line p-3 max-w-full"
+              >
+                <div className="flex items-start justify-between gap-3 flex-wrap sm:flex-nowrap">
+                  <div className="min-w-0 flex-1 basis-full sm:basis-auto">
+                    <div className="text-sm font-bold text-fg break-words">
+                      {it.item_name || it.description || it.item_code}
+                    </div>
+                    <div className="mt-1 text-xs text-faint font-mono break-all">{it.item_code}</div>
+                  </div>
+                  <div className="text-end shrink-0 whitespace-nowrap">
+                    <div className="text-xs text-faint">
+                      {t('تعداد', 'Qty')}:{' '}
+                      <span className="font-bold text-fg num-fa">{n(it.qty ?? 0)}</span>
+                      {it.uom ? <span className="text-faint"> {it.uom}</span> : null}
+                    </div>
+                    {it.rate ? (
+                      <div className="text-[11px] text-faint num-fa">
+                        {formatMoney(it.rate, record.currency)} {t('هر واحد', 'ea')}
+                      </div>
+                    ) : null}
+                    {it.amount ? (
+                      <div className="mt-0.5 text-xs font-bold num-fa text-tech-blue">
+                        {formatMoney(it.amount, record.currency)}
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </Block>
+
+      {(record.payments || []).length > 0 ? (
+        <Block label={t('پرداخت‌های ثبت‌شده', 'Recorded payments')}>
+          <ul className="grid gap-2">
+            {record.payments.map((p) => (
+              <li
+                key={p.name}
+                className="rounded-xl bg-emerald-50/40 border border-emerald-100 p-3 max-w-full"
+              >
+                <div className="flex items-start justify-between gap-3 flex-wrap sm:flex-nowrap">
+                  <div className="min-w-0 flex-1 basis-full sm:basis-auto">
+                    <div className="font-mono text-xs text-tech-blue break-all">{p.name}</div>
+                    {p.reference_no ? (
+                      <div className="mt-1 text-xs text-fg break-all">
+                        {t('شناسه پرداخت', 'Reference')}:{' '}
+                        <span className="font-mono">{p.reference_no}</span>
+                      </div>
+                    ) : null}
+                    {p.mode_of_payment ? (
+                      <div className="mt-0.5 text-xs text-faint">
+                        {t('روش پرداخت', 'Mode')}: {p.mode_of_payment}
+                      </div>
+                    ) : null}
+                  </div>
+                  <div className="text-end shrink-0 whitespace-nowrap">
+                    <div className="text-xs font-bold num-fa text-emerald-700">
+                      {formatMoney(p.allocated_amount, record.currency)}
+                    </div>
+                    {p.posting_date ? (
+                      <div className="text-[11px] text-faint">{formatDate(p.posting_date)}</div>
+                    ) : null}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </Block>
+      ) : null}
+
+      {(record.linked_sales_order || record.linked_quotation || record.linked_quote_request) ? (
+        <Block label={t('پیوندها', 'Linked records')}>
+          <dl className="grid gap-2 text-xs">
+            {record.linked_sales_order ? (
+              <div className="flex items-center justify-between gap-3 flex-wrap">
+                <dt className="text-faint">{t('سفارش', 'Sales order')}</dt>
+                <dd className="font-mono text-tech-blue break-all">{record.linked_sales_order}</dd>
+              </div>
+            ) : null}
+            {record.linked_quotation ? (
+              <div className="flex items-center justify-between gap-3 flex-wrap">
+                <dt className="text-faint">{t('پیشنهاد قیمت', 'Quotation')}</dt>
+                <dd className="font-mono text-tech-blue break-all">{record.linked_quotation}</dd>
+              </div>
+            ) : null}
+            {record.linked_quote_request ? (
+              <div className="flex items-center justify-between gap-3 flex-wrap">
+                <dt className="text-faint">{t('درخواست استعلام', 'Quote request')}</dt>
+                <dd className="font-mono text-tech-blue break-all">{record.linked_quote_request}</dd>
+              </div>
+            ) : null}
+          </dl>
+        </Block>
+      ) : null}
+
+      <p className="text-[11px] text-faint leading-5 text-center">
+        {t(
+          'این صفحه فقط برای مشاهده است. برای پرداخت یا تغییر صورتحساب با تیم فروش و مالی تماس بگیرید.',
+          'This page is read-only. Contact our sales / accounts team for payment or any change to this invoice.',
+        )}
+      </p>
+    </div>
+  )
 }
 
 // ---------------------------------------------------------------------------

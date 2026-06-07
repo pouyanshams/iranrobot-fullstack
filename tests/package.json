@@ -1,0 +1,9 @@
+{
+  "name": "iranrobot-tests",
+  "private": true,
+  "type": "module",
+  "description": "Dev-loop puppeteer E2E suites for IranRobot. See README.md.",
+  "dependencies": {
+    "puppeteer-core": "^25.1.0"
+  }
+}

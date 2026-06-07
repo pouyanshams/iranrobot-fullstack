@@ -22,3 +22,11 @@ __pycache__/
 
 # logs
 *.log
+
+# test artifacts (screenshots, fixture JSON)
+tests/artifacts/*
+!tests/artifacts/.gitkeep
+
+# test deps
+tests/node_modules/
+tests/package-lock.json
