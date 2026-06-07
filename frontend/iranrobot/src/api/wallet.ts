@@ -97,6 +97,50 @@ export interface CancelTopUpResult {
   cancelled_by: string
 }
 
+// ---------- Phase 8D-3 -- Pay Sales Invoice with Wallet --------------------
+
+export type WalletPaymentBlockedReason =
+  | 'CURRENCY_MISMATCH'
+  | 'INVOICE_NOT_SUBMITTED'
+  | 'INVOICE_CANCELLED'
+  | 'ALREADY_PAID'
+  | 'WALLET_FROZEN'
+  | 'INSUFFICIENT_FUNDS'
+
+export interface WalletPaymentInvoiceSnapshot {
+  name: string
+  outstanding_usd: number
+  currency: string
+  status: string
+  payment_status: string
+  grand_total_usd: number
+  debit_to: string
+}
+
+export interface WalletPaymentWalletSnapshot {
+  balance_usd: number
+  available_balance_usd: number
+  currency: string
+  status: 'Active' | 'Frozen' | 'Closed'
+}
+
+export interface WalletPaymentStatus {
+  invoice: WalletPaymentInvoiceSnapshot
+  wallet: WalletPaymentWalletSnapshot
+  max_payable_usd: number
+  can_pay_with_wallet: boolean
+  blocked_reason?: WalletPaymentBlockedReason
+}
+
+export interface WalletPaymentResult {
+  transaction_id: string
+  journal_entry: string | null
+  allocated_usd: number
+  new_wallet_balance_usd: number
+  invoice: { outstanding_usd: number; payment_status: string }
+  idempotent: boolean
+}
+
 // ---------- Reads -----------------------------------------------------------
 
 export async function fetchWalletSummary(signal?: AbortSignal): Promise<WalletSummary> {
@@ -144,4 +188,31 @@ export async function createTopUpRequest(
 
 export async function cancelTopUpRequest(name: string): Promise<CancelTopUpResult> {
   return frappePost<CancelTopUpResult>(`${BASE}.cancel_top_up_request`, { name })
+}
+
+// ---------- Phase 8D-3 -- pay with wallet ----------------------------------
+
+export async function fetchWalletPaymentStatus(
+  sales_invoice_name: string,
+  signal?: AbortSignal,
+): Promise<WalletPaymentStatus> {
+  return frappeFetch<WalletPaymentStatus>(
+    `${BASE}.get_wallet_payment_status`,
+    { sales_invoice_name },
+    signal,
+  )
+}
+
+export async function payInvoiceWithWallet(
+  sales_invoice_name: string,
+  amount_usd?: number,
+): Promise<WalletPaymentResult> {
+  return frappePost<WalletPaymentResult>(
+    `${BASE}.pay_invoice_with_wallet`,
+    {
+      sales_invoice_name,
+      // backend treats undefined/null/empty as "default to min(outstanding, balance)"
+      amount_usd: amount_usd === undefined ? undefined : amount_usd,
+    },
+  )
 }

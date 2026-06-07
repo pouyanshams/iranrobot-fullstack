@@ -22,6 +22,7 @@ import {
   FileText,
   LayoutDashboard,
   LifeBuoy,
+  Loader2,
   LogOut,
   MapPin,
   Package,
@@ -76,6 +77,13 @@ import {
   fetchMyInvoiceDetail,
 } from '../api/invoices'
 import { FrappeApiError } from '../lib/frappeApi'
+import {
+  payInvoiceWithWallet,
+  type WalletPaymentBlockedReason,
+  type WalletPaymentResult,
+} from '../api/wallet'
+import { useWalletPaymentStatus } from '../lib/useWallet'
+import { NumberInput } from '../components/Input'
 import { WalletView } from './Wallet'
 
 type AccountSection = 'overview' | 'requests' | 'quotes' | 'procurement' | 'support' | 'orders' | 'invoices' | 'wallet' | 'profile'
@@ -1382,6 +1390,11 @@ function InvoiceDetailDrawer({
   const [detail, setDetail] = useState<CustomerInvoiceDetail | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  // Phase 8D-3: PayWithWalletPanel triggers a refetch via this tick after a
+  // successful payInvoiceWithWallet so the drawer reflects the new
+  // outstanding/status + the new wallet_payments row.
+  const [reloadTick, setReloadTick] = useState(0)
+  const reloadDetail = useCallback(() => setReloadTick((n) => n + 1), [])
 
   useEffect(() => {
     if (!name) {
@@ -1393,7 +1406,9 @@ function InvoiceDetailDrawer({
     const controller = new AbortController()
     setLoading(true)
     setError(null)
-    setDetail(null)
+    // Keep `detail` while a reload is in flight so the drawer doesn't blink
+    // back to a skeleton; replace once the new data arrives.
+    if (reloadTick === 0) setDetail(null)
     fetchMyInvoiceDetail(name, controller.signal)
       .then((rec) => {
         if (controller.signal.aborted) return
@@ -1412,7 +1427,7 @@ function InvoiceDetailDrawer({
         setLoading(false)
       })
     return () => controller.abort()
-  }, [name, t])
+  }, [name, t, reloadTick])
 
   if (!name) return null
 
@@ -1443,12 +1458,12 @@ function InvoiceDetailDrawer({
           </div>
         </header>
         <div className="flex-1 overflow-y-auto overflow-x-hidden p-5">
-          {loading ? (
+          {loading && !detail ? (
             <LoadingSkeleton rows={4} />
           ) : error ? (
             <ErrorState message={error} onRetry={onClose} />
           ) : detail ? (
-            <InvoiceDetailBody record={detail} />
+            <InvoiceDetailBody record={detail} invoiceName={name} onReload={reloadDetail} />
           ) : null}
         </div>
       </aside>
@@ -1456,7 +1471,15 @@ function InvoiceDetailDrawer({
   )
 }
 
-function InvoiceDetailBody({ record }: { record: CustomerInvoiceDetail }) {
+function InvoiceDetailBody({
+  record,
+  invoiceName,
+  onReload,
+}: {
+  record: CustomerInvoiceDetail
+  invoiceName: string
+  onReload: () => void
+}) {
   const { t, n } = useI18n()
   const outstanding = record.outstanding_amount ?? 0
   const grandTotal = record.grand_total ?? 0
@@ -1489,6 +1512,8 @@ function InvoiceDetailBody({ record }: { record: CustomerInvoiceDetail }) {
           <Field label={t('وضعیت پرداخت', 'Payment status')} value={record.payment_status} />
         </dl>
       </Block>
+
+      <PayWithWalletPanel invoiceName={invoiceName} onPaid={onReload} />
 
       <Block label={t('اقلام صورتحساب', 'Items')}>
         {(record.items || []).length === 0 ? (
@@ -1530,6 +1555,48 @@ function InvoiceDetailBody({ record }: { record: CustomerInvoiceDetail }) {
           </ul>
         )}
       </Block>
+
+      {(record.wallet_payments || []).length > 0 ? (
+        <Block label={t('پرداخت‌های کیف پول', 'Wallet payments')}>
+          <ul className="grid gap-2" data-testid="wallet-payments-list">
+            {(record.wallet_payments ?? []).map((wp) => (
+              <li
+                key={wp.name}
+                className="rounded-xl bg-brand-50/40 border border-brand-100 p-3 max-w-full"
+                data-testid="wallet-payment-row"
+              >
+                <div className="flex items-start justify-between gap-3 flex-wrap sm:flex-nowrap">
+                  <div className="min-w-0 flex-1 basis-full sm:basis-auto">
+                    <div className="font-mono text-xs text-brand-700 break-all">{wp.name}</div>
+                    {wp.journal_entry ? (
+                      <div className="mt-1 text-xs text-fg break-all">
+                        {t('سند حسابداری', 'Journal Entry')}:{' '}
+                        <span className="font-mono">{wp.journal_entry}</span>
+                      </div>
+                    ) : null}
+                    {wp.notes ? (
+                      <div className="mt-0.5 text-xs text-faint break-words">{wp.notes}</div>
+                    ) : null}
+                  </div>
+                  <div className="text-end shrink-0 whitespace-nowrap">
+                    <div className="text-xs font-bold num-fa text-brand-700">
+                      {t('کسر از موجودی', 'From wallet')}
+                    </div>
+                    <div className="text-sm font-extrabold num-fa text-brand-800">
+                      -{formatMoney(wp.debit_amount_usd, 'USD')}
+                    </div>
+                    {wp.posted_at ? (
+                      <div className="text-[11px] text-faint">
+                        {formatDate(wp.posted_at)}
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </Block>
+      ) : null}
 
       {(record.payments || []).length > 0 ? (
         <Block label={t('پرداخت‌های ثبت‌شده', 'Recorded payments')}>
@@ -1602,6 +1669,353 @@ function InvoiceDetailBody({ record }: { record: CustomerInvoiceDetail }) {
       </p>
     </div>
   )
+}
+
+// ---------------------------------------------------------------------------
+// Phase 8D-3 -- Pay-with-Wallet panel embedded in the invoice detail drawer.
+// Lives between the Financial summary and Items blocks so the customer sees
+// outstanding -> wallet balance -> pay action in one viewport.
+// ---------------------------------------------------------------------------
+
+function PayWithWalletPanel({
+  invoiceName,
+  onPaid,
+}: {
+  invoiceName: string
+  onPaid: () => void
+}) {
+  const { t, usd } = useI18n()
+  const { go } = useApp()
+  const status = useWalletPaymentStatus(invoiceName)
+  const [amount, setAmount] = useState<number | null>(null)
+  const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
+  const [submitErrorCode, setSubmitErrorCode] = useState<string | null>(null)
+  const [success, setSuccess] = useState<WalletPaymentResult | null>(null)
+
+  // Whenever fresh payment status arrives, default the input to the max
+  // payable amount. The user can edit it down for a partial payment.
+  useEffect(() => {
+    if (!status.data) return
+    if (!status.data.can_pay_with_wallet) return
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- pre-fill on data arrival
+    setAmount(status.data.max_payable_usd)
+  }, [status.data])
+
+  const handlePay = useCallback(async () => {
+    if (!status.data || !status.data.can_pay_with_wallet) return
+    if (!amount || amount <= 0) {
+      setSubmitError(t('مبلغ نامعتبر است.', 'Invalid amount.'))
+      return
+    }
+    const outstanding = status.data.invoice.outstanding_usd
+    const willBeFull = amount >= outstanding - 0.005
+    const confirmMsg = willBeFull
+      ? t(
+          `پرداخت کامل ${usd(amount)} از کیف پول برای فاکتور ${invoiceName}؟`,
+          `Pay the full ${usd(amount)} from your wallet for invoice ${invoiceName}?`,
+        )
+      : t(
+          `پرداخت بخشی ${usd(amount)} از کیف پول برای فاکتور ${invoiceName}؟`,
+          `Pay ${usd(amount)} from your wallet toward invoice ${invoiceName}?`,
+        )
+    if (!window.confirm(confirmMsg)) return
+
+    setSubmitting(true)
+    setSubmitError(null)
+    setSubmitErrorCode(null)
+    try {
+      const res = await payInvoiceWithWallet(invoiceName, amount)
+      setSuccess(res)
+      // Refetch both the invoice (outstanding/status/wallet_payments) and the
+      // local payment-status hook (balance/max_payable).
+      onPaid()
+      status.reload()
+    } catch (err) {
+      if (err instanceof FrappeApiError) {
+        setSubmitErrorCode(err.code)
+        setSubmitError(mapPayErrorMessage(err.code, err.message, t))
+      } else {
+        setSubmitError((err as Error).message || t('خطایی رخ داد.', 'Something went wrong.'))
+      }
+    } finally {
+      setSubmitting(false)
+    }
+  }, [amount, invoiceName, onPaid, status, t, usd])
+
+  // ---- render branches ----
+
+  if (status.loading && !status.data) {
+    return (
+      <div className="rounded-2xl border border-line bg-soft px-4 py-3 text-sm text-muted flex items-center gap-2">
+        <Loader2 size={14} className="animate-spin" />
+        {t('در حال بررسی موجودی کیف پول…', 'Checking your wallet…')}
+      </div>
+    )
+  }
+
+  if (status.error) {
+    return (
+      <div className="rounded-2xl border border-amber-200 bg-amber-50/80 px-4 py-3 text-sm">
+        <div className="font-semibold text-amber-900">
+          {t('خطا در دریافت وضعیت کیف پول', 'Could not load wallet status')}
+        </div>
+        <div className="mt-1 text-xs text-amber-700">{status.error}</div>
+        <button
+          type="button"
+          onClick={status.reload}
+          className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-amber-900 underline underline-offset-4"
+        >
+          {t('تلاش مجدد', 'Retry')}
+        </button>
+      </div>
+    )
+  }
+
+  const data = status.data
+  if (!data) return null
+
+  const outstanding = data.invoice.outstanding_usd
+  const balance = data.wallet.balance_usd
+  const max = data.max_payable_usd
+
+  // -- success: show banner instead of the form ---------------------------
+  if (success) {
+    return (
+      <div
+        className="rounded-2xl border border-emerald-300 bg-emerald-50 px-4 py-3 text-sm"
+        data-testid="wallet-pay-success"
+      >
+        <div className="font-bold text-emerald-900">
+          {success.idempotent
+            ? t('پرداخت قبلی شناسایی شد', 'Existing payment matched')
+            : t('پرداخت موفق', 'Payment successful')}
+        </div>
+        <div className="mt-1 text-xs text-emerald-900">
+          {t('مبلغ', 'Amount')}: <span className="num-fa">{usd(success.allocated_usd)}</span>
+          <span className="mx-1.5">·</span>
+          {t('موجودی جدید', 'New balance')}:{' '}
+          <span className="num-fa">{usd(success.new_wallet_balance_usd)}</span>
+          <span className="mx-1.5">·</span>
+          {t('باقی‌مانده فاکتور', 'Outstanding')}:{' '}
+          <span className="num-fa">{usd(success.invoice.outstanding_usd)}</span>
+        </div>
+        <div className="mt-2 text-[11px] text-emerald-800/80">
+          <span className="font-mono">{success.transaction_id}</span>
+          {success.journal_entry ? (
+            <>
+              <span className="mx-1.5">·</span>
+              <span>{t('سند حسابداری', 'Journal Entry')}: </span>
+              <span className="font-mono">{success.journal_entry}</span>
+            </>
+          ) : null}
+        </div>
+        <button
+          type="button"
+          onClick={() => setSuccess(null)}
+          className="mt-2 text-xs font-semibold text-emerald-900 underline underline-offset-4"
+        >
+          {t('بستن', 'Dismiss')}
+        </button>
+      </div>
+    )
+  }
+
+  // -- blocked: show reason banner only ------------------------------------
+  if (!data.can_pay_with_wallet) {
+    const reason = data.blocked_reason
+    const msg = reason ? mapBlockedReason(reason, t) : t('پرداخت با کیف پول در دسترس نیست.', 'Wallet payment is unavailable.')
+    const showTopupLink = reason === 'INSUFFICIENT_FUNDS'
+    return (
+      <div
+        className="rounded-2xl border border-amber-200 bg-amber-50/80 px-4 py-3 text-sm"
+        data-testid="wallet-pay-blocked"
+        data-blocked-reason={reason ?? ''}
+      >
+        <div className="flex items-start justify-between gap-3 flex-wrap">
+          <div className="min-w-0">
+            <div className="font-semibold text-amber-900">
+              {t('پرداخت با کیف پول', 'Pay with Wallet')}
+            </div>
+            <div className="mt-1 text-xs text-amber-900/90">{msg}</div>
+            <div className="mt-2 text-[11px] text-amber-700 flex flex-wrap gap-3">
+              <span>
+                {t('موجودی', 'Balance')}: <span className="num-fa">{usd(balance)}</span>
+              </span>
+              <span>
+                {t('باقی‌مانده فاکتور', 'Outstanding')}:{' '}
+                <span className="num-fa">{usd(outstanding)}</span>
+              </span>
+            </div>
+          </div>
+          {showTopupLink ? (
+            <button
+              type="button"
+              onClick={() => go('account', 'wallet')}
+              className="text-xs font-semibold text-amber-900 underline underline-offset-4"
+              data-testid="wallet-pay-topup-link"
+            >
+              {t('افزایش موجودی کیف پول', 'Top up wallet')}
+            </button>
+          ) : null}
+        </div>
+      </div>
+    )
+  }
+
+  // -- payable: show input + button -----------------------------------------
+  const willBeFull = (amount ?? 0) >= outstanding - 0.005
+  const buttonLabel = willBeFull
+    ? t(`پرداخت کامل ${usd(amount ?? 0)}`, `Pay full ${usd(amount ?? 0)}`)
+    : t(`پرداخت بخشی ${usd(amount ?? 0)}`, `Pay partial ${usd(amount ?? 0)}`)
+  const remainingAfter = Math.max(0, outstanding - (amount ?? 0))
+
+  return (
+    <div
+      className="rounded-2xl border border-brand-100 bg-brand-50/40 px-4 py-4 sm:px-5 sm:py-5"
+      data-testid="wallet-pay-panel"
+    >
+      <div className="flex items-center justify-between gap-3 flex-wrap">
+        <div className="min-w-0">
+          <div className="text-sm font-bold text-brand-800">
+            {t('پرداخت با کیف پول', 'Pay with Wallet')}
+          </div>
+          <div className="mt-1 text-[11px] text-faint flex flex-wrap gap-3">
+            <span>
+              {t('موجودی', 'Balance')}:{' '}
+              <span className="num-fa font-bold text-brand-700">{usd(balance)}</span>
+            </span>
+            <span>
+              {t('باقی‌مانده فاکتور', 'Outstanding')}:{' '}
+              <span className="num-fa font-bold text-brand-700">{usd(outstanding)}</span>
+            </span>
+            <span>
+              {t('حداکثر قابل پرداخت', 'Max payable')}:{' '}
+              <span className="num-fa font-bold text-brand-700">{usd(max)}</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-3 flex flex-col sm:flex-row sm:items-end gap-3">
+        <div className="sm:flex-1">
+          <label className="block text-xs font-semibold mb-1 text-fg">
+            {t('مبلغ (دلار)', 'Amount (USD)')}
+          </label>
+          <NumberInput
+            value={amount ?? null}
+            onValueChange={(v) => setAmount(v)}
+            min={0.01}
+            max={max}
+            placeholder={`${max}`}
+            disabled={submitting}
+            data-testid="wallet-pay-amount"
+          />
+        </div>
+        <Button
+          onClick={handlePay}
+          disabled={submitting || !amount || amount <= 0}
+          data-testid="wallet-pay-submit"
+        >
+          {submitting ? <Loader2 size={16} className="animate-spin" /> : null}
+          {submitting
+            ? t('در حال پرداخت…', 'Processing…')
+            : buttonLabel}
+        </Button>
+      </div>
+
+      {!willBeFull && amount && amount > 0 ? (
+        <div className="mt-2 text-[11px] text-amber-700">
+          {t(
+            `پس از این پرداخت، ${usd(remainingAfter)} باقی می‌ماند.`,
+            `After this payment, ${usd(remainingAfter)} will remain.`,
+          )}
+        </div>
+      ) : null}
+
+      {submitError ? (
+        <div className="mt-3 text-sm text-red-700" data-testid="wallet-pay-error" data-error-code={submitErrorCode ?? ''}>
+          {submitError}
+        </div>
+      ) : null}
+    </div>
+  )
+}
+
+function mapBlockedReason(
+  reason: WalletPaymentBlockedReason,
+  t: (fa: string, en: string) => string,
+): string {
+  switch (reason) {
+    case 'CURRENCY_MISMATCH':
+      return t(
+        'این فاکتور به ارز USD نیست؛ پرداخت با کیف پول مقدور نیست.',
+        "This invoice isn't USD; wallet payments aren't supported.",
+      )
+    case 'INVOICE_NOT_SUBMITTED':
+      return t(
+        'فاکتور هنوز پیش‌نویس است؛ پس از تأیید تیم فروش قابل پرداخت می‌شود.',
+        'Invoice is still a Draft; you can pay it once sales submits it.',
+      )
+    case 'INVOICE_CANCELLED':
+      return t('این فاکتور لغو شده است.', 'This invoice was cancelled.')
+    case 'ALREADY_PAID':
+      return t('این فاکتور تسویه شده است.', 'This invoice is already paid.')
+    case 'WALLET_FROZEN':
+      return t(
+        'کیف پول شما مسدود است؛ با پشتیبانی تماس بگیرید.',
+        'Your wallet is frozen; please contact support.',
+      )
+    case 'INSUFFICIENT_FUNDS':
+      return t(
+        'موجودی کافی نیست. برای افزایش موجودی به کیف پول بروید.',
+        'Insufficient balance. Top up your wallet first.',
+      )
+    default:
+      return t('پرداخت با کیف پول در دسترس نیست.', 'Wallet payment is unavailable.')
+  }
+}
+
+function mapPayErrorMessage(
+  code: string,
+  fallback: string,
+  t: (fa: string, en: string) => string,
+): string {
+  switch (code) {
+    case 'INSUFFICIENT_FUNDS':
+      return t('موجودی کیف پول کافی نیست.', 'Insufficient wallet balance.')
+    case 'ALREADY_PAID':
+      return t('این فاکتور قبلاً تسویه شده است.', 'This invoice is already paid.')
+    case 'AMOUNT_EXCEEDS_OUTSTANDING':
+      return t(
+        'مبلغ از باقی‌مانده فاکتور بیشتر است.',
+        'Amount exceeds the invoice outstanding balance.',
+      )
+    case 'CURRENCY_MISMATCH':
+      return t(
+        'ارز فاکتور USD نیست؛ پرداخت با کیف پول مقدور نیست.',
+        "Invoice currency is not USD; wallet payments aren't supported.",
+      )
+    case 'INVOICE_NOT_PAYABLE':
+      return t(
+        'این فاکتور قابل پرداخت نیست (پیش‌نویس یا لغو شده).',
+        "This invoice isn't payable (Draft or Cancelled).",
+      )
+    case 'WALLET_FROZEN':
+      return t(
+        'کیف پول شما مسدود است؛ با پشتیبانی تماس بگیرید.',
+        'Your wallet is frozen; please contact support.',
+      )
+    case 'ACCOUNTING_NOT_READY':
+      return t(
+        'تنظیمات حسابداری کیف پول کامل نیست؛ با پشتیبانی تماس بگیرید.',
+        "Wallet accounting isn't ready; please contact support.",
+      )
+    case 'NOT_FOUND':
+      return t('فاکتور یافت نشد.', 'Invoice not found.')
+    default:
+      return fallback || t('خطایی رخ داد.', 'Something went wrong.')
+  }
 }
 
 // ---------------------------------------------------------------------------

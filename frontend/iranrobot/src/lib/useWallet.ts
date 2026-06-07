@@ -16,8 +16,10 @@ import { useCallback, useEffect, useState } from 'react'
 
 import {
   fetchMyTopUpRequests,
+  fetchWalletPaymentStatus,
   fetchWalletSummary,
   fetchWalletTransactions,
+  type WalletPaymentStatus,
   type WalletSummary,
   type WalletTopUpRequest,
   type WalletTransaction,
@@ -189,4 +191,59 @@ export function useMyTopUpRequests(
   const reload = useCallback(() => setTick((n) => n + 1), [])
   if (!enabled) return DISABLED_TOPUPS
   return { data, totalCount, loading, error, reload }
+}
+
+// ---------- Phase 8D-3: wallet payment status for a specific invoice -------
+
+export interface WalletPaymentStatusState {
+  data: WalletPaymentStatus | null
+  loading: boolean
+  error: string | null
+  reload: () => void
+}
+
+const DISABLED_PAYMENT_STATUS: WalletPaymentStatusState = {
+  data: null,
+  loading: false,
+  error: null,
+  reload: () => {},
+}
+
+/** Returns the per-invoice wallet payment status. The hook is gated on both
+ * `enabled` and `invoiceName !== null` -- when either is falsy, the hook
+ * short-circuits to the static DISABLED snapshot and never fetches. */
+export function useWalletPaymentStatus(
+  invoiceName: string | null,
+  enabled: boolean = true,
+): WalletPaymentStatusState {
+  const [data, setData] = useState<WalletPaymentStatus | null>(null)
+  const [loading, setLoading] = useState<boolean>(enabled && !!invoiceName)
+  const [error, setError] = useState<string | null>(null)
+  const [tick, setTick] = useState(0)
+
+  useEffect(() => {
+    if (!enabled || !invoiceName) return
+    const controller = new AbortController()
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- standard "load on mount / refetch on key change" pattern
+    setLoading(true)
+    setError(null)
+    fetchWalletPaymentStatus(invoiceName, controller.signal)
+      .then((s) => {
+        if (!controller.signal.aborted) {
+          setData(s)
+          setLoading(false)
+        }
+      })
+      .catch((err: unknown) => {
+        if (controller.signal.aborted) return
+        if ((err as { name?: string })?.name === 'AbortError') return
+        setError(errorMessage(err))
+        setLoading(false)
+      })
+    return () => controller.abort()
+  }, [enabled, invoiceName, tick])
+
+  const reload = useCallback(() => setTick((n) => n + 1), [])
+  if (!enabled || !invoiceName) return DISABLED_PAYMENT_STATUS
+  return { data, loading, error, reload }
 }

@@ -64,6 +64,21 @@ export interface CustomerInvoiceItem {
   amount: number | null
 }
 
+/** Phase 8D-3 -- Customer-safe wallet spend row attached to an invoice.
+ *  Distinct from CustomerPaymentSummary because wallet settlements are
+ *  Journal Entries, not Payment Entries. */
+export interface WalletInvoicePayment {
+  name: string                        // Robot Wallet Transaction id (WT-...)
+  transaction_type: 'Spend'
+  debit_amount_usd: number
+  balance_after_usd: number
+  posted_at: string
+  linked_sales_invoice: string
+  linked_quote_request: string | null
+  notes: string | null
+  journal_entry: string | null        // derived backend-side from user_remark
+}
+
 /** Customer-safe Payment Entry summary. */
 export interface CustomerPaymentSummary {
   name: string
@@ -97,6 +112,9 @@ export interface CustomerInvoiceDetail {
   payment_status: CustomerPaymentStatus
   items: CustomerInvoiceItem[]
   payments: CustomerPaymentSummary[]
+  /** Phase 8D-3: wallet settlements (Journal Entry-based). Optional because
+   * pre-8D-3 backend responses won't carry the field; treat as empty. */
+  wallet_payments?: WalletInvoicePayment[]
   linked_quote_request?: string | null
   linked_quotation?: string | null
   linked_sales_order?: string | null
