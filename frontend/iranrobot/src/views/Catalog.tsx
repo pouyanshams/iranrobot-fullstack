@@ -80,18 +80,17 @@ const SUBCATEGORY_IDS: ReadonlySet<string> = new Set(
 )
 
 /**
- * Use-case-driven Solutions IDs. Products are not linked to these in Phase 1
- * (the schema has no `useCases` field), so the API can't filter by them. We
- * render a clear "no products linked yet" empty state instead of a misleading
- * blank panel.
+ * Use-case slugs (child Solutions entries). Each one corresponds to a row in
+ * the backend Robot Use Case table; the catalog API filters via the
+ * `Robot Product Use Case` child table.
  *
- * TODO(phase-5+): Solutions require a future Product <-> Use Case relation
- * (and a matching API filter) to show real products.
+ * The parent `solutions` route is handled separately -- it asks the backend
+ * for any product that has at least one use case (`has_use_case=1`).
  */
-const SOLUTION_IDS: ReadonlySet<string> = new Set([
-  'solutions',
-  ...(SHOP_TREE.find((n) => n.plpId === 'solutions')?.children?.map((c) => c.plpId) ?? []),
-])
+const USE_CASE_IDS: ReadonlySet<string> = new Set(
+  SHOP_TREE.find((n) => n.plpId === 'solutions')?.children?.map((c) => c.plpId) ?? [],
+)
+const PARENT_SOLUTIONS_ID = 'solutions'
 
 /** Hardcoded label for the virtual `new` entry (not a real Robot Category row). */
 const VIRTUAL_NEW_LABELS = { label_fa: 'تازه‌واردها', label_en: 'New Arrivals' }
@@ -136,32 +135,39 @@ export function CatalogView() {
       ? route.param
       : null
   const activeId = urlSelected ?? DEFAULT_PLP_ID
-  const isSolutionFilter = SOLUTION_IDS.has(activeId)
   // Pick the right axis from SHOP_TREE (synchronous) rather than from the
   // categories API response. This eliminates the brief render where a
   // subcategory URL was incorrectly queried as a top-level category before
   // categories loaded, which used to flash an empty grid then re-render.
-  const productsQuery = useMemo(() => {
-    if (activeId === 'new') return { category: 'new' as const }
+  //
+  // The Solutions axis is orthogonal to category/subcategory:
+  //   `#/catalog/solutions`  -> has_use_case=1   (all products with any use case)
+  //   `#/catalog/inspection` -> use_case=inspection
+  //   `#/catalog/security`   -> use_case=security    ... etc.
+  const productsQuery = useMemo<{
+    category?: string
+    subcategory?: string
+    use_case?: string
+    has_use_case?: boolean
+  }>(() => {
+    if (activeId === 'new') return { category: 'new' }
+    if (activeId === PARENT_SOLUTIONS_ID) return { has_use_case: true }
+    if (USE_CASE_IDS.has(activeId)) return { use_case: activeId }
     return SUBCATEGORY_IDS.has(activeId)
       ? { subcategory: activeId }
       : { category: activeId }
   }, [activeId])
 
   // ----- Products for the active filter -----
-  // Skip the API call entirely for Solutions filters -- the backend can't filter
-  // by useCases yet (see TODO above SOLUTION_IDS), so any call would just
-  // return 0. Avoiding the fetch keeps the empty state instant + jitter-free.
   const products = useApi(
     (signal) =>
-      isSolutionFilter
-        ? Promise.resolve({
-            products: [],
-            pagination: { total: 0, page: 1, limit: 0, offset: 0, returned: 0, has_next: false },
-            filters_applied: {},
-          })
-        : fetchProducts({ ...productsQuery, limit: 100, sort: 'display_order' }, signal),
-    [isSolutionFilter, productsQuery.category, productsQuery.subcategory],
+      fetchProducts({ ...productsQuery, limit: 100, sort: 'display_order' }, signal),
+    [
+      productsQuery.category,
+      productsQuery.subcategory,
+      productsQuery.use_case,
+      productsQuery.has_use_case,
+    ],
   )
 
   function handleClick(id: string) {
@@ -297,17 +303,6 @@ export function CatalogView() {
                 <RobotCard key={r.id} robot={r} />
               ))}
             </div>
-          ) : isSolutionFilter ? (
-            <ApiEmpty
-              title={t(
-                'هنوز محصولی به این راهکار وصل نشده است',
-                'No products linked to this solution yet',
-              )}
-              description={t(
-                'این بخش وقتی برچسب‌های کاربردی (Use Cases) به محصولات اضافه شود فعال می‌شود. می‌توانید فعلاً از دسته‌بندی‌های اصلی استفاده کنید.',
-                'This section will populate once products are tagged with use cases. For now, browse the main form-factor categories instead.',
-              )}
-            />
           ) : (
             <ApiEmpty />
           )}

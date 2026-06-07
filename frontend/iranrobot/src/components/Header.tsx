@@ -84,7 +84,12 @@ export function Header() {
   const { t, n, toggle, lang } = useI18n()
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [mobileShopOpen, setMobileShopOpen] = useState(false)
+  // Click-to-navigate on the desktop Shop button has to fight the hover
+  // dropdown -- the cursor is still on the trigger after the click, so
+  // `group-hover` keeps the dropdown visible. We suppress the dropdown
+  // classes for as long as the cursor stays on the Shop wrapper; the
+  // `onMouseLeave` handler clears the flag so the next hover opens cleanly.
+  const [shopDropdownSuppressed, setShopDropdownSuppressed] = useState(false)
   /** Which Shop category's subs are shown in the right panel of the mega-menu. */
   const [activeCategoryId, setActiveCategoryId] = useState<string>('solutions')
 
@@ -128,10 +133,22 @@ export function Header() {
               // ===== Shop item: pure-CSS hover/focus dropdown =====
               if (item.id === 'catalog') {
                 return (
-                  <div key={item.id} className="relative group">
+                  <div
+                    key={item.id}
+                    className="relative group"
+                    onMouseLeave={() => setShopDropdownSuppressed(false)}
+                  >
                     <button
                       type="button"
                       aria-haspopup="menu"
+                      onClick={(e) => {
+                        // Drop focus + suppress the hover/focus dropdown
+                        // before navigating so it doesn't linger on the
+                        // catalog page while the cursor is still on Shop.
+                        ;(e.currentTarget as HTMLButtonElement).blur()
+                        setShopDropdownSuppressed(true)
+                        go('catalog')
+                      }}
                       className={[
                         'relative inline-flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition-colors',
                         active ? 'text-brand-700' : 'text-ink-700 hover:text-brand-700 group-hover:text-brand-700 group-focus-within:text-brand-700',
@@ -157,12 +174,17 @@ export function Header() {
                       drop the :hover state. Visibility controlled by CSS only.
                     */}
                     <div
-                      className="
-                        absolute top-full start-0 pt-3 z-40
-                        opacity-0 pointer-events-none transition-opacity duration-200
-                        group-hover:opacity-100 group-hover:pointer-events-auto
-                        group-focus-within:opacity-100 group-focus-within:pointer-events-auto
-                      "
+                      className={[
+                        'absolute top-full start-0 pt-3 z-40',
+                        'opacity-0 pointer-events-none transition-opacity duration-200',
+                        // When the click handler has just navigated, keep the
+                        // dropdown hidden even though the cursor is still on
+                        // the trigger; the wrapper's `onMouseLeave` clears
+                        // the flag so a fresh hover opens it again.
+                        shopDropdownSuppressed
+                          ? ''
+                          : 'group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto',
+                      ].join(' ')}
                     >
                       {(() => {
                         const activeData =
@@ -365,63 +387,27 @@ export function Header() {
                 {NAV.map((item) => {
                   const active = route.name === item.id
 
+                  // On mobile there is no hover, so tapping Shop navigates
+                  // directly to the catalog page (same target as desktop's
+                  // "View all categories"). The previous tap-to-expand
+                  // subcategory dropdown is intentionally removed -- users
+                  // browse categories on the catalog page itself.
                   if (item.id === 'catalog') {
                     return (
-                      <div key={item.id}>
-                        <button
-                          type="button"
-                          onClick={() => setMobileShopOpen((v) => !v)}
-                          aria-expanded={mobileShopOpen}
-                          className={[
-                            'w-full h-11 px-4 rounded-lg text-sm font-semibold text-start transition-colors flex items-center justify-between',
-                            active ? 'bg-brand-50 text-brand-700 ring-1 ring-brand-100' : 'text-ink-700 hover:text-brand-700 hover:bg-ink-50',
-                          ].join(' ')}
-                        >
-                          <span>{t(item.fa, item.en)}</span>
-                          <ChevronDown
-                            size={16}
-                            className={['transition-transform duration-200', mobileShopOpen ? 'rotate-180' : ''].join(' ')}
-                          />
-                        </button>
-                        <AnimatePresence initial={false}>
-                          {mobileShopOpen ? (
-                            <motion.div
-                              initial={{ opacity: 0, height: 0 }}
-                              animate={{ opacity: 1, height: 'auto' }}
-                              exit={{ opacity: 0, height: 0 }}
-                              className="overflow-hidden"
-                            >
-                              <div className="ps-3 pe-1 py-1 grid gap-0.5">
-                                {SHOP_CATEGORIES.map((c) => (
-                                  <button
-                                    key={c.id}
-                                    type="button"
-                                    onClick={() => {
-                                      go('catalog', c.id)
-                                      setMobileShopOpen(false)
-                                      setOpen(false)
-                                    }}
-                                    className="h-10 px-4 rounded-lg text-sm font-medium text-start text-ink-700 hover:text-brand-700 hover:bg-brand-50 transition-colors"
-                                  >
-                                    {t(c.fa, c.en)}
-                                  </button>
-                                ))}
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    go('catalog')
-                                    setMobileShopOpen(false)
-                                    setOpen(false)
-                                  }}
-                                  className="h-10 px-4 rounded-lg text-sm font-semibold text-start text-brand-700 hover:bg-brand-50 transition-colors"
-                                >
-                                  {t('مشاهده کل فروشگاه', 'View all categories')} →
-                                </button>
-                              </div>
-                            </motion.div>
-                          ) : null}
-                        </AnimatePresence>
-                      </div>
+                      <button
+                        key={item.id}
+                        type="button"
+                        onClick={() => {
+                          go('catalog')
+                          setOpen(false)
+                        }}
+                        className={[
+                          'w-full h-11 px-4 rounded-lg text-sm font-semibold text-start transition-colors flex items-center justify-between',
+                          active ? 'bg-brand-50 text-brand-700 ring-1 ring-brand-100' : 'text-ink-700 hover:text-brand-700 hover:bg-ink-50',
+                        ].join(' ')}
+                      >
+                        <span>{t(item.fa, item.en)}</span>
+                      </button>
                     )
                   }
 

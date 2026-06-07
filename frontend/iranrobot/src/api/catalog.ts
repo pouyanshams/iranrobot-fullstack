@@ -249,6 +249,10 @@ export async function fetchCategories(signal?: AbortSignal): Promise<ApiCategori
 export interface GetProductsParams {
   category?: string
   subcategory?: string
+  /** Filter by a single Robot Use Case slug (e.g. 'inspection'). */
+  use_case?: string
+  /** Return only products that have at least one use case (parent solutions route). */
+  has_use_case?: boolean
   is_new_arrival?: boolean
   is_featured?: boolean
   search?: string
@@ -267,6 +271,8 @@ export async function fetchProducts(
     {
       category: params.category,
       subcategory: params.subcategory,
+      use_case: params.use_case,
+      has_use_case: params.has_use_case,
       is_new_arrival: params.is_new_arrival,
       is_featured: params.is_featured,
       search: params.search,
