@@ -1,0 +1,260 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "naming_series:",
+ "creation": "2026-06-03 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_meta",
+  "naming_series",
+  "status",
+  "column_break_meta",
+  "source",
+  "language",
+  "submitted_at",
+  "section_customer",
+  "customer",
+  "contact",
+  "user_email",
+  "column_break_customer",
+  "contact_name",
+  "email",
+  "phone",
+  "company",
+  "section_product",
+  "product_name",
+  "brand",
+  "quantity",
+  "column_break_product",
+  "origin_country",
+  "destination_city",
+  "target_budget_usd",
+  "timeline",
+  "section_message",
+  "message",
+  "section_admin",
+  "internal_notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_meta",
+   "fieldtype": "Section Break",
+   "label": "Meta"
+  },
+  {
+   "default": "PR-.YYYY.-.#####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "PR-.YYYY.-.#####",
+   "reqd": 1
+  },
+  {
+   "default": "New",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "New\nReviewing\nSourcing\nSupplier Found\nProposal Sent\nAccepted\nRejected\nClosed",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_meta",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Website",
+   "fieldname": "source",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Source",
+   "options": "Website\nDesk",
+   "reqd": 1
+  },
+  {
+   "default": "fa",
+   "fieldname": "language",
+   "fieldtype": "Select",
+   "label": "Language",
+   "options": "fa\nen"
+  },
+  {
+   "fieldname": "submitted_at",
+   "fieldtype": "Datetime",
+   "label": "Submitted At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_customer",
+   "fieldtype": "Section Break",
+   "label": "Customer"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "contact",
+   "fieldtype": "Link",
+   "label": "Contact",
+   "options": "Contact"
+  },
+  {
+   "fieldname": "user_email",
+   "fieldtype": "Data",
+   "label": "User Email",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_customer",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "contact_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Contact Name (snapshot)"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email",
+   "options": "Email"
+  },
+  {
+   "fieldname": "phone",
+   "fieldtype": "Data",
+   "label": "Phone"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Data",
+   "label": "Company"
+  },
+  {
+   "fieldname": "section_product",
+   "fieldtype": "Section Break",
+   "label": "Product"
+  },
+  {
+   "fieldname": "product_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Product or Need",
+   "reqd": 1
+  },
+  {
+   "fieldname": "brand",
+   "fieldtype": "Data",
+   "label": "Brand / Manufacturer"
+  },
+  {
+   "default": "1",
+   "fieldname": "quantity",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Quantity",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "column_break_product",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "origin_country",
+   "fieldtype": "Data",
+   "label": "Origin Country"
+  },
+  {
+   "fieldname": "destination_city",
+   "fieldtype": "Data",
+   "label": "Destination City"
+  },
+  {
+   "fieldname": "target_budget_usd",
+   "fieldtype": "Currency",
+   "label": "Target Budget (USD)",
+   "options": "USD"
+  },
+  {
+   "fieldname": "timeline",
+   "fieldtype": "Data",
+   "label": "Timeline"
+  },
+  {
+   "fieldname": "section_message",
+   "fieldtype": "Section Break",
+   "label": "Customer message",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "message",
+   "fieldtype": "Text",
+   "label": "Notes / Requirements"
+  },
+  {
+   "fieldname": "section_admin",
+   "fieldtype": "Section Break",
+   "label": "Internal (admin only)",
+   "collapsible": 1,
+   "collapsible_depends_on": "internal_notes"
+  },
+  {
+   "fieldname": "internal_notes",
+   "fieldtype": "Text",
+   "label": "Internal Notes"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-06-03 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Requests",
+ "name": "Robot Procurement Request",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "product_name",
+ "track_changes": 1
+}

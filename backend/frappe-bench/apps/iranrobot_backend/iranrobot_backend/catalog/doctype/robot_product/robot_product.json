@@ -1,0 +1,408 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "field:product_id",
+ "creation": "2026-06-01 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_identity",
+  "product_id",
+  "slug",
+  "erpnext_item",
+  "column_break_identity",
+  "is_published",
+  "is_featured",
+  "is_new_arrival",
+  "display_order",
+  "section_categorization",
+  "category",
+  "subcategory",
+  "section_use_cases",
+  "use_cases",
+  "section_naming",
+  "product_name_fa",
+  "product_name_en",
+  "column_break_brand",
+  "brand",
+  "model",
+  "section_origin",
+  "origin_fa",
+  "origin_en",
+  "section_copy",
+  "tagline_fa",
+  "tagline_en",
+  "description_fa",
+  "description_en",
+  "section_availability",
+  "in_stock",
+  "lead_time_days",
+  "column_break_rating",
+  "rating",
+  "section_modes",
+  "mode_buy",
+  "mode_rent",
+  "mode_procure",
+  "section_pricing",
+  "price_usd",
+  "rent_per_day_usd",
+  "column_break_pricing_quote",
+  "price_label_fa",
+  "price_label_en",
+  "section_media",
+  "images",
+  "section_specs",
+  "specs"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_identity",
+   "fieldtype": "Section Break",
+   "label": "Identity"
+  },
+  {
+   "description": "Canonical id matching the frontend slug-style key (e.g. \"aimoga-mornine\"). Becomes the doc name.",
+   "fieldname": "product_id",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Product ID",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "description": "URL slug for the public PDP route (e.g. \"aimoga-mornine\"). Usually equal to product_id.",
+   "fieldname": "slug",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Slug",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "description": "Reference to the matching ERPNext Item used for Quotations / Sales Orders. Auto-set by the Phase 3.5 sync command (iranrobot_backend.commands.sync_to_erpnext.run).",
+   "fieldname": "erpnext_item",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "ERPNext Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "column_break_identity",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "description": "Uncheck to keep the product as Draft (hidden from public APIs). Phase 2 public endpoints will filter on is_published=1.",
+   "fieldname": "is_published",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Is Published"
+  },
+  {
+   "default": "0",
+   "description": "Marks this product as the homepage Editor's Pick featured card. At most one product should be featured at a time (admin convention).",
+   "fieldname": "is_featured",
+   "fieldtype": "Check",
+   "in_standard_filter": 1,
+   "label": "Is Featured"
+  },
+  {
+   "default": "0",
+   "description": "Surfaces this product under the New Arrivals filter.",
+   "fieldname": "is_new_arrival",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Is New Arrival"
+  },
+  {
+   "default": "0",
+   "description": "Sort order within a category (lower = first). Defaults to 0.",
+   "fieldname": "display_order",
+   "fieldtype": "Int",
+   "label": "Display Order",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "section_categorization",
+   "fieldtype": "Section Break",
+   "label": "Categorization"
+  },
+  {
+   "description": "Top-level form-factor category (e.g. Humanoids, Quadrupeds, AMRs, Drones, UGVs, Accessories). Must be a Robot Category without a parent.",
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Category",
+   "options": "Robot Category",
+   "reqd": 1
+  },
+  {
+   "description": "Optional subcategory (e.g. Bipedal Humanoids). Must be a Robot Category whose parent_category equals the chosen Category.",
+   "fieldname": "subcategory",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Subcategory",
+   "options": "Robot Category"
+  },
+  {
+   "fieldname": "section_use_cases",
+   "fieldtype": "Section Break",
+   "label": "Use Cases (Solutions)",
+   "description": "Application / use-case taxonomy. Orthogonal to category/subcategory. A product can belong to multiple use cases (e.g. a quadruped suitable for both inspection and security)."
+  },
+  {
+   "description": "Use Cases this product solves. Each row links to a Robot Use Case (warehouse, security, inspection, healthcare, education, custom, ...).",
+   "fieldname": "use_cases",
+   "fieldtype": "Table",
+   "label": "Use Cases",
+   "options": "Robot Product Use Case"
+  },
+  {
+   "fieldname": "section_naming",
+   "fieldtype": "Section Break",
+   "label": "Display Name"
+  },
+  {
+   "description": "Persian display name.",
+   "fieldname": "product_name_fa",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "label": "Product Name (fa)",
+   "reqd": 1
+  },
+  {
+   "description": "English display name.",
+   "fieldname": "product_name_en",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "label": "Product Name (en)",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_brand",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Manufacturer / brand name. Kept in Latin script per project convention (e.g. \"Unitree Robotics\", \"AiMOGA Robotics\").",
+   "fieldname": "brand",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "in_standard_filter": 1,
+   "label": "Brand",
+   "reqd": 1
+  },
+  {
+   "description": "Optional model identifier (e.g. \"G1 EDU U1\").",
+   "fieldname": "model",
+   "fieldtype": "Data",
+   "label": "Model"
+  },
+  {
+   "fieldname": "section_origin",
+   "fieldtype": "Section Break",
+   "label": "Origin"
+  },
+  {
+   "description": "Country of manufacture in Persian (e.g. \"چین\").",
+   "fieldname": "origin_fa",
+   "fieldtype": "Data",
+   "label": "Origin (fa)",
+   "reqd": 1
+  },
+  {
+   "description": "Country of manufacture in English (e.g. \"China\").",
+   "fieldname": "origin_en",
+   "fieldtype": "Data",
+   "label": "Origin (en)",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_copy",
+   "fieldtype": "Section Break",
+   "label": "Copy"
+  },
+  {
+   "description": "Short Persian tagline (1–2 sentences).",
+   "fieldname": "tagline_fa",
+   "fieldtype": "Small Text",
+   "label": "Tagline (fa)",
+   "reqd": 1
+  },
+  {
+   "description": "Short English tagline (1–2 sentences).",
+   "fieldname": "tagline_en",
+   "fieldtype": "Small Text",
+   "label": "Tagline (en)",
+   "reqd": 1
+  },
+  {
+   "description": "Long Persian description (rendered on PDP).",
+   "fieldname": "description_fa",
+   "fieldtype": "Long Text",
+   "label": "Description (fa)",
+   "reqd": 1
+  },
+  {
+   "description": "Long English description (rendered on PDP).",
+   "fieldname": "description_en",
+   "fieldtype": "Long Text",
+   "label": "Description (en)",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_availability",
+   "fieldtype": "Section Break",
+   "label": "Availability"
+  },
+  {
+   "default": "1",
+   "description": "Drives the green \"In stock\" badge on PLP and PDP. Uncheck to render \"Available on request\".",
+   "fieldname": "in_stock",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "In Stock"
+  },
+  {
+   "default": "30",
+   "description": "Typical lead time in business days (e.g. 21, 30, 45). Used by the Robot Finder urgency scoring.",
+   "fieldname": "lead_time_days",
+   "fieldtype": "Int",
+   "label": "Lead Time (days)",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_rating",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Optional 0–5 star rating. Leave blank for products with no reviews yet (frontend renders empty gray stars).",
+   "fieldname": "rating",
+   "fieldtype": "Float",
+   "label": "Rating",
+   "precision": "1"
+  },
+  {
+   "fieldname": "section_modes",
+   "fieldtype": "Section Break",
+   "label": "Availability Modes"
+  },
+  {
+   "default": "0",
+   "description": "Direct buy is supported. Requires price_usd to be set.",
+   "fieldname": "mode_buy",
+   "fieldtype": "Check",
+   "label": "Sellable (Buy)"
+  },
+  {
+   "default": "0",
+   "description": "Daily rental is supported. Requires rent_per_day_usd to be set.",
+   "fieldname": "mode_rent",
+   "fieldtype": "Check",
+   "label": "Rentable (Rent)"
+  },
+  {
+   "default": "1",
+   "description": "Customer can request a quote / procurement. Default = on.",
+   "fieldname": "mode_procure",
+   "fieldtype": "Check",
+   "label": "Quote / Source (Procure)"
+  },
+  {
+   "fieldname": "section_pricing",
+   "fieldtype": "Section Break",
+   "label": "Pricing"
+  },
+  {
+   "description": "Direct purchase price in USD. Required when Sellable (Buy) is checked.",
+   "fieldname": "price_usd",
+   "fieldtype": "Currency",
+   "label": "Price (USD)",
+   "options": "USD"
+  },
+  {
+   "description": "Daily rental rate in USD. Required when Rentable (Rent) is checked.",
+   "fieldname": "rent_per_day_usd",
+   "fieldtype": "Currency",
+   "label": "Rent per Day (USD)",
+   "options": "USD"
+  },
+  {
+   "fieldname": "column_break_pricing_quote",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "استعلام قیمت",
+   "description": "Persian label shown on PLP/PDP when no numeric price is set.",
+   "fieldname": "price_label_fa",
+   "fieldtype": "Data",
+   "label": "Price Label (fa)"
+  },
+  {
+   "default": "Request quote",
+   "description": "English label shown on PLP/PDP when no numeric price is set.",
+   "fieldname": "price_label_en",
+   "fieldtype": "Data",
+   "label": "Price Label (en)"
+  },
+  {
+   "fieldname": "section_media",
+   "fieldtype": "Section Break",
+   "label": "Media"
+  },
+  {
+   "description": "Product gallery. Exactly one row should have Is Hero checked (validated server-side).",
+   "fieldname": "images",
+   "fieldtype": "Table",
+   "label": "Images",
+   "options": "Robot Product Image"
+  },
+  {
+   "fieldname": "section_specs",
+   "fieldtype": "Section Break",
+   "label": "Specs"
+  },
+  {
+   "description": "Bilingual spec rows (Persian + English label/value).",
+   "fieldname": "specs",
+   "fieldtype": "Table",
+   "label": "Specs",
+   "options": "Robot Product Spec"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-06-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Catalog",
+ "name": "Robot Product",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "search_fields": "product_name_fa,product_name_en,brand,slug",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "product_name_en",
+ "track_changes": 1
+}

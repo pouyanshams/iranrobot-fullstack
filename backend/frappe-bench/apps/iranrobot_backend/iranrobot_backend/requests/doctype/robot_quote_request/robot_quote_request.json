@@ -1,0 +1,450 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "naming_series:",
+ "creation": "2026-06-03 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_meta",
+  "naming_series",
+  "status",
+  "column_break_meta",
+  "source",
+  "language",
+  "submitted_at",
+  "section_customer",
+  "customer",
+  "contact",
+  "user_email",
+  "column_break_customer",
+  "customer_name",
+  "email",
+  "phone",
+  "section_items",
+  "items",
+  "section_message",
+  "message",
+  "section_pricing",
+  "total_estimate_usd",
+  "section_quotation",
+  "erpnext_quotation",
+  "quotation_status",
+  "column_break_quotation",
+  "proposal_amount_usd",
+  "section_customer_response",
+  "customer_response",
+  "customer_response_at",
+  "customer_response_user",
+  "column_break_customer_response",
+  "customer_response_note",
+  "customer_response_ip",
+  "section_sales_order",
+  "erpnext_sales_order",
+  "sales_order_status",
+  "column_break_sales_order",
+  "sales_order_grand_total_usd",
+  "sales_order_created_at",
+  "section_sales_invoice",
+  "erpnext_sales_invoice",
+  "sales_invoice_status",
+  "payment_status",
+  "column_break_sales_invoice",
+  "sales_invoice_grand_total_usd",
+  "sales_invoice_outstanding_amount_usd",
+  "sales_invoice_created_at",
+  "latest_payment_entry",
+  "section_admin",
+  "internal_notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_meta",
+   "fieldtype": "Section Break",
+   "label": "Meta"
+  },
+  {
+   "default": "QR-.YYYY.-.#####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "QR-.YYYY.-.#####",
+   "reqd": 1
+  },
+  {
+   "default": "New",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "New\nReviewing\nPricing\nProposal Sent\nAccepted\nRejected\nClosed",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_meta",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Website",
+   "fieldname": "source",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Source",
+   "options": "Website\nDesk",
+   "reqd": 1
+  },
+  {
+   "default": "fa",
+   "fieldname": "language",
+   "fieldtype": "Select",
+   "label": "Language",
+   "options": "fa\nen"
+  },
+  {
+   "fieldname": "submitted_at",
+   "fieldtype": "Datetime",
+   "label": "Submitted At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_customer",
+   "fieldtype": "Section Break",
+   "label": "Customer"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "description": "Auto-linked when submitted by an authenticated Website User. Empty for guest submissions."
+  },
+  {
+   "fieldname": "contact",
+   "fieldtype": "Link",
+   "label": "Contact",
+   "options": "Contact"
+  },
+  {
+   "fieldname": "user_email",
+   "fieldtype": "Data",
+   "label": "User Email",
+   "description": "frappe.session.user at submit time, or empty for guests.",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_customer",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name (snapshot)",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email",
+   "options": "Email"
+  },
+  {
+   "fieldname": "phone",
+   "fieldtype": "Data",
+   "label": "Phone"
+  },
+  {
+   "fieldname": "section_items",
+   "fieldtype": "Section Break",
+   "label": "Items"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Robot Quote Request Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_message",
+   "fieldtype": "Section Break",
+   "label": "Customer message",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "message",
+   "fieldtype": "Text",
+   "label": "Message / Notes"
+  },
+  {
+   "fieldname": "section_pricing",
+   "fieldtype": "Section Break",
+   "label": "Pricing",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "total_estimate_usd",
+   "fieldtype": "Currency",
+   "label": "Total Estimate (USD)",
+   "options": "USD",
+   "read_only": 1,
+   "description": "Sum of child line totals at submit time. Indicative -- staff issue the official Quotation."
+  },
+  {
+   "fieldname": "section_quotation",
+   "fieldtype": "Section Break",
+   "label": "ERPNext Quotation",
+   "collapsible": 1,
+   "collapsible_depends_on": "erpnext_quotation",
+   "description": "Phase 7A -- set by the convert_quote_request_to_quotation API. Customer dashboard surfaces a customer-safe summary when erpnext_quotation is set."
+  },
+  {
+   "fieldname": "erpnext_quotation",
+   "fieldtype": "Link",
+   "label": "ERPNext Quotation",
+   "options": "Quotation",
+   "read_only": 1,
+   "in_standard_filter": 1,
+   "description": "Filled by the conversion API. Phase 7A is intake-only -- staff finishes pricing in the linked Quotation in Desk."
+  },
+  {
+   "default": "",
+   "fieldname": "quotation_status",
+   "fieldtype": "Select",
+   "label": "Quotation Status",
+   "options": "\nDraft\nSent\nAccepted\nRejected\nExpired",
+   "read_only": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "column_break_quotation",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "proposal_amount_usd",
+   "fieldtype": "Currency",
+   "label": "Proposal Amount (USD)",
+   "options": "USD",
+   "read_only": 1,
+   "description": "Snapshot of the linked Quotation grand_total. Re-synced when staff edits the Quotation in Desk."
+  },
+  {
+   "fieldname": "section_customer_response",
+   "fieldtype": "Section Break",
+   "label": "Customer Response",
+   "collapsible": 1,
+   "collapsible_depends_on": "customer_response",
+   "description": "Phase 7B -- Filled by iranrobot_backend.api.requests.respond_to_quotation when the customer accepts or rejects the linked ERPNext Quotation from the React dashboard. Staff sees the outcome here without leaving Desk."
+  },
+  {
+   "default": "",
+   "fieldname": "customer_response",
+   "fieldtype": "Select",
+   "label": "Customer Response",
+   "options": "\nAccepted\nRejected",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "customer_response_at",
+   "fieldtype": "Datetime",
+   "label": "Response At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer_response_user",
+   "fieldtype": "Link",
+   "label": "Response By",
+   "options": "User",
+   "read_only": 1,
+   "description": "frappe.session.user at the moment the customer responded."
+  },
+  {
+   "fieldname": "column_break_customer_response",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "customer_response_note",
+   "fieldtype": "Small Text",
+   "label": "Response Note",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer_response_ip",
+   "fieldtype": "Data",
+   "label": "Response IP",
+   "read_only": 1,
+   "hidden": 1,
+   "description": "Stored for audit. Hidden in the form layout; visible only via Customize Form / Report Builder."
+  },
+  {
+   "fieldname": "section_sales_order",
+   "fieldtype": "Section Break",
+   "label": "ERPNext Sales Order",
+   "collapsible": 1,
+   "collapsible_depends_on": "erpnext_sales_order",
+   "description": "Phase 7C -- staff converts the customer-Accepted Quotation to a Sales Order via the Desk button. These fields are kept in sync via doc_events on Sales Order on_update / on_submit / on_cancel."
+  },
+  {
+   "fieldname": "erpnext_sales_order",
+   "fieldtype": "Link",
+   "label": "ERPNext Sales Order",
+   "options": "Sales Order",
+   "read_only": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "sales_order_status",
+   "fieldtype": "Data",
+   "label": "Sales Order Status",
+   "read_only": 1,
+   "in_list_view": 1,
+   "description": "Mirrors ERPNext Sales Order.status (Draft / To Deliver and Bill / To Bill / To Deliver / Completed / Closed / Cancelled / On Hold)."
+  },
+  {
+   "fieldname": "column_break_sales_order",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sales_order_grand_total_usd",
+   "fieldtype": "Currency",
+   "label": "Sales Order Total (USD)",
+   "options": "USD",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sales_order_created_at",
+   "fieldtype": "Datetime",
+   "label": "Sales Order Created At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_sales_invoice",
+   "fieldtype": "Section Break",
+   "label": "ERPNext Invoice / Payment",
+   "collapsible": 1,
+   "collapsible_depends_on": "erpnext_sales_invoice",
+   "description": "Phase 7D -- staff converts the linked Sales Order to a Sales Invoice via the Desk button. The payment fields are kept in sync via doc_events on Sales Invoice + Payment Entry. Payment Entry creation is manual in Desk -- this app never auto-records payments."
+  },
+  {
+   "fieldname": "erpnext_sales_invoice",
+   "fieldtype": "Link",
+   "label": "ERPNext Sales Invoice",
+   "options": "Sales Invoice",
+   "read_only": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "sales_invoice_status",
+   "fieldtype": "Data",
+   "label": "Sales Invoice Status",
+   "read_only": 1,
+   "in_list_view": 1,
+   "description": "Mirrors ERPNext Sales Invoice.status (Draft / Unpaid / Partly Paid / Paid / Overdue / Cancelled / Return / Credit Note Issued)."
+  },
+  {
+   "default": "",
+   "fieldname": "payment_status",
+   "fieldtype": "Select",
+   "label": "Payment Status",
+   "options": "\nUnpaid\nPartly Paid\nPaid\nOverdue\nCancelled",
+   "read_only": 1,
+   "in_standard_filter": 1,
+   "description": "Customer-facing payment summary derived from Sales Invoice.status + outstanding_amount."
+  },
+  {
+   "fieldname": "column_break_sales_invoice",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sales_invoice_grand_total_usd",
+   "fieldtype": "Currency",
+   "label": "Invoice Total (USD)",
+   "options": "USD",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sales_invoice_outstanding_amount_usd",
+   "fieldtype": "Currency",
+   "label": "Outstanding (USD)",
+   "options": "USD",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sales_invoice_created_at",
+   "fieldtype": "Datetime",
+   "label": "Invoice Created At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "latest_payment_entry",
+   "fieldtype": "Link",
+   "label": "Latest Payment Entry",
+   "options": "Payment Entry",
+   "read_only": 1,
+   "description": "Most recent Payment Entry that references the linked Sales Invoice. Refreshed by the Payment Entry doc_events hook."
+  },
+  {
+   "fieldname": "section_admin",
+   "fieldtype": "Section Break",
+   "label": "Internal (admin only)",
+   "collapsible": 1,
+   "collapsible_depends_on": "internal_notes"
+  },
+  {
+   "fieldname": "internal_notes",
+   "fieldtype": "Text",
+   "label": "Internal Notes",
+   "description": "Staff-only. Never returned to customer-facing APIs."
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-06-03 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Requests",
+ "name": "Robot Quote Request",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "customer_name",
+ "track_changes": 1
+}

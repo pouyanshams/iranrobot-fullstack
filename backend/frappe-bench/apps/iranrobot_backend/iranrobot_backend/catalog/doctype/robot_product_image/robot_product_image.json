@@ -1,0 +1,61 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-06-01 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "image",
+  "is_hero",
+  "alt_fa",
+  "alt_en"
+ ],
+ "fields": [
+  {
+   "columns": 4,
+   "description": "Gallery image (WebP recommended).",
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "in_list_view": 1,
+   "label": "Image",
+   "reqd": 1
+  },
+  {
+   "columns": 1,
+   "default": "0",
+   "description": "Marks this row as the primary hero image. Exactly one row per product should be the hero; parent validation enforces this.",
+   "fieldname": "is_hero",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Is Hero"
+  },
+  {
+   "columns": 3,
+   "description": "Persian alt text for accessibility / SEO. Falls back to product name if blank.",
+   "fieldname": "alt_fa",
+   "fieldtype": "Data",
+   "label": "Alt (fa)"
+  },
+  {
+   "columns": 3,
+   "description": "English alt text for accessibility / SEO. Falls back to product name if blank.",
+   "fieldname": "alt_en",
+   "fieldtype": "Data",
+   "label": "Alt (en)"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "is_child_table": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-06-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Catalog",
+ "name": "Robot Product Image",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "idx",
+ "sort_order": "ASC",
+ "states": [],
+ "track_changes": 1
+}

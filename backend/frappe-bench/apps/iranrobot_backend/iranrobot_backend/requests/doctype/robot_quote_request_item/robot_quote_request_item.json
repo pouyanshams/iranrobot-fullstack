@@ -1,0 +1,125 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-06-03 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "robot_product",
+  "erpnext_item",
+  "product_name",
+  "column_break_qty",
+  "quantity",
+  "mode",
+  "requested_days",
+  "section_pricing",
+  "unit_price_usd",
+  "line_total_usd",
+  "section_notes",
+  "notes"
+ ],
+ "fields": [
+  {
+   "columns": 2,
+   "fieldname": "robot_product",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Robot Product",
+   "options": "Robot Product",
+   "reqd": 1
+  },
+  {
+   "columns": 2,
+   "fieldname": "erpnext_item",
+   "fieldtype": "Link",
+   "label": "ERPNext Item",
+   "options": "Item",
+   "description": "Resolved from Robot Product.erpnext_item at submit time. Server-side only."
+  },
+  {
+   "columns": 2,
+   "fieldname": "product_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Product Name (snapshot)",
+   "description": "Snapshot of the product name at request time. Survives later product renames."
+  },
+  {
+   "fieldname": "column_break_qty",
+   "fieldtype": "Column Break"
+  },
+  {
+   "columns": 1,
+   "default": "1",
+   "fieldname": "quantity",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Quantity",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "columns": 1,
+   "default": "buy",
+   "fieldname": "mode",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Mode",
+   "options": "buy\nrent\nprocure",
+   "reqd": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "requested_days",
+   "fieldtype": "Int",
+   "label": "Requested Days",
+   "description": "Only meaningful for mode=rent. Number of rental days requested.",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "section_pricing",
+   "fieldtype": "Section Break",
+   "label": "Pricing snapshot",
+   "description": "Server-resolved from Robot Product at submit time. Frontend prices are never trusted."
+  },
+  {
+   "fieldname": "unit_price_usd",
+   "fieldtype": "Currency",
+   "label": "Unit Price (USD)",
+   "options": "USD",
+   "read_only": 1
+  },
+  {
+   "fieldname": "line_total_usd",
+   "fieldtype": "Currency",
+   "label": "Line Total (USD)",
+   "options": "USD",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_notes",
+   "fieldtype": "Section Break",
+   "label": "Notes",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Line notes"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "is_child_table": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-06-03 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Requests",
+ "name": "Robot Quote Request Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "idx",
+ "sort_order": "ASC",
+ "states": [],
+ "track_changes": 1
+}

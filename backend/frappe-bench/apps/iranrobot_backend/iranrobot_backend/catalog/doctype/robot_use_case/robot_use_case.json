@@ -1,0 +1,101 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "field:slug",
+ "creation": "2026-06-07 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "slug",
+  "label_fa",
+  "label_en",
+  "column_break_meta",
+  "display_order",
+  "is_published",
+  "icon"
+ ],
+ "fields": [
+  {
+   "description": "URL-safe identifier (e.g. \"inspection\", \"warehouse\"). Used as the doc name. Lowercase, digits, and hyphens only.",
+   "fieldname": "slug",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Slug",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "description": "Persian display label (e.g. \"بازرسی و پایش\").",
+   "fieldname": "label_fa",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Label (fa)",
+   "reqd": 1
+  },
+  {
+   "description": "English display label (e.g. \"Inspection & Monitoring\").",
+   "fieldname": "label_en",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Label (en)",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_meta",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "description": "Sort order within the Use Case list (lower = first).",
+   "fieldname": "display_order",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Display Order",
+   "non_negative": 1
+  },
+  {
+   "default": "1",
+   "description": "Uncheck to hide from public APIs.",
+   "fieldname": "is_published",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Is Published"
+  },
+  {
+   "description": "Optional emoji / icon hint.",
+   "fieldname": "icon",
+   "fieldtype": "Data",
+   "label": "Icon"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-06-07 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Catalog",
+ "name": "Robot Use Case",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "search_fields": "label_fa,label_en,slug",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "label_en",
+ "track_changes": 1
+}

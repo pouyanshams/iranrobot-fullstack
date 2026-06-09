@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include iranrobot_backend *.css
+recursive-include iranrobot_backend *.csv
+recursive-include iranrobot_backend *.html
+recursive-include iranrobot_backend *.ico
+recursive-include iranrobot_backend *.js
+recursive-include iranrobot_backend *.json
+recursive-include iranrobot_backend *.md
+recursive-include iranrobot_backend *.png
+recursive-include iranrobot_backend *.py
+recursive-include iranrobot_backend *.svg
+recursive-include iranrobot_backend *.txt
+recursive-exclude iranrobot_backend *.pyc

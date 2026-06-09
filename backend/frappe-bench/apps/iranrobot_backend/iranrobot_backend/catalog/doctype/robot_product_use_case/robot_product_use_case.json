@@ -1,0 +1,32 @@
+{
+ "actions": [],
+ "creation": "2026-06-07 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "use_case"
+ ],
+ "fields": [
+  {
+   "description": "The Robot Use Case this product belongs to (warehouse, security, inspection, healthcare, education, custom, ...).",
+   "fieldname": "use_case",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Use Case",
+   "options": "Robot Use Case",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-06-07 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Catalog",
+ "name": "Robot Product Use Case",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "creation",
+ "sort_order": "ASC",
+ "states": []
+}

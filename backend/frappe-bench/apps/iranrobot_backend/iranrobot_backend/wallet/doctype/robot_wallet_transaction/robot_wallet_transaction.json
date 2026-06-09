@@ -1,0 +1,275 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "naming_series:",
+ "creation": "2026-06-06 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_meta",
+  "naming_series",
+  "transaction_type",
+  "direction",
+  "posted_at",
+  "column_break_meta",
+  "wallet",
+  "customer",
+  "section_amount",
+  "currency",
+  "credit_amount_usd",
+  "debit_amount_usd",
+  "column_break_amount",
+  "balance_after_usd",
+  "section_links",
+  "linked_top_up_request",
+  "linked_sales_invoice",
+  "linked_quote_request",
+  "column_break_links",
+  "linked_payment_entry",
+  "linked_counter_transaction",
+  "section_audit",
+  "idempotency_key",
+  "posted_by",
+  "column_break_audit",
+  "posted_ip",
+  "reason",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_meta",
+   "fieldtype": "Section Break",
+   "label": "Transaction"
+  },
+  {
+   "default": "WT-.YYYY.-.#####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "WT-.YYYY.-.#####",
+   "reqd": 1
+  },
+  {
+   "fieldname": "transaction_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Type",
+   "options": "Top Up\nSpend\nRefund\nAdjustment-Credit\nAdjustment-Debit",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "description": "Derived from transaction_type at validate time.",
+   "fieldname": "direction",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Direction",
+   "options": "Credit\nDebit",
+   "read_only": 1
+  },
+  {
+   "fieldname": "posted_at",
+   "fieldtype": "Datetime",
+   "label": "Posted At",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_meta",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wallet",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Wallet",
+   "options": "Robot Wallet Account",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "description": "Denormalised from wallet.customer for indexed lookups.",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_amount",
+   "fieldtype": "Section Break",
+   "label": "Amount"
+  },
+  {
+   "default": "USD",
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "credit_amount_usd",
+   "fieldtype": "Currency",
+   "label": "Credit (USD)",
+   "options": "USD",
+   "set_only_once": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "debit_amount_usd",
+   "fieldtype": "Currency",
+   "label": "Debit (USD)",
+   "options": "USD",
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "column_break_amount",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Snapshot of wallet balance immediately AFTER this transaction was applied. Audit only.",
+   "fieldname": "balance_after_usd",
+   "fieldtype": "Currency",
+   "label": "Balance After (USD)",
+   "options": "USD",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_links",
+   "fieldtype": "Section Break",
+   "label": "Links"
+  },
+  {
+   "description": "Phase 8B: link back to the Robot Wallet Top Up Request that produced this transaction (Top Up only). Empty for Spend / Refund / Adjustment-* transactions.",
+   "fieldname": "linked_top_up_request",
+   "fieldtype": "Link",
+   "label": "Top Up Request",
+   "options": "Robot Wallet Top Up Request"
+  },
+  {
+   "fieldname": "linked_sales_invoice",
+   "fieldtype": "Link",
+   "label": "Sales Invoice",
+   "options": "Sales Invoice"
+  },
+  {
+   "fieldname": "linked_quote_request",
+   "fieldtype": "Link",
+   "label": "Quote Request",
+   "options": "Robot Quote Request"
+  },
+  {
+   "fieldname": "column_break_links",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "linked_payment_entry",
+   "fieldtype": "Link",
+   "label": "Payment Entry",
+   "options": "Payment Entry"
+  },
+  {
+   "description": "Pair this transaction with its counter (refund/reversal). Set on the counter, not the original.",
+   "fieldname": "linked_counter_transaction",
+   "fieldtype": "Link",
+   "label": "Counter Transaction",
+   "options": "Robot Wallet Transaction"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_audit",
+   "fieldtype": "Section Break",
+   "label": "Audit"
+  },
+  {
+   "description": "Deduplication key. Format examples: 'topup-request:WTR-...', 'invoice-pay:ACC-SINV-...:cents', 'gateway:<provider>:<txn_id>'. Required and unique once set.",
+   "fieldname": "idempotency_key",
+   "fieldtype": "Data",
+   "label": "Idempotency Key",
+   "set_only_once": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "posted_by",
+   "fieldtype": "Link",
+   "label": "Posted By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_audit",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "posted_ip",
+   "fieldtype": "Data",
+   "label": "Posted IP",
+   "read_only": 1
+  },
+  {
+   "description": "Free-text reason. Required for Adjustment-Credit / Adjustment-Debit.",
+   "fieldname": "reason",
+   "fieldtype": "Text",
+   "label": "Reason"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Text",
+   "label": "Notes"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-06-06 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Wallet",
+ "name": "Robot Wallet Transaction",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "cancel": 1,
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Manager"
+  }
+ ],
+ "sort_field": "posted_at",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

@@ -1,0 +1,316 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "naming_series:",
+ "creation": "2026-06-06 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_request",
+  "naming_series",
+  "status",
+  "method",
+  "column_break_request",
+  "amount_usd",
+  "currency",
+  "submitted_at",
+  "section_party",
+  "customer",
+  "user",
+  "wallet",
+  "column_break_party",
+  "customer_note",
+  "bank_reference",
+  "section_approval",
+  "approved_at",
+  "approved_by",
+  "linked_transaction",
+  "column_break_approval",
+  "rejected_at",
+  "rejected_by",
+  "rejection_reason",
+  "section_cancellation",
+  "cancelled_at",
+  "cancelled_by",
+  "cancelled_ip",
+  "section_accounting",
+  "linked_payment_entry",
+  "section_audit",
+  "approval_idempotency_key",
+  "posted_ip"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_request",
+   "fieldtype": "Section Break",
+   "label": "Request"
+  },
+  {
+   "default": "WTR-.YYYY.-.#####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "WTR-.YYYY.-.#####",
+   "reqd": 1
+  },
+  {
+   "default": "Pending",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Pending\nApproved\nRejected\nCancelled",
+   "reqd": 1
+  },
+  {
+   "default": "Bank Transfer",
+   "fieldname": "method",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Method",
+   "options": "Bank Transfer\nCash Deposit",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_request",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "amount_usd",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Amount (USD)",
+   "options": "USD",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "default": "USD",
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "submitted_at",
+   "fieldtype": "Datetime",
+   "label": "Submitted At",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_party",
+   "fieldtype": "Section Break",
+   "label": "Party"
+  },
+  {
+   "description": "Snapshot from session user -> Customer. Never accepted from client input.",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "description": "Snapshot of frappe.session.user at create time.",
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "User",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "description": "Server-derived from customer via get_or_create_wallet_for_customer.",
+   "fieldname": "wallet",
+   "fieldtype": "Link",
+   "label": "Wallet",
+   "options": "Robot Wallet Account",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_party",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "customer_note",
+   "fieldtype": "Text",
+   "label": "Customer Note"
+  },
+  {
+   "description": "Optional bank/transfer reference for traceability. Staff fills this in at approval time.",
+   "fieldname": "bank_reference",
+   "fieldtype": "Data",
+   "label": "Bank Reference"
+  },
+  {
+   "fieldname": "section_approval",
+   "fieldtype": "Section Break",
+   "label": "Approval"
+  },
+  {
+   "fieldname": "approved_at",
+   "fieldtype": "Datetime",
+   "label": "Approved At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Link",
+   "label": "Approved By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "linked_transaction",
+   "fieldtype": "Link",
+   "label": "Linked Transaction",
+   "options": "Robot Wallet Transaction",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_approval",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "rejected_at",
+   "fieldtype": "Datetime",
+   "label": "Rejected At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "rejected_by",
+   "fieldtype": "Link",
+   "label": "Rejected By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "rejection_reason",
+   "fieldtype": "Text",
+   "label": "Rejection Reason",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_cancellation",
+   "fieldtype": "Section Break",
+   "label": "Cancellation"
+  },
+  {
+   "fieldname": "cancelled_at",
+   "fieldtype": "Datetime",
+   "label": "Cancelled At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cancelled_by",
+   "fieldtype": "Link",
+   "label": "Cancelled By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cancelled_ip",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Cancelled IP",
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_accounting",
+   "fieldtype": "Section Break",
+   "label": "Accounting"
+  },
+  {
+   "description": "Reserved for the ERPNext accounting-hardening phase (post-8B). Phase 8B never populates this field -- the wallet ledger transaction is the sole authoritative record.",
+   "fieldname": "linked_payment_entry",
+   "fieldtype": "Link",
+   "label": "Linked Payment Entry",
+   "options": "Payment Entry",
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_audit",
+   "fieldtype": "Section Break",
+   "label": "Audit"
+  },
+  {
+   "description": "Format: topup-request:<request_name>. Written by the approval API; backs DB-level dedupe via the unique constraint on Robot Wallet Transaction.idempotency_key.",
+   "fieldname": "approval_idempotency_key",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Approval Idempotency Key",
+   "read_only": 1,
+   "set_only_once": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "posted_ip",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Posted IP",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-06-06 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Wallet",
+ "name": "Robot Wallet Top Up Request",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Manager"
+  }
+ ],
+ "sort_field": "submitted_at",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "customer",
+ "track_changes": 1
+}

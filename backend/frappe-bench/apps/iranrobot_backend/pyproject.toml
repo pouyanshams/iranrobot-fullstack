@@ -1,0 +1,15 @@
+[project]
+name = "iranrobot_backend"
+authors = [{ name = "IranRobot", email = "team@iranrobot.example" }]
+description = "IranRobot backend — product catalog DocTypes (Phase 1 of the locked backend strategy)."
+requires-python = ">=3.10"
+readme = "README.md"
+dynamic = ["version"]
+dependencies = []
+
+[build-system]
+requires = ["flit_core >=3.4,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.module]
+name = "iranrobot_backend"
