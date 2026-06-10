@@ -33,12 +33,15 @@ export function HomeView() {
   )
 
   const featured = data?.featured ? mapApiDetailToRobot(data.featured) : null
-  // Editor's Pick row: featured card + 4 supporting cards drawn from the
-  // homepage payload's `new_arrivals` list (excluding the featured product itself).
+  // Editor's Pick row: featured product up front + supporting cards drawn from
+  // `new_arrivals` (excluding the featured product itself). All entries render
+  // in the same consistent home-rail card variant, so we flatten into one list
+  // and target two balanced rows of 3 on desktop (6 total).
   const rest = (data?.new_arrivals ?? [])
     .filter((p) => !featured || p.product_id !== featured.id)
-    .slice(0, 4)
+    .slice(0, 5)
     .map(mapApiCardToRobot)
+  const editorsPick = featured ? [featured, ...rest] : rest
 
   const VALUE_PILLARS = [
     { title: t('فروش مستقیم', 'Direct sales'), text: t('بدون واسطه‌ی مارکت‌پلیس، با گارانتی شرکت و فاکتور رسمی.', 'No marketplace middlemen — corporate warranty and official invoicing.'), Icon: ShoppingCart, tone: 'brand' as const },
@@ -127,10 +130,9 @@ export function HomeView() {
         ) : error ? (
           <ApiError error={error} onRetry={refetch} />
         ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:auto-rows-fr">
-            {featured ? <RobotCard robot={featured} variant="featured" /> : null}
-            {rest.map((r) => (
-              <RobotCard key={r.id} robot={r} />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:auto-rows-fr">
+            {editorsPick.map((r) => (
+              <RobotCard key={r.id} robot={r} variant="home" />
             ))}
           </div>
         )}

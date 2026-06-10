@@ -298,7 +298,7 @@ export function CatalogView() {
           ) : products.error ? (
             <ApiError error={products.error} onRetry={products.refetch} />
           ) : (products.data?.products.length ?? 0) > 0 ? (
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
               {products.data!.products.map(mapApiCardToRobot).map((r) => (
                 <RobotCard key={r.id} robot={r} />
               ))}

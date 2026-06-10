@@ -3,13 +3,19 @@ import type { Robot } from '../types'
 /**
  * Vector "portrait" stand-in for each robot, rendered as a clean product
  * cutout on a pale gradient stage (commercial / ecommerce look).
+ *
+ * `flat` mode strips the gradient stage, decorative blobs, grid overlay, and
+ * corner brand/name text so the artwork blends into a plain white card surface
+ * (used by the compact catalog grid card to avoid a box-inside-box look).
  */
 export function RobotIllustration({
   robot,
   className = '',
+  flat = false,
 }: {
   robot: Robot
   className?: string
+  flat?: boolean
 }) {
   const Body =
     robot.category === 'humanoid'
@@ -29,15 +35,29 @@ export function RobotIllustration({
   if (robot.image) {
     return (
       <div
-        className={['relative w-full h-full overflow-hidden', className].join(' ')}
-        style={{ background: 'radial-gradient(120% 95% at 50% 12%, #ffffff 0%, #f6f8fb 70%, #e9eef5 100%)' }}
+        className={['relative w-full h-full overflow-hidden', flat ? 'bg-white' : '', className].join(' ')}
+        style={
+          flat
+            ? undefined
+            : { background: 'radial-gradient(120% 95% at 50% 12%, #ffffff 0%, #f6f8fb 70%, #e9eef5 100%)' }
+        }
       >
         <img
           src={robot.image}
           alt={robot.nameEn || robot.name}
           loading="lazy"
-          className="absolute inset-0 h-full w-full object-contain p-4"
+          className={['absolute inset-0 h-full w-full object-contain', flat ? 'p-2' : 'p-4'].join(' ')}
         />
+      </div>
+    )
+  }
+
+  if (flat) {
+    return (
+      <div className={['relative w-full h-full overflow-hidden bg-white', className].join(' ')}>
+        <div className="relative h-full w-full grid place-items-center p-3">
+          <Body />
+        </div>
       </div>
     )
   }

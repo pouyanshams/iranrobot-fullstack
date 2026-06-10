@@ -30,11 +30,6 @@ interface AppContextValue {
   updateCartLine: (id: string, patch: Partial<CartLine>) => void
   removeCartLine: (id: string) => void
   clearCart: () => void
-  // Onboarding
-  onboardingSeen: boolean
-  dismissOnboarding: () => void
-  showOnboarding: () => void
-  onboardingOpen: boolean
 }
 
 const AppContext = createContext<AppContextValue | null>(null)
@@ -146,20 +141,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
   // from previous releases are simply ignored -- no read or write happens
   // here. A future phase may add a one-shot cleanup if needed.
 
-  const [onboardingSeen, setOnboardingSeen] = useState<boolean>(() =>
-    loadJSON('onboarding.seen', false),
-  )
-  const [onboardingOpen, setOnboardingOpen] = useState<boolean>(() => !onboardingSeen)
-
-  useEffect(() => saveJSON('onboarding.seen', onboardingSeen), [onboardingSeen])
-
-  const dismissOnboarding = useCallback(() => {
-    setOnboardingSeen(true)
-    setOnboardingOpen(false)
-  }, [])
-
-  const showOnboarding = useCallback(() => setOnboardingOpen(true), [])
-
   const value = useMemo<AppContextValue>(
     () => ({
       route,
@@ -171,10 +152,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
       updateCartLine,
       removeCartLine,
       clearCart,
-      onboardingSeen,
-      onboardingOpen,
-      dismissOnboarding,
-      showOnboarding,
     }),
     [
       route,
@@ -185,10 +162,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
       updateCartLine,
       removeCartLine,
       clearCart,
-      onboardingSeen,
-      onboardingOpen,
-      dismissOnboarding,
-      showOnboarding,
     ],
   )
 

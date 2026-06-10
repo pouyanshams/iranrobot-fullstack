@@ -4,7 +4,6 @@ import { AuthProvider } from './context/AuthContext'
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
 import { QuoteDrawer } from './components/QuoteDrawer'
-import { OnboardingModal } from './components/OnboardingModal'
 import { LoginModal } from './components/LoginModal'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import { HomeView } from './views/Home'
@@ -60,7 +59,6 @@ function Shell() {
       </main>
       <Footer />
       <QuoteDrawer />
-      <OnboardingModal />
       {/* Phase 4 -- login modal rendered at shell level so any child component
           (Header user-menu, Account view guest fallback) can open it via
           useAuth().openLogin() without prop drilling. */}

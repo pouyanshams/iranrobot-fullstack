@@ -1,6 +1,20 @@
 import { useMemo, useState } from 'react'
+import type { ComponentType, SVGProps } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Check, ArrowRight, RotateCcw, Sparkles } from 'lucide-react'
+import {
+  Check,
+  ArrowRight,
+  RotateCcw,
+  Sparkles,
+  Factory,
+  BrainCircuit,
+  GraduationCap,
+  ConciergeBell,
+  Warehouse,
+  Radar,
+} from 'lucide-react'
+
+type IconComponent = ComponentType<SVGProps<SVGSVGElement> & { size?: number | string }>
 import { Section } from '../components/Section'
 import { Button } from '../components/Button'
 import { Badge } from '../components/Badge'
@@ -27,7 +41,11 @@ interface Opt<T extends string> {
   id: T
   label: string
   sub: string
-  icon?: string
+  /**
+   * Line icon (lucide-react) shown only for the Use Case question, replacing
+   * the legacy emoji glyphs. Other steps render no icon.
+   */
+  Icon?: IconComponent
 }
 
 function priceRange(b: Budget): [number, number] {
@@ -79,12 +97,12 @@ export function FinderView() {
   )
 
   const USE_CASES: Opt<RobotCategory>[] = [
-    { id: 'industrial', label: t('تولید صنعتی', 'Industrial production'), sub: t('مونتاژ، جوش، پیک‌اند‌پلیس', 'Assembly, welding, pick-and-place'), icon: '⚙️' },
-    { id: 'service', label: t('خدمات و هتلداری', 'Service & hospitality'), sub: t('سرو غذا، تحویل، خوش‌آمدگویی', 'Serving, delivery, greeting'), icon: '🛎️' },
-    { id: 'mobile', label: t('انبار و لجستیک', 'Warehouse & logistics'), sub: t('حمل پالت، بازرسی محیطی', 'Pallet transport, inspection'), icon: '🛻' },
-    { id: 'humanoid', label: t('تحقیق و توسعه', 'Research & development'), sub: t('پلتفرم پژوهشی، AI، مدل کنترل', 'Research platform, AI, control'), icon: '🤖' },
-    { id: 'educational', label: t('آموزش و دانش‌آموزی', 'Education & students'), sub: t('STEM، مدرسه، دانشگاه', 'STEM, schools, universities'), icon: '🎓' },
-    { id: 'drone', label: t('نقشه‌برداری هوایی', 'Aerial surveying'), sub: t('فتوگرامتری، بازرسی پروژه', 'Photogrammetry, inspection'), icon: '🛸' },
+    { id: 'industrial', label: t('تولید صنعتی', 'Industrial production'), sub: t('مونتاژ، جوش، پیک‌اند‌پلیس', 'Assembly, welding, pick-and-place'), Icon: Factory },
+    { id: 'service', label: t('خدمات و هتلداری', 'Service & hospitality'), sub: t('سرو غذا، تحویل، خوش‌آمدگویی', 'Serving, delivery, greeting'), Icon: ConciergeBell },
+    { id: 'mobile', label: t('انبار و لجستیک', 'Warehouse & logistics'), sub: t('حمل پالت، بازرسی محیطی', 'Pallet transport, inspection'), Icon: Warehouse },
+    { id: 'humanoid', label: t('تحقیق و توسعه', 'Research & development'), sub: t('پلتفرم پژوهشی، AI، مدل کنترل', 'Research platform, AI, control'), Icon: BrainCircuit },
+    { id: 'educational', label: t('آموزش و دانش‌آموزی', 'Education & students'), sub: t('STEM، مدرسه، دانشگاه', 'STEM, schools, universities'), Icon: GraduationCap },
+    { id: 'drone', label: t('نقشه‌برداری هوایی', 'Aerial surveying'), sub: t('فتوگرامتری، بازرسی پروژه', 'Photogrammetry, inspection'), Icon: Radar },
   ]
   const BUDGETS: Opt<Budget>[] = [
     { id: 'lt5k', label: t('زیر $5K', 'Under $5K'), sub: t('پروژه‌های کوچک و آموزشی', 'Small & educational projects') },
@@ -237,7 +255,18 @@ function ChoiceGrid<T extends string>({
           >
             <div className="flex items-start justify-between gap-3">
               <div>
-                {opt.icon ? <div className="text-2xl mb-3">{opt.icon}</div> : null}
+                {opt.Icon ? (
+                  <div
+                    className={[
+                      'h-10 w-10 mb-3 rounded-xl grid place-items-center ring-1 transition-colors',
+                      active
+                        ? 'bg-brand-50 ring-brand-100 text-brand-700'
+                        : 'bg-slate-50 ring-line text-slate-600 group-hover:text-brand-700',
+                    ].join(' ')}
+                  >
+                    <opt.Icon size={20} strokeWidth={1.75} aria-hidden />
+                  </div>
+                ) : null}
                 <div className="font-bold text-fg">{opt.label}</div>
                 <div className="text-xs text-muted mt-1 leading-6">{opt.sub}</div>
               </div>
