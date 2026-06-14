@@ -1,0 +1,459 @@
+{
+  "cat": "humanoids",
+  "url": "https://www.robotsasia.com/Humanoid-Robots.htm",
+  "title": "Humanoid Robots: Complete Guide & Industry Overview 2026 | Robots Asia",
+  "total": "170",
+  "count": 90,
+  "products": [
+    {
+      "name": "UBTECH Cruzr 1S Intelligent Commercial Service Wheeled Humanoid Robot + Free Shipping",
+      "url": "https://www.robotsasia.com/UBTECH-Cruzr-Intelligent-Commercial-Service-Robot.htm",
+      "price": "CN¥111,594.34"
+    },
+    {
+      "name": "Agibot G2 Industrial Grade Wheeled Humanoid Robot + Free Delivery",
+      "url": "https://www.robotsasia.com/Agibot-G2-General-Purpose-Wheeled-Humanoid-Robot.htm",
+      "price": "CN¥962,501.74"
+    },
+    {
+      "name": "AiMOGA Mornine Multilingual AI Powered Humanoid Robot + Free Delivery",
+      "url": "https://www.robotsasia.com/AiMOGA-Mornine-Multilingual-AI-Powered-Humanoid-Robot.htm",
+      "price": "CN¥537,048.07"
+    },
+    {
+      "name": "UBTECH Walker S2 Industrial Humanoid Robot + Free Delivery Anywhere in Asia",
+      "url": "https://www.robotsasia.com/UBTECH-Walker-S2.htm",
+      "price": "CN¥1,011,324.29"
+    },
+    {
+      "name": "Agibot A3 Dual-Battery Interactive Service Humanoid Robot + Free Shipping",
+      "url": "https://www.robotsasia.com/Agibot-A3-Interactive-Service-Humanoid-Robot.htm",
+      "price": "CN¥767,211.53"
+    },
+    {
+      "name": "Booster K1 EDU Humanoid Robot Weekly Rental",
+      "url": "https://www.robotsasia.com/Booster-K1-Humanoid-Robot-Rental.htm",
+      "price": "CN¥6,974.30"
+    },
+    {
+      "name": "MagicLab MagicBot Z1 Standard Edition Humanoid Robot + Free Delivery",
+      "url": "https://www.robotsasia.com/MagicLab-MagicBot-Z1-Humanoid-Robot.htm",
+      "price": "CN¥277,591.08"
+    },
+    {
+      "name": "MagicLab MagicBot G1 Standard Edition Humanoid Robot + Free Delivery",
+      "url": "https://www.robotsasia.com/MagicLab-MagicBot-G1-Humanoid-Robot.htm",
+      "price": "CN¥835,563.11"
+    },
+    {
+      "name": "Galbot S1 Heavy Duty Wheeled Humanoid Robot",
+      "url": "https://www.robotsasia.com/Galbot-S1.htm",
+      "price": "CN¥1,220,563.80"
+    },
+    {
+      "name": "Unitree G1 Basic Humanoid Robot",
+      "url": "https://www.robotsasia.com/Unitree-G1-Basic-Humanoid-Robot.htm",
+      "price": "CN¥139,458.13"
+    },
+    {
+      "name": "Unitree H2 Humanoid Robot (Coming Soon)",
+      "url": "https://www.robotsasia.com/Unitree-H2-Humanoid-Robot.htm",
+      "price": "CN¥278,288.55"
+    },
+    {
+      "name": "Unitree R1 Basic Humanoid Robot (R1 Basic)",
+      "url": "https://www.robotsasia.com/Unitree-Robotics-R1-Basic-Humanoid-Robot.htm",
+      "price": "CN¥69,676.76"
+    },
+    {
+      "name": "Unitree G1 Edu Plus Humanoid Robot with Fake Hands (G1EDU-U2) + Free Shipping",
+      "url": "https://www.robotsasia.com/Unitree-G1-Edu-Plus.htm",
+      "price": "CN¥355,358.43"
+    },
+    {
+      "name": "Unitree G1 Ultimate A Humanoid Robot with 3 Finger Hands (G1EDU-U3)",
+      "url": "https://www.robotsasia.com/Unitree-G1EDU-U3.htm",
+      "price": "CN¥432,393.45"
+    },
+    {
+      "name": "Unitree G1 Ultimate B Humanoid Robot with 3 Finger Hands with Tactile Sensor (G1EDU-U4)",
+      "url": "https://www.robotsasia.com/Unitree-G1-Ultimate-B-Humanoid-Robot-with-3-Finger-Hands-with-Tactile-Sensor-G1EDU-U4.htm",
+      "price": "CN¥449,864.94"
+    },
+    {
+      "name": "Unitree G1 Ultimate C Humanoid Robot with 5 Finger Hands (G1EDU-U5)",
+      "url": "https://www.robotsasia.com/Unitree-G1-Ultimate-C-Humanoid-Robot-with-5-Finger-Hands-G1EDU-U5.htm",
+      "price": "CN¥396,857.60"
+    },
+    {
+      "name": "Unitree G1 Edu Ultimate E U7 Humanoid Robot with Revo 2 Basic Hands (G1EDU-U7)",
+      "url": "https://www.robotsasia.com/Unitree-G1-Edu-Ultimate-E-Humanoid-Robot-G1EDU-U7.htm",
+      "price": "CN¥421,966.34"
+    },
+    {
+      "name": "Unitree G1 Edu Ultimate F U8 Humanoid Robot (G1EDU-U8)",
+      "url": "https://www.robotsasia.com/Unitree-G1-Edu-Ultimate-F-Humanoid-Robot-G1EDU-U8.htm",
+      "price": "CN¥470,788.90"
+    },
+    {
+      "name": "Unitree G1 Edu Pro A U9 Humanoid Robot (G1EDU-U9)",
+      "url": "https://www.robotsasia.com/Unitree-G1-Edu-Pro-A-Humanoid-Robot-G1EDU-U9.htm",
+      "price": "CN¥374,887.45"
+    },
+    {
+      "name": "Unitree G1 Edu Pro B U10 Humanoid Robot (G1EDU-U10)",
+      "url": "https://www.robotsasia.com/Unitree-G1-Edu-Pro-B-Humanoid-Robot-G1EDU-U10.htm",
+      "price": "CN¥374,887.45"
+    },
+    {
+      "name": "Unitree G1 Edu Ultimate D Humanoid Robot with 5 Finger Hands with Tactile Sensor (G1EDU-U6)",
+      "url": "https://www.robotsasia.com/Unitree-G1-Edu-Ultimate-D-Humanoid-Robot-with-5-Finger-Hands-with-Tactile-Sensor-G1EDU-U6.htm",
+      "price": "CN¥484,738.20"
+    },
+    {
+      "name": "Unitree H2 EDU Humanoid Robot + Free Delivery (Coming Soon)",
+      "url": "https://www.robotsasia.com/Unitree-H2-EDU-Humanoid-Robot.htm",
+      "price": "CN¥474,241.35"
+    },
+    {
+      "name": "Unitree R1 Edu Standard Humanoid Robot (R1 EDU U1)",
+      "url": "https://www.robotsasia.com/Unitree-Robotics-R1-Edu-Standard-U1.htm",
+      "price": "CN¥111,245.67"
+    },
+    {
+      "name": "Unitree R1 Edu Smart Humanoid Robot (R1 EDU U2)",
+      "url": "https://www.robotsasia.com/Unitree-Robotics-R1-Edu-Smart-U2.htm",
+      "price": "CN¥131,820.89"
+    },
+    {
+      "name": "Unitree R1 Edu Pro A Humanoid Robot (R1 EDU U3)",
+      "url": "https://www.robotsasia.com/Unitree-Robotics-R1EDUU3-R1-Edu-Pro-A.htm",
+      "price": "CN¥215,516.69"
+    },
+    {
+      "name": "Unitree R1 Edu Pro B Humanoid Robot (R1 EDU U4)",
+      "url": "https://www.robotsasia.com/Unitree-Robotics-R1-EDU-U4-Humanoid-Robot-R1-Edu-Pro-B.htm",
+      "price": "CN¥218,027.57"
+    },
+    {
+      "name": "Unitree R1 Edu Pro C Humanoid Robot (R1 EDU U5)",
+      "url": "https://www.robotsasia.com/Unitree-Robotics-R1-EDU-U5-R1-Edu-Pro-C.htm",
+      "price": "CN¥184,549.25"
+    },
+    {
+      "name": "Unitree R1 Edu Pro D Humanoid Robot (R1 EDU U6)",
+      "url": "https://www.robotsasia.com/Unitree-Robotics-R1-EDU-U6-Humanoid-Robot-R1-Edu-Pro-D.htm",
+      "price": "CN¥218,027.57"
+    },
+    {
+      "name": "Unitree G1-D Standard A U1 Fixed Base Dual-Arm Wheeled Humanoid Robot (Coming Soon)",
+      "url": "https://www.robotsasia.com/Unitree-G1-D-Wheeled-Humanoid-Robot.htm",
+      "price": "CN¥270,616.43"
+    },
+    {
+      "name": "Unitree G1-D Standard B U2 Fixed Base Dual-Arm Wheeled Humanoid Robot (Coming Soon)",
+      "url": "https://www.robotsasia.com/Unitree-G1-D-Standard-B-U2-Fixed-Base-Dual-Arm-Wheeled-Humanoid-Robot.htm",
+      "price": "CN¥361,286.89"
+    },
+    {
+      "name": "Unitree G1 Edu Standard Humanoid Robot with Fake Hands (G1EDU-U1)",
+      "url": "https://www.robotsasia.com/Unitree-G1-Edu-Standard.htm",
+      "price": "CN¥291,191.65"
+    },
+    {
+      "name": "Elephant Robotics Mercury Wheeled Humanoid Robot X1 (4011300003)",
+      "url": "https://www.robotsasia.com/Elephant-Robotics-Mercury-Humanoid-Robot-X1-4011300003.htm",
+      "price": "CN¥111,587.43"
+    },
+    {
+      "name": "Elephant Robotics Mercury Humanoid Robot A1 (4011300001)",
+      "url": "https://www.robotsasia.com/Elephant-Robotics-Mercury-Humanoid-Robot-A1-4011300001.htm",
+      "price": "CN¥34,866.28"
+    },
+    {
+      "name": "Agibot A2 Ultra Interactive Service Humanoid Robot + Free Delivery",
+      "url": "https://www.robotsasia.com/Agibot-A2-Ultra-Interactive-Service-Humanoid-Robot.htm",
+      "price": "CN¥767,176.66"
+    },
+    {
+      "name": "AgiBot A2 Lite Interactive Service Humanoid Robot + Free Delivery",
+      "url": "https://www.robotsasia.com/AgiBot-A2-Lite-Interactive-Service-Humanoid-Robot.htm",
+      "price": "CN¥310,790.42"
+    },
+    {
+      "name": "RobotEra L7 Bipedal Humanoid Robot w/ Free Shipping",
+      "url": "https://www.robotsasia.com/RobotEra-L7-Bipedal-Humanoid-Robot.htm",
+      "price": "CN¥697,464.68"
+    },
+    {
+      "name": "X-Humanoid Tian Yi 2.0 Wheeled Humanoid Robot",
+      "url": "https://www.robotsasia.com/X-Humanoid-Tian-Yi-20-Wheeled-Humanoid-Robot.htm",
+      "price": null
+    },
+    {
+      "name": "AgiBot X2 Full-Stack Open Source Humanoid Robot",
+      "url": "https://www.robotsasia.com/Agibot-X2-Full-Stack-Open-Source-Humanoid-Robot.htm",
+      "price": "CN¥169,065.52"
+    },
+    {
+      "name": "AgiBot X2 Ultra Full-Stack Open Source Humanoid Robot + Free Shipping",
+      "url": "https://www.robotsasia.com/Agibot-X2-Ultra-Full-Stack-Open-Source-Humanoid-Robot.htm",
+      "price": "CN¥339,804.96"
+    },
+    {
+      "name": "AgiBot X2 Pro Full-Stack Open Source Humanoid Robot",
+      "url": "https://www.robotsasia.com/Agibot-X2-Pro-Full-Stack-Open-Source-Humanoid-Robot.htm",
+      "price": "CN¥276,196.15"
+    },
+    {
+      "name": "Noetix BUMI Standard Humanoid Robot (Coming June 2026)",
+      "url": "https://www.robotsasia.com/Noetix-BUMI-Humanoid-Robot.htm",
+      "price": "CN¥41,813.03"
+    },
+    {
+      "name": "Agibot G2 Air Wheeled Humanoid Robot + Free Delivery",
+      "url": "https://www.robotsasia.com/Agibot-G2-Air.htm",
+      "price": "CN¥962,501.74"
+    },
+    {
+      "name": "Agibot G2 Max Wheeled Humanoid Robot + Free Delivery",
+      "url": "https://www.robotsasia.com/Agibot-G2-Max.htm",
+      "price": "CN¥962,501.74"
+    },
+    {
+      "name": "Noetix BUMI PRO Humanoid Robot (Coming June 2026)",
+      "url": "https://www.robotsasia.com/Noetix-BUMI-PRO-Humanoid-Robot.htm",
+      "price": "CN¥41,813.03"
+    },
+    {
+      "name": "Noetix BUMI EDU Air Humanoid Robot",
+      "url": "https://www.robotsasia.com/Noetix-BUMI-EDU-Humanoid-Robot.htm",
+      "price": "CN¥69,711.63"
+    },
+    {
+      "name": "Noetix BUMI EDU PRO Humanoid Robot",
+      "url": "https://www.robotsasia.com/Noetix-BUMI-EDU-PRO-Humanoid-Robot.htm",
+      "price": "CN¥69,711.63"
+    },
+    {
+      "name": "Noetix BUMI EDU MAX Humanoid Robot",
+      "url": "https://www.robotsasia.com/Noetix-BUMI-EDU-MAX-Humanoid-Robot.htm",
+      "price": "CN¥69,711.63"
+    },
+    {
+      "name": "X-Humanoid Tien Kung 3.0 Plus Humanoid Robot",
+      "url": "https://www.robotsasia.com/X-Humanoid-Tien-Kung-3-0-Plus-Humanoid-Robot.htm",
+      "price": null
+    },
+    {
+      "name": "X-Humanoid TienKung Omni Humanoid Robot",
+      "url": "https://www.robotsasia.com/X-Humanoid-Tien-Kung-Omni-Humanoid-Robot.htm",
+      "price": null
+    },
+    {
+      "name": "RobotEra Q5 Wheeled Humanoid Service Robot w/ Free Shipping",
+      "url": "https://www.robotsasia.com/Robotera-Q5-Service-Robot.htm",
+      "price": "CN¥439,402.97"
+    },
+    {
+      "name": "Galileo GH1 Humanoid Robot",
+      "url": "https://www.robotsasia.com/GALILEO-GH1.htm",
+      "price": null
+    },
+    {
+      "name": "Galileo SH1 Dual Arm Robot",
+      "url": "https://www.robotsasia.com/GALILEO-SH1.htm",
+      "price": null
+    },
+    {
+      "name": "Paxini TORA DOUBLE ONE Wheeled Humanoid Robot + Free Delivery",
+      "url": "https://www.robotsasia.com/Paxini-TORA-DOUBLE-ONE-Wheeled-Humanoid-Robot.htm",
+      "price": "CN¥820,000.00"
+    },
+    {
+      "name": "UBTECH Walker S1 Industrial Humanoid Robot w/ Free Shipping",
+      "url": "https://www.robotsasia.com/UBTECH-Walker-S1-Industrial-Humanoid-Robot.htm",
+      "price": "CN¥261,549.39"
+    },
+    {
+      "name": "Booster K1 GEEK Edition Humanoid Robot",
+      "url": "https://www.robotsasia.com/Booster-K1-GEEK-Humanoid-Robot.htm",
+      "price": "CN¥52,309.88"
+    },
+    {
+      "name": "Booster K1 Professional Humanoid Robot",
+      "url": "https://www.robotsasia.com/Booster-K1-Professional-Humanoid-Robot.htm",
+      "price": "CN¥87,183.13"
+    },
+    {
+      "name": "LimX Oli EDU Full-Size General Purpose Open Source Humanoid Robot + Free Delivery",
+      "url": "https://www.robotsasia.com/LimX-Oli-EDU-Full-Size-General-Purpose-Humanoid-Robot.htm",
+      "price": "CN¥417,781.55"
+    },
+    {
+      "name": "Fourier GR2 Humanoid Robot + Free Shipping",
+      "url": "https://www.robotsasia.com/Fourier-GR2.htm",
+      "price": "CN¥871,831.29"
+    },
+    {
+      "name": "Agility Digit Humanoid Robot",
+      "url": "https://www.robotsasia.com/Agility-Digit.htm",
+      "price": null
+    },
+    {
+      "name": "Unix AI Wanda 2.0 Universal Wheeled Humanoid Robot",
+      "url": "https://www.robotsasia.com/Unix-AI-Wanda-2-Universal-Humanoid-Robot.htm",
+      "price": "CN¥418,444.14"
+    },
+    {
+      "name": "Sanctuary AI Phoenix Humanoid Robot",
+      "url": "https://www.robotsasia.com/Sanctuary-AI-Phoenix.htm",
+      "price": null
+    },
+    {
+      "name": "UBTECH Walker S Industrial Humanoid Robot",
+      "url": "https://www.robotsasia.com/UBTECH-Walker-S.htm",
+      "price": null
+    },
+    {
+      "name": "UBTECH Walker C Commercial Reception Humanoid Robot",
+      "url": "https://www.robotsasia.com/UBTECH-Walker-C-Humanoid-Service-Robot.htm",
+      "price": "CN¥697,464.96"
+    },
+    {
+      "name": "UBTech Walker Tienkung Voice and Vision Humanoid Robot + Free Delivery",
+      "url": "https://www.robotsasia.com/UBTECH-Walker-Tienkung-Humanoid-Robot.htm",
+      "price": "CN¥453,352.27"
+    },
+    {
+      "name": "UBTECH Cadebot L100 Multi-scene Intelligent Open Delivery Robot (XCAD101)",
+      "url": "https://www.robotsasia.com/UBTech-Cadebot-L100.htm",
+      "price": "CN¥57,750.10"
+    },
+    {
+      "name": "UBTech Walker Tienkung Embodied Intelligence Humanoid Robot + Free Delivery",
+      "url": "https://www.robotsasia.com/UBTECH-Walker-Tienkung-Intelligence-Humanoid-Humanoid-Robot.htm",
+      "price": "CN¥697,430.16"
+    },
+    {
+      "name": "Unitree H1 Humanoid Robot - Fastest Robot in the World",
+      "url": "https://www.robotsasia.com/Unitree-H1.htm",
+      "price": "CN¥661,929.19"
+    },
+    {
+      "name": "Apptronik APOLLO Humanoid Robot",
+      "url": "https://www.robotsasia.com/Apptronik-APOLLO.htm",
+      "price": "CN¥697,465.03"
+    },
+    {
+      "name": "Booster K1 EDU Humanoid Robot",
+      "url": "https://www.robotsasia.com/Booster-K1-Humanoid-Robot.htm",
+      "price": "CN¥69,746.43"
+    },
+    {
+      "name": "Booster T1 Standard Humanoid Robot + Free Delivery",
+      "url": "https://www.robotsasia.com/Booster-T1-Standard-Humanoid-Robot.htm",
+      "price": "CN¥237,138.11"
+    },
+    {
+      "name": "Booster T1 with Dexterous Hands Humanoid Robot + Free Delivery",
+      "url": "https://www.robotsasia.com/Booster-T1-with-Dexterous-Hands-Humanoid-Robot.htm",
+      "price": "CN¥341,757.86"
+    },
+    {
+      "name": "MagicLab MagicBot Z1 Development Edition Humanoid Robot",
+      "url": "https://www.robotsasia.com/MagicLab-MagicBot-Z1-Development-Humanoid-Robot.htm",
+      "price": null
+    },
+    {
+      "name": "Booster T1 Basic Humanoid Robot + Free Delivery",
+      "url": "https://www.robotsasia.com/Booster-T1-Basic-Humanoid-Robot.htm",
+      "price": "CN¥207,844.58"
+    },
+    {
+      "name": "Booster T1 with Grippers Humanoid Robot + Free Delivery",
+      "url": "https://www.robotsasia.com/Booster-T1-with-Grippers-Humanoid-Robot.htm",
+      "price": "CN¥292,935.31"
+    },
+    {
+      "name": "Elephant Robotics Mercury Humanoid Robot B1 (4011300002)",
+      "url": "https://www.robotsasia.com/Elephant-Robotics-Mercury-Humanoid-Robot-B1-4011300002.htm",
+      "price": "CN¥83,688.83"
+    },
+    {
+      "name": "Agibot G2 Data Aquisition Kit",
+      "url": "https://www.robotsasia.com/Agibot-G2-Data-Aquisition-Kit.htm",
+      "price": "CN¥19,529.02"
+    },
+    {
+      "name": "Tesla Optimus Humanoid Robot",
+      "url": "https://www.robotsasia.com/Tesla-Optimus.htm",
+      "price": null
+    },
+    {
+      "name": "UBTECH Walker Humanoid Robot",
+      "url": "https://www.robotsasia.com/UBTECH-Walker-Walker.htm",
+      "price": null
+    },
+    {
+      "name": "Engineered Arts Ameca Humanoid Robot",
+      "url": "https://www.robotsasia.com/Engineered-Arts-Ameca.htm",
+      "price": null
+    },
+    {
+      "name": "Kepler Robotics K1 Humanoid Robot",
+      "url": "https://www.robotsasia.com/Kepler-Robotics-K1.htm",
+      "price": null
+    },
+    {
+      "name": "UBTECH Panda Humanoid Robot w/ Free Shipping",
+      "url": "https://www.robotsasia.com/UBTECH-Panda-Robot.htm",
+      "price": null
+    },
+    {
+      "name": "Engineai Zhong Qing General Humanoid Robot (SE01)",
+      "url": "https://www.robotsasia.com/Engineai-SE01-Zhong-Qing-General-Humanoid-Robot.htm",
+      "price": null
+    },
+    {
+      "name": "PUDU D7 Wheeled Humanoid Robot",
+      "url": "https://www.robotsasia.com/PUDU-D7-Wheeled-Humanoid-Robot.htm",
+      "price": null
+    },
+    {
+      "name": "Keenon XMAN-F1 Humanoid Robot",
+      "url": "https://www.robotsasia.com/KEENON-XMAN-F1.htm",
+      "price": null
+    },
+    {
+      "name": "Keenon XMAN-R1 Wheeled Humanoid Robot",
+      "url": "https://www.robotsasia.com/KEENON-XMAN-R1.htm",
+      "price": null
+    },
+    {
+      "name": "Noetix N2 Athlete Universal Humanoid Robot",
+      "url": "https://www.robotsasia.com/Noetix-Athlete-N2-Universal-Humanoid-Robot.htm",
+      "price": "CN¥99,995.00"
+    },
+    {
+      "name": "Casbot 02 Bipedal Humanoid Robot",
+      "url": "https://www.robotsasia.com/Casbot-02-Bipedal-Humanoid-Robot.htm",
+      "price": "CN¥449,950.00"
+    },
+    {
+      "name": "Zerith H1 Wheeled Humanoid Robot",
+      "url": "https://www.robotsasia.com/Zerith-H1-Wheeled-Humanoid-Robot.htm",
+      "price": "CN¥289,999.00"
+    },
+    {
+      "name": "Noetix E1 EDU Embodied Intelligence Humanoid Robot",
+      "url": "https://www.robotsasia.com/Noetix-E1-EDU-Embodied-Intelligence-Humanoid-Robot.htm",
+      "price": "CN¥199,995.00"
+    },
+    {
+      "name": "Noetix N2 EDU Athlete Intelligence Humanoid Robot",
+      "url": "https://www.robotsasia.com/Noetix-N2-EDU-Athlete-Humanoid-Robot.htm",
+      "price": "CN¥135,995.00"
+    }
+  ]
+}

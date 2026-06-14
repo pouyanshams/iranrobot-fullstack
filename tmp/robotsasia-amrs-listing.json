@@ -1,0 +1,439 @@
+{
+  "cat": "amrs",
+  "url": "https://www.robotsasia.com/Autonomous-Mobile-Robots-AMRs.htm",
+  "title": "Autonomous Mobile Robots (AMRs) | Robots Asia",
+  "total": "86",
+  "count": 86,
+  "products": [
+    {
+      "name": "KEENON S100 Heavy-Load Courier Robot",
+      "url": "https://www.robotsasia.com/KEENON-S100.htm",
+      "price": "CN¥97,645.10"
+    },
+    {
+      "name": "SEER Robotics AMB-150 (AMB-150)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-AMB-150.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics AMB-300 (AMB-300)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-AMB-300.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics AMB-300XS (AMB-300XS)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-AMB-300XS.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics SlimStack 2000 Two Ton Autonomous Forklift (SBA-400EU)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SBA-400EU.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics AMB-300JZ (AMB-300JZ)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-AMB-300JZ.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics AMB-1000JS & AMB-500JS (AMB-1000JS & AMB-500JS)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-AMB-1000JS-AMB-500JS.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics SJV-SW600 (SJV-SW600)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SJV-SW600.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics SFL-CBD15 & SFL-CBD15-CE (SFL-CBD15 & SFL-CBD15-CE)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SFL-CBD15-SFL-CBD15-CE.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics Autonomous Pallet Truck (SFL-CBD20)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SFL-CBD20.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics 3 Ton Autonomous Pallet Truck (SFL-CBD30)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SFL-CBD30.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics Single Fork Autonomous Forklift (SFL-300L)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SFL-300L.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics OneFork 300 Autonomous Pallet Truck (SOF-300EU)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SOF-300EU.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics PalletTruck 1000 (SPT-1000)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SPT-1000.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics SFL-CDD14 & SSS-1400EU (SFL-CDD14 & SSS-1400EU)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SFL-CDD14-SSS-1400EU.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics Omnidirectional Stack 1000 Autonomous Forklift (SOS-1000)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SOS-1000.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics SlimStack 1500 Automated Forklift (SSS-1500EU)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SSS-1500EU.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics SSS-2000EU (SSS-2000EU)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SSS-2000EU.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics SCB-2000EU (SCB-2000EU)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SCB-2000EU.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics SCB-3000EU (SCB-3000EU)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SCB-3000EU.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics SPK-M50J-ZQ (SPK-M50J-ZQ)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SPK-M50J-ZQ.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics SCL-AWG50 (SCL-AWG50)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SCL-AWG50.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics Entry-level Robot Controller (SRC-880)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SRC-880.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics Controller for Pallet-handling Robot (SRC-F10)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SRC-F10.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics Controller for Dual-steering-wheel Robot (SRC-R10)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SRC-R10.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics General-purpose Robot Controller (SRC-2000-I(S))",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SRC-2000-I-S.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics Specified Controller for Autonomous Forklift (SRC-2000-F(S))",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SRC-2000-F-S.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics Safety Robot Controller (SRC-3000FS)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SRC-3000FS.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics Safety Controller for Autonomous Forklift (SRC-3000FS (Forklift))",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SRC-3000FS-Forklift.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics M4 Smart Logistics Management System (m4)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-m4.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics Visualization Product Series (visualization-product-series)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-visualization-product-series.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics RDS: Robot Management System (rds)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-rds.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics 2D Navigation Lidar (H1E0-02C)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-H1E0-02C.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics 2D Obstacle Avoidance Lidar (C214)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-C214.htm",
+      "price": null
+    },
+    {
+      "name": "PEPPERL+FUCHS Laser / Camera (OMD30M-R2000-B23)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-PEPPERL-FUCHS-OMD30M-R2000-B23.htm",
+      "price": null
+    },
+    {
+      "name": "PEPPERL+FUCHS Laser / Camera (OMD25M-R2000)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-PEPPERL-FUCHS-OMD25M-R2000.htm",
+      "price": null
+    },
+    {
+      "name": "SICK Laser / Camera (nanoScan3 Core I/O)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SICK-nanoScan3-Core-I-O.htm",
+      "price": null
+    },
+    {
+      "name": "OLEI Laser / Camera (LR-1BS5H)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-OLEI-LR-1BS5H.htm",
+      "price": null
+    },
+    {
+      "name": "RoboSense Laser / Camera (RS-LiDAR-16)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-RoboSense-RS-LiDAR-16.htm",
+      "price": null
+    },
+    {
+      "name": "OLEI Laser / Camera (LR-1BS2)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-OLEI-LR-1BS2.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics SEER Robotics Modular Battery (SBP-48V23AHLS)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SBP-48V23AHLS.htm",
+      "price": null
+    },
+    {
+      "name": "Kinco Driver / Motor (FD134S-CB-000)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-Kinco-FD134S-CB-000.htm",
+      "price": null
+    },
+    {
+      "name": "Kinco Driver / Motor (FD124S-CB-005)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-Kinco-FD124S-CB-005.htm",
+      "price": null
+    },
+    {
+      "name": "Kinco Driver / Motor (SMC80S-0075-30MAK-5DSU)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-Kinco-SMC80S-0075-30MAK-5DSU.htm",
+      "price": null
+    },
+    {
+      "name": "Kinco Driver / Motor (SMC60S-0040-30QAK-5BSU)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-Kinco-SMC60S-0040-30QAK-5BSU.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics Robotic Automatic Charging Station (SCS-C24100D)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SCS-C24100D.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics Robotic Automatic Charging Station (SCS-C4850D)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SCS-C4850D.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics Robotic Automatic Charging Station (SCS-C48100D)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SCS-C48100D.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics Robotic Automatic Charging Station (SCS-C4860)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SCS-C4860.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics Robotic Automatic Charging Station (SCS-N4815FV1-JP10)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SCS-N4815FV1-JP10.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics Robotic Automatic Charging Station (SCS-2002)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SCS-2002.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics Robotic Automatic Charging Station (SCS-2502)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SCS-2502.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics Forklift manual control device (SFL-Handle-ZY)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SFL-Handle-ZY.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics SlimReach 1400 Autonomous Reach Truck (SSR-1400)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SSR-1400.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics 3000 Kg Counterbalanced Autonomous Forklift (SFL-CPD30-Y)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SFL-CPD30-Y.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics 2 Ton Counterbalanced Autonomous Forklift (SFL-CPD20-Y)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SFL-CPD20-Y.htm",
+      "price": null
+    },
+    {
+      "name": "SEER Robotics 1400 Kg Autonomous Counterbalance Truck (SCB-1400)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SCB-1400.htm",
+      "price": null
+    },
+    {
+      "name": "Keenon KLEENBOT C20 Compact Robot Floor Cleaner for Small Spaces",
+      "url": "https://www.robotsasia.com/Keenon-KLEENBOT-C20.htm",
+      "price": null
+    },
+    {
+      "name": "Keenon KLEENBOT C40",
+      "url": "https://www.robotsasia.com/KEENON-C40.htm",
+      "price": null
+    },
+    {
+      "name": "KLEENBOT C55",
+      "url": "https://www.robotsasia.com/keenon-c55-kleenbot-c55.htm",
+      "price": null
+    },
+    {
+      "name": "Keenon DINERBOT T3 Enclosed Delivery Robot",
+      "url": "https://www.robotsasia.com/Keenon-DINERBOT-T3.htm",
+      "price": null
+    },
+    {
+      "name": "Keenon KLEENBOT C30 Commercial Cleaning Robot",
+      "url": "https://www.robotsasia.com/Keenon-KLEENBOT-C30.htm",
+      "price": "CN¥69,660.54"
+    },
+    {
+      "name": "UBTECH Cadebot L100 Multi-scene Intelligent Open Delivery Robot (XCAD101)",
+      "url": "https://www.robotsasia.com/UBTech-Cadebot-L100.htm",
+      "price": "CN¥57,750.10"
+    },
+    {
+      "name": "KEENON S300 Heavy-Load Intelligent Delivery Robot",
+      "url": "https://www.robotsasia.com/KEENON-S300.htm",
+      "price": "CN¥97,610.23"
+    },
+    {
+      "name": "Keenon DINERBOT T11 Marketing Expert in Narrow-Aisle Delivery Robot",
+      "url": "https://www.robotsasia.com/Keenon-DINERBOT-T11.htm",
+      "price": "CN¥69,711.63"
+    },
+    {
+      "name": "PUDU Bellabot Pro Premium Delivery & Advertising Robot",
+      "url": "https://www.robotsasia.com/PUDU-Bellabot-Pro-Premium-Delivery-Advertising-Robot.htm",
+      "price": null
+    },
+    {
+      "name": "PUDU Bellabot Premium Delivery Robot",
+      "url": "https://www.robotsasia.com/PUDU-Bellabot-Premium-Delivery-Robot.htm",
+      "price": null
+    },
+    {
+      "name": "PUDU Kettybot Pro Delivery & Reception Robot with Ad Display",
+      "url": "https://www.robotsasia.com/PUDU-Kettybot-Pro-Delivery-Reception-Robot-with-Ad-Display.htm",
+      "price": null
+    },
+    {
+      "name": "PUDU Flashbot Max Buliding Delivery Robot",
+      "url": "https://www.robotsasia.com/PUDU-Flashbot-Max-Buliding-Delivery-Robot.htm",
+      "price": null
+    },
+    {
+      "name": "PUDU Pudubot 2 Universal Delivery Robot",
+      "url": "https://www.robotsasia.com/PUDU-Pudubot-2-Universal-Delivery-Robot.htm",
+      "price": null
+    },
+    {
+      "name": "PUDU CC1 Intelligent Commercial Cleaning Robot",
+      "url": "https://www.robotsasia.com/PUDU-CC1-Intelligent-Commercial-Cleaning-Robot.htm",
+      "price": null
+    },
+    {
+      "name": "PUDU T300 Standard Industrial Delivery Robot",
+      "url": "https://www.robotsasia.com/PUDU-T300-Standard-Industrial-Delivery-Robot.htm",
+      "price": null
+    },
+    {
+      "name": "PUDU T600 Heavy-Payload Industrial Delivery Robot",
+      "url": "https://www.robotsasia.com/PUDU-T600-Heavy-Payload-Industrial-Delivery-Robot.htm",
+      "price": null
+    },
+    {
+      "name": "PUDU T600 Underride Heavy-Payload Industrial Delivery Robot",
+      "url": "https://www.robotsasia.com/PUDU-T600-Underride-Heavy-Payload-Industrial-Delivery-Robot.htm",
+      "price": null
+    },
+    {
+      "name": "PUDU T150 Light-Payload Industrial Delivery Robot",
+      "url": "https://www.robotsasia.com/PUDU-T150-Light-Payload-Industrial-Delivery-Robot.htm",
+      "price": null
+    },
+    {
+      "name": "Keenon Keenmow K1",
+      "url": "https://www.robotsasia.com/Keenon-Keenmow-K1.htm",
+      "price": null
+    },
+    {
+      "name": "Keenon DINERBOT T8",
+      "url": "https://www.robotsasia.com/Keenon-DINERBOT-T8.htm",
+      "price": null
+    },
+    {
+      "name": "iTR W1 Commercial Outdoor Sweeper",
+      "url": "https://www.robotsasia.com/ITR-W1.htm",
+      "price": null
+    },
+    {
+      "name": "Keenon DINERBOT T9 High-load Capacity Restaurant Robot + Free Delivery",
+      "url": "https://www.robotsasia.com/Keenon-DINERBOT-T9.htm",
+      "price": "CN¥55,801.40"
+    },
+    {
+      "name": "PUDU CC1 Pro AI-Powered Autonomous Cleaning Robot (10240-000015)",
+      "url": "https://www.robotsasia.com/PUDU-CC1-Pro-AI-Powered-Autonomous-Cleaning-Robot.htm",
+      "price": "CN¥167,356.73"
+    },
+    {
+      "name": "PUDU SH1 Smart Upright Scrubber Dryer (10220-000006)",
+      "url": "https://www.robotsasia.com/PUDU-SH1-Smart-Upright-Scrubber-Dryer.htm",
+      "price": "CN¥26,503.67"
+    },
+    {
+      "name": "PUDU MT1 Vac Al-powered Robotic Sweeper & Vacuum (10251-000003)",
+      "url": "https://www.robotsasia.com/PUDU-MT1-Vac-Al-powered-Robotic-Sweeper-Vacuum.htm",
+      "price": "CN¥139,458.13"
+    },
+    {
+      "name": "PUDU MT1 AI Powered Robotic Sweeper (10250-000009)",
+      "url": "https://www.robotsasia.com/PUDU-MT1-AI-Powered-Robotic-Sweeper.htm",
+      "price": "CN¥118,534.18"
+    },
+    {
+      "name": "PUDU MT1 Max Al-powered 3D Perception Robotic Sweeper (10252-000003)",
+      "url": "https://www.robotsasia.com/PUDU-MT1-Max-Al-powered-3D-Perception-Robotic-Sweeper.htm",
+      "price": "CN¥174,331.38"
+    },
+    {
+      "name": "Keenon DINERBOT T10 Delivery & Marketing Expert Robot",
+      "url": "https://www.robotsasia.com/Keenon-DINERBOT-T10.htm",
+      "price": "CN¥83,660.93"
+    },
+    {
+      "name": "Keenon BUTLERBOT W3 Private and Multi-Floor Service Robot",
+      "url": "https://www.robotsasia.com/Keenon-BUTLERBOT-W3.htm",
+      "price": "CN¥97,610.23"
+    }
+  ]
+}

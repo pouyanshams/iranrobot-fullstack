@@ -1,0 +1,54 @@
+{
+  "key": "acc-batteries",
+  "url": "https://www.robotsasia.com/Robot-Batteries.htm",
+  "title": "Robot Batteries: Complete Guide to Robotic Power | Robots Asia",
+  "total": null,
+  "count": 9,
+  "products": [
+    {
+      "name": "SEER Robotics SEER Robotics Modular Battery (SBP-48V23AHLS)",
+      "url": "https://www.robotsasia.com/SEER-Robotics-SBP-48V23AHLS.htm",
+      "price": null
+    },
+    {
+      "name": "Guo Xing Lithium Battery (LB)",
+      "url": "https://www.robotsasia.com/Guo-Xing-Lithium-Battery.htm",
+      "price": null
+    },
+    {
+      "name": "Unitree G1 Battery (G1-BATTERY)",
+      "url": "https://www.robotsasia.com/Unitree-G1-BATTERY-G1-Battery.htm",
+      "price": "CN¥5,230.99"
+    },
+    {
+      "name": "Unitree H1 Battery (H1-BATTERY)",
+      "url": "https://www.robotsasia.com/Unitree-H1-BATTERY-H1-Battery.htm",
+      "price": "CN¥10,461.98"
+    },
+    {
+      "name": "XAG B141050 Smart Super Charge Battery (09-017-00083)",
+      "url": "https://www.robotsasia.com/XAG-09-017-00083-B141050-Smart-Super-Charge-Battery.htm",
+      "price": "CN¥11,787.16"
+    },
+    {
+      "name": "Unitree R1 Battery",
+      "url": "https://www.robotsasia.com/Unitree-R1-Battery.htm",
+      "price": null
+    },
+    {
+      "name": "Unitree Go2 Standard Version Battery 8000Mah Fast Charging 29.6V (GO2-BATTERY)",
+      "url": "https://www.robotsasia.com/Unitree-Go2-Standard-Version-Battery-8000Mah-Fast-Charging-296V.htm",
+      "price": "CN¥3,905.80"
+    },
+    {
+      "name": "Unitree Go2 Long Range 15000Mah Fast Charge 28.8V Battery (GO2-LBATTERY)",
+      "url": "https://www.robotsasia.com/Unitree-Go2-Long-Range-15000Mah-Fast-Charge-28V-Battery-GO2-LBATTERY.htm",
+      "price": "CN¥5,230.99"
+    },
+    {
+      "name": "AgiBot X2 Spare Battery",
+      "url": "https://www.robotsasia.com/AgiBot-X2-Spare-Battery.htm",
+      "price": "CN¥13,216.96"
+    }
+  ]
+}

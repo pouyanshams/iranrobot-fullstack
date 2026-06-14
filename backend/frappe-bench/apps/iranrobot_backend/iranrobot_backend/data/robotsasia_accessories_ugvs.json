@@ -1,0 +1,997 @@
+{
+  "_meta": {
+    "source": "robotsasia",
+    "scope": "ugvs + accessories batch into existing browsable categories only; non-duplicate of seed",
+    "note": "Paraphrased copy, factual specs, quote-based pricing. Separate file so import never touches Core-4 or the unpublished duplicates."
+  },
+  "products": [
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Husarion-Panther-PTH12.htm",
+      "source_price_raw": "CN¥146,432.78",
+      "product_id": "robotsasia-ugv-husarion-panther",
+      "slug": "robotsasia-ugv-husarion-panther",
+      "category": "ugvs",
+      "subcategory": null,
+      "brand": "Husarion",
+      "model": "Panther PTH12",
+      "origin_fa": "لهستان",
+      "origin_en": "Poland",
+      "product_name_fa": "خودرو زمینی بدون‌سرنشین Husarion Panther PTH12",
+      "product_name_en": "Husarion Panther PTH12 UGV",
+      "tagline_fa": "پلتفرم متحرک بیرونی مقاوم با پشتیبانی ROS 2 / Nav2",
+      "tagline_en": "Rugged outdoor mobile base with ROS 2 / Nav2 support",
+      "description_fa": "Husarion Panther PTH12 یک خودرو زمینی بدون‌سرنشین (UGV) صنعتی و مقاوم برای محیط‌های بیرونی پرگردوغبار و پرلرزش است. این پلتفرم به‌عنوان حامل بار برای حسگرها (لیدار، دوربین عمق/استریو) به کار می‌رود و با پشتیبانی ROS 2 و Nav2 برای بازرسی صنعتی و گشت‌زنی محیط مناسب است.",
+      "description_en": "The Husarion Panther PTH12 is a rugged industrial unmanned ground vehicle (UGV) for demanding, dusty, high-vibration outdoor environments. It serves as a payload carrier for sensors (LiDAR, stereo/depth cameras) and, with ROS 2 and Nav2 support, suits industrial inspection and perimeter patrol.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/h/u/husarion-panther-pth12.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "خودرو زمینی بدون‌سرنشین (UGV)",
+          "label_en": "Type",
+          "value_en": "Unmanned ground vehicle (UGV)"
+        },
+        {
+          "label_fa": "ساختار",
+          "value_fa": "پایه‌ی متحرک بیرونی مقاوم",
+          "label_en": "Form factor",
+          "value_en": "Rugged outdoor mobile base"
+        },
+        {
+          "label_fa": "نرم‌افزار",
+          "value_fa": "ROS 2 / Nav2",
+          "label_en": "Software",
+          "value_en": "ROS 2 / Nav2"
+        },
+        {
+          "label_fa": "کاربرد",
+          "value_fa": "بازرسی صنعتی، گشت‌زنی",
+          "label_en": "Use",
+          "value_en": "Industrial inspection, patrol"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Husarion-ROSbot-3.htm",
+      "source_price_raw": "CN¥22,667.61",
+      "product_id": "robotsasia-ugv-husarion-rosbot3",
+      "slug": "robotsasia-ugv-husarion-rosbot3",
+      "category": "ugvs",
+      "subcategory": null,
+      "brand": "Husarion",
+      "model": "ROSbot 3",
+      "origin_fa": "لهستان",
+      "origin_en": "Poland",
+      "product_name_fa": "خودرو زمینی بدون‌سرنشین Husarion ROSbot 3",
+      "product_name_en": "Husarion ROSbot 3 UGV",
+      "tagline_fa": "UGV داخلی ROS 2 با چهارچرخ‌محرک و هسته‌ی Raspberry Pi 5",
+      "tagline_en": "ROS 2 indoor UGV with 4-wheel drive and Raspberry Pi 5",
+      "description_fa": "Husarion ROSbot 3 یک خودرو زمینی بدون‌سرنشین داخلی و آماده‌به‌کار برای توسعه‌ی ROS 2 است. این ربات با چهارچرخ‌محرک، اِنکودر موتور، هسته‌ی پردازشی Raspberry Pi 5 و شاسی آلومینیومی ۱٫۵ میلی‌متری، برای SLAM، ناوبری و آموزش رباتیک طراحی شده است.",
+      "description_en": "The Husarion ROSbot 3 is an out-of-the-box indoor unmanned ground vehicle for ROS 2 development. With 4-wheel drive, motor encoders, a Raspberry Pi 5 compute core and a 1.5 mm aluminum chassis, it is built for SLAM, navigation and robotics education.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/h/u/husarion-rosbot-3.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "خودرو زمینی بدون‌سرنشین (UGV)",
+          "label_en": "Type",
+          "value_en": "Unmanned ground vehicle (UGV)"
+        },
+        {
+          "label_fa": "رانش",
+          "value_fa": "چهارچرخ‌محرک",
+          "label_en": "Drive",
+          "value_en": "4-wheel drive"
+        },
+        {
+          "label_fa": "پردازنده",
+          "value_fa": "Raspberry Pi 5",
+          "label_en": "Compute",
+          "value_en": "Raspberry Pi 5"
+        },
+        {
+          "label_fa": "نرم‌افزار",
+          "value_fa": "ROS 2، SLAM",
+          "label_en": "Software",
+          "value_en": "ROS 2, SLAM"
+        },
+        {
+          "label_fa": "شاسی",
+          "value_fa": "آلومینیوم ۱٫۵ میلی‌متر",
+          "label_en": "Chassis",
+          "value_en": "1.5 mm aluminum"
+        }
+      ],
+      "use_cases": [
+        "education"
+      ]
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Husarion-ROSbot-3-PRO.htm",
+      "source_price_raw": "CN¥29,642.26",
+      "product_id": "robotsasia-ugv-husarion-rosbot3-pro",
+      "slug": "robotsasia-ugv-husarion-rosbot3-pro",
+      "category": "ugvs",
+      "subcategory": null,
+      "brand": "Husarion",
+      "model": "ROSbot 3 PRO",
+      "origin_fa": "لهستان",
+      "origin_en": "Poland",
+      "product_name_fa": "خودرو زمینی بدون‌سرنشین Husarion ROSbot 3 PRO",
+      "product_name_en": "Husarion ROSbot 3 PRO UGV",
+      "tagline_fa": "نسخه‌ی PRO با RPLIDAR S2 و دوربین OAK-D Pro برای SLAM",
+      "tagline_en": "PRO build with RPLIDAR S2 and OAK-D Pro for SLAM",
+      "description_fa": "Husarion ROSbot 3 PRO نسخه‌ی ارتقایافته‌ی UGV داخلی ROS 2 است که پشته‌ی ادراک را با لیدار RPLIDAR S2 و دوربین OAK-D Pro تقویت می‌کند. ابعاد آن با دوربین و لیدار ۲۰۰×۲۳۳×۱۹۷ میلی‌متر و وزن حدود ۲٫۸ کیلوگرم است؛ مناسب آزمایشگاه‌ها و کلاس‌های داخلی.",
+      "description_en": "The Husarion ROSbot 3 PRO is the upgraded ROS 2 indoor UGV, enhancing the perception stack with an RPLIDAR S2 and an OAK-D Pro camera. It measures 200 × 233 × 197 mm with camera and LiDAR and weighs about 2.8 kg, suiting indoor labs and classrooms.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/h/u/husarion-rosbot-3_1.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "خودرو زمینی بدون‌سرنشین (UGV)",
+          "label_en": "Type",
+          "value_en": "Unmanned ground vehicle (UGV)"
+        },
+        {
+          "label_fa": "ادراک",
+          "value_fa": "RPLIDAR S2، OAK-D Pro",
+          "label_en": "Perception",
+          "value_en": "RPLIDAR S2, OAK-D Pro"
+        },
+        {
+          "label_fa": "پردازنده",
+          "value_fa": "Raspberry Pi 5",
+          "label_en": "Compute",
+          "value_en": "Raspberry Pi 5"
+        },
+        {
+          "label_fa": "ابعاد",
+          "value_fa": "۲۰۰×۲۳۳×۱۹۷ میلی‌متر",
+          "label_en": "Dimensions",
+          "value_en": "200 × 233 × 197 mm"
+        },
+        {
+          "label_fa": "وزن",
+          "value_fa": "حدود ۲٫۸ کیلوگرم",
+          "label_en": "Weight",
+          "value_en": "~2.8 kg"
+        }
+      ],
+      "use_cases": [
+        "education"
+      ]
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Guo-Xing-RXR-M40D-880T-Firefighting-Robot.htm",
+      "source_price_raw": "CN¥194,557.87",
+      "product_id": "robotsasia-ugv-guoxing-rxr-m40d-880t",
+      "slug": "robotsasia-ugv-guoxing-rxr-m40d-880t",
+      "category": "ugvs",
+      "subcategory": null,
+      "brand": "Guo Xing",
+      "model": "RXR-M40D-880T",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات آتش‌نشان Guo Xing RXR-M40D-880T",
+      "product_name_en": "Guo Xing RXR-M40D-880T Firefighting Robot",
+      "tagline_fa": "ربات آتش‌نشانی زنجیری با بدنه‌ی پایدار و کارکردهای ضدواژگونی",
+      "tagline_en": "Tracked firefighting robot with stable body and anti-capsize functions",
+      "description_fa": "Guo Xing RXR-M40D-880T یک خودرو زمینی بدون‌سرنشین آتش‌نشان برای واکنش صنعتی به آتش است. بدنه‌ی پایدار آن دارای کارکردهای ضدواژگونی، ضدبرخورد و خنک‌سازی خودکار است و برای کاهش حضور مستقیم آتش‌نشان در مناطق خطرناک به کار می‌رود.",
+      "description_en": "The Guo Xing RXR-M40D-880T is a firefighting unmanned ground vehicle for industrial fire response. Its stable body includes anti-capsizing, anti-collision and self-cooling functions, and it is used to reduce direct firefighter exposure in dangerous areas.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/r/x/rxr-m40d-880t_1.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "خودرو زمینی بدون‌سرنشین (UGV)",
+          "label_en": "Type",
+          "value_en": "Unmanned ground vehicle (UGV)"
+        },
+        {
+          "label_fa": "کاربرد",
+          "value_fa": "آتش‌نشانی صنعتی",
+          "label_en": "Use",
+          "value_en": "Industrial firefighting"
+        },
+        {
+          "label_fa": "ساختار",
+          "value_fa": "زنجیری (Tracked)",
+          "label_en": "Form factor",
+          "value_en": "Tracked"
+        },
+        {
+          "label_fa": "ایمنی",
+          "value_fa": "ضدواژگونی، ضدبرخورد، خنک‌سازی خودکار",
+          "label_en": "Safety",
+          "value_en": "Anti-capsize, anti-collision, self-cooling"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Guo-Xing-RXR-MC80BD-Firefighting-Robot.htm",
+      "source_price_raw": "CN¥592,845.28",
+      "product_id": "robotsasia-ugv-guoxing-rxr-mc80bd",
+      "slug": "robotsasia-ugv-guoxing-rxr-mc80bd",
+      "category": "ugvs",
+      "subcategory": null,
+      "brand": "Guo Xing",
+      "model": "RXR-MC80BD",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات شناسایی و اطفای حریق ضدانفجار Guo Xing RXR-MC80BD",
+      "product_name_en": "Guo Xing RXR-MC80BD Explosion-Proof Fire Reconnaissance Robot",
+      "tagline_fa": "ربات ضدانفجار شناسایی و اطفای حریق برای محیط‌های پرخطر",
+      "tagline_en": "Explosion-proof fire extinguishing & reconnaissance robot for hazardous sites",
+      "description_fa": "Guo Xing RXR-MC80BD یک خودرو زمینی بدون‌سرنشین ضدانفجار برای شناسایی و اطفای حریق در محیط‌های صنعتی، شیمیایی و اضطراری پرخطر است. این ربات با بدنه‌ی پایدار، موتور DC پرتوان و شاسی مقاوم در برابر مانع، می‌تواند به خطر نزدیک شود، اطلاعات شناسایی را مخابره و در اطفای حریق کمک کند.",
+      "description_en": "The Guo Xing RXR-MC80BD is an explosion-proof unmanned ground vehicle for fire reconnaissance and extinguishing in hazardous industrial, chemical and emergency environments. With a stable body, a high-power DC motor and an obstacle-handling chassis, it can approach hazards, transmit reconnaissance data and assist firefighting.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/g/u/guo-xing-rxr-mc80bd.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "خودرو زمینی بدون‌سرنشین (UGV)",
+          "label_en": "Type",
+          "value_en": "Unmanned ground vehicle (UGV)"
+        },
+        {
+          "label_fa": "کاربرد",
+          "value_fa": "شناسایی و اطفای حریق",
+          "label_en": "Use",
+          "value_en": "Fire reconnaissance & extinguishing"
+        },
+        {
+          "label_fa": "ویژگی",
+          "value_fa": "ضدانفجار",
+          "label_en": "Feature",
+          "value_en": "Explosion-proof"
+        },
+        {
+          "label_fa": "موتور",
+          "value_fa": "DC پرتوان",
+          "label_en": "Motor",
+          "value_en": "High-power DC"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Guo-Xing-GXBOX510-EOD-Robot-GX-BOX510.htm",
+      "source_price_raw": null,
+      "product_id": "robotsasia-ugv-guoxing-eod-gxbox510",
+      "slug": "robotsasia-ugv-guoxing-eod-gxbox510",
+      "category": "ugvs",
+      "subcategory": null,
+      "brand": "Guo Xing",
+      "model": "GX BOX510",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات خنثی‌سازی بمب Guo Xing GX BOX510",
+      "product_name_en": "Guo Xing GX BOX510 EOD Robot",
+      "tagline_fa": "ربات زمینی بدون‌سرنشین خنثی‌سازی مواد منفجره (EOD)",
+      "tagline_en": "Unmanned ground vehicle for explosive ordnance disposal (EOD)",
+      "description_fa": "Guo Xing GX BOX510 یک خودرو زمینی بدون‌سرنشین برای خنثی‌سازی مواد منفجره (EOD) است که برای بازرسی و دفع تهدیدهای انفجاری از راه دور به کار می‌رود و حضور مستقیم اپراتور در صحنه‌ی خطرناک را حذف می‌کند.",
+      "description_en": "The Guo Xing GX BOX510 is an unmanned ground vehicle for explosive ordnance disposal (EOD), used to remotely inspect and neutralize explosive threats, removing the need for direct operator presence in the hazardous scene.",
+      "lead_time_days": 45,
+      "hero_image": "",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "خودرو زمینی بدون‌سرنشین (UGV)",
+          "label_en": "Type",
+          "value_en": "Unmanned ground vehicle (UGV)"
+        },
+        {
+          "label_fa": "کاربرد",
+          "value_fa": "خنثی‌سازی مواد منفجره (EOD)",
+          "label_en": "Use",
+          "value_en": "Explosive ordnance disposal (EOD)"
+        },
+        {
+          "label_fa": "کنترل",
+          "value_fa": "از راه دور",
+          "label_en": "Control",
+          "value_en": "Remote-operated"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Guo-Xing-RXR-C6BD-Explosion-Proof-Inspection-Patrol-Rescue-Robot.htm",
+      "source_price_raw": null,
+      "product_id": "robotsasia-ugv-guoxing-rxr-c6bd",
+      "slug": "robotsasia-ugv-guoxing-rxr-c6bd",
+      "category": "ugvs",
+      "subcategory": null,
+      "brand": "Guo Xing",
+      "model": "RXR-C6BD",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات بازرسی و گشت ضدانفجار Guo Xing RXR-C6BD",
+      "product_name_en": "Guo Xing RXR-C6BD Explosion-Proof Inspection & Patrol Robot",
+      "tagline_fa": "ربات ضدانفجار بازرسی/گشت با دوربین چرخان و آشکارساز گاز سمی",
+      "tagline_en": "Explosion-proof inspection/patrol robot with rotating camera and toxic-gas detection",
+      "description_fa": "Guo Xing RXR-C6BD یک خودرو زمینی بدون‌سرنشین ضدانفجار (درجه‌ی EX d ib IIB+H2 T6 Gb) برای بازرسی و گشت‌زنی در محیط‌های پرخطر، اشتعال‌زا و سمی است. این ربات با دوربین چرخان ۳۶۰ درجه و چرخش عمودی ۹۰ درجه و آشکارسازی ۶ نوع گاز سمی، برای شناسایی و امداد به کار می‌رود.",
+      "description_en": "The Guo Xing RXR-C6BD is an explosion-proof unmanned ground vehicle (EX d ib IIB+H2 T6 Gb rated) for inspection and patrol in hazardous, flammable and toxic environments. With a 360° rotating, 90° pitching camera and 6-type toxic-gas detection, it is used for reconnaissance and rescue.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/r/x/rxr-c6bd.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "خودرو زمینی بدون‌سرنشین (UGV)",
+          "label_en": "Type",
+          "value_en": "Unmanned ground vehicle (UGV)"
+        },
+        {
+          "label_fa": "کاربرد",
+          "value_fa": "بازرسی، گشت، امداد",
+          "label_en": "Use",
+          "value_en": "Inspection, patrol, rescue"
+        },
+        {
+          "label_fa": "درجه‌ی ضدانفجار",
+          "value_fa": "EX d ib IIB+H2 T6 Gb",
+          "label_en": "Ex rating",
+          "value_en": "EX d ib IIB+H2 T6 Gb"
+        },
+        {
+          "label_fa": "دوربین",
+          "value_fa": "چرخش ۳۶۰° / شیب ۹۰°",
+          "label_en": "Camera",
+          "value_en": "360° rotation / 90° pitch"
+        },
+        {
+          "label_fa": "آشکارساز گاز",
+          "value_fa": "۶ نوع گاز سمی",
+          "label_en": "Gas detection",
+          "value_en": "6 toxic-gas types"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Guo-Xing-KT500-Guoxing-RC-Forest-Terrain-Slope-Mower.htm",
+      "source_price_raw": null,
+      "product_id": "robotsasia-ugv-guoxing-mower-kt500",
+      "slug": "robotsasia-ugv-guoxing-mower-kt500",
+      "category": "ugvs",
+      "subcategory": null,
+      "brand": "Guo Xing",
+      "model": "KT500",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ماشین چمن‌زن کنترل‌از‌دور شیب جنگلی Guo Xing KT500",
+      "product_name_en": "Guo Xing KT500 RC Forest-Terrain Slope Mower",
+      "tagline_fa": "ماشین چمن‌زن زنجیری کنترل‌از‌دور برای شیب و زمین جنگلی",
+      "tagline_en": "Tracked RC slope mower for forest and rough terrain",
+      "description_fa": "Guo Xing KT500 یک خودرو زمینی بدون‌سرنشین چمن‌زنِ کنترل‌از‌دور است که برای کار روی شیب‌ها و زمین‌های جنگلی دشوار طراحی شده است. شاسی زنجیری آن چسبندگی و پایداری لازم برای علف‌زنی ایمن در شیب‌های تند را فراهم می‌کند.",
+      "description_en": "The Guo Xing KT500 is a remote-controlled mowing unmanned ground vehicle built for slopes and difficult forest terrain. Its tracked chassis provides the traction and stability needed for safe mowing on steep grades.",
+      "lead_time_days": 45,
+      "hero_image": "",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "خودرو زمینی بدون‌سرنشین (UGV)",
+          "label_en": "Type",
+          "value_en": "Unmanned ground vehicle (UGV)"
+        },
+        {
+          "label_fa": "کاربرد",
+          "value_fa": "علف‌زنی شیب/جنگل",
+          "label_en": "Use",
+          "value_en": "Slope/forest mowing"
+        },
+        {
+          "label_fa": "ساختار",
+          "value_fa": "زنجیری",
+          "label_en": "Form factor",
+          "value_en": "Tracked"
+        },
+        {
+          "label_fa": "کنترل",
+          "value_fa": "از راه دور (RC)",
+          "label_en": "Control",
+          "value_en": "Remote-controlled (RC)"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Topsky-Small-Fire-Reconnaissance-Robot-RXR-C10D.htm",
+      "source_price_raw": null,
+      "product_id": "robotsasia-ugv-topsky-rxr-c10d",
+      "slug": "robotsasia-ugv-topsky-rxr-c10d",
+      "category": "ugvs",
+      "subcategory": null,
+      "brand": "Topsky",
+      "model": "RXR-C10D",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات کوچک شناسایی حریق و امداد Topsky RXR-C10D",
+      "product_name_en": "Topsky RXR-C10D Small Fire Reconnaissance Robot",
+      "tagline_fa": "ربات زنجیری چندمنظوره‌ی شناسایی و امداد با ظرفیت بار بالا",
+      "tagline_en": "Multi-function tracked reconnaissance & rescue robot with high load capacity",
+      "description_fa": "Topsky RXR-C10D یک خودرو زمینی بدون‌سرنشین چندمنظوره برای شناسایی حریق و امداد زلزله است که برای حمل تجهیزات و مواد امدادی (مانند شیلنگ آب) به کار می‌رود. ابعاد آن ۱۵۰۰×۱۱۵۰×۱۲۰۰ میلی‌متر، وزن ≤۴۵۰ کیلوگرم، ظرفیت بار ≥۴۵۰ کیلوگرم و نیروی کشش ≥۴۵۰۰ نیوتن است؛ شاسی زنجیری با بازوی نوسانی جلویی، عبور از مانع عمودی تا ۲۸۰ میلی‌متر را ممکن می‌کند.",
+      "description_en": "The Topsky RXR-C10D is a multi-function unmanned ground vehicle for fire reconnaissance and earthquake rescue, used to transport equipment and rescue materials such as water hoses. It measures 1500 × 1150 × 1200 mm, weighs ≤ 450 kg, carries ≥ 450 kg with ≥ 4500 N traction; its tracked chassis with a front swing arm clears vertical obstacles up to 280 mm.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/r/x/rxr-c10d-2_.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "خودرو زمینی بدون‌سرنشین (UGV)",
+          "label_en": "Type",
+          "value_en": "Unmanned ground vehicle (UGV)"
+        },
+        {
+          "label_fa": "ابعاد",
+          "value_fa": "۱۵۰۰×۱۱۵۰×۱۲۰۰ میلی‌متر",
+          "label_en": "Dimensions",
+          "value_en": "1500 × 1150 × 1200 mm"
+        },
+        {
+          "label_fa": "وزن",
+          "value_fa": "≤۴۵۰ کیلوگرم",
+          "label_en": "Weight",
+          "value_en": "≤ 450 kg"
+        },
+        {
+          "label_fa": "ظرفیت بار",
+          "value_fa": "≥۴۵۰ کیلوگرم",
+          "label_en": "Load capacity",
+          "value_en": "≥ 450 kg"
+        },
+        {
+          "label_fa": "نیروی کشش",
+          "value_fa": "≥۴۵۰۰ نیوتن",
+          "label_en": "Traction force",
+          "value_en": "≥ 4500 N"
+        },
+        {
+          "label_fa": "عبور از مانع",
+          "value_fa": "تا ۲۸۰ میلی‌متر",
+          "label_en": "Obstacle clearance",
+          "value_en": "Up to 280 mm"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Topsky-UGV-UGV.htm",
+      "source_price_raw": null,
+      "product_id": "robotsasia-ugv-topsky-ugv",
+      "slug": "robotsasia-ugv-topsky-ugv",
+      "category": "ugvs",
+      "subcategory": null,
+      "brand": "Topsky",
+      "model": "UGV",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "خودرو زمینی بدون‌سرنشین زنجیری Topsky",
+      "product_name_en": "Topsky Tracked UGV",
+      "tagline_fa": "پلتفرم زنجیری حمل و واکنش با ظرفیت بار بالا",
+      "tagline_en": "Tracked transport & response platform with high load capacity",
+      "description_fa": "Topsky UGV یک خودرو زمینی بدون‌سرنشین زنجیری و فشرده برای حمل تجهیزات و واکنش میدانی است که بر کشش، ظرفیت بار و عبور از مانع تأکید دارد. ابعاد آن ۱۵۰۰×۱۱۵۰×۱۲۰۰ میلی‌متر و وزن ≤۴۵۰ کیلوگرم است.",
+      "description_en": "The Topsky UGV is a compact tracked unmanned ground vehicle for equipment transport and field response, emphasizing traction, payload capacity and obstacle handling. It measures 1500 × 1150 × 1200 mm and weighs ≤ 450 kg.",
+      "lead_time_days": 45,
+      "hero_image": "",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "خودرو زمینی بدون‌سرنشین (UGV)",
+          "label_en": "Type",
+          "value_en": "Unmanned ground vehicle (UGV)"
+        },
+        {
+          "label_fa": "ساختار",
+          "value_fa": "زنجیری",
+          "label_en": "Form factor",
+          "value_en": "Tracked"
+        },
+        {
+          "label_fa": "ابعاد",
+          "value_fa": "۱۵۰۰×۱۱۵۰×۱۲۰۰ میلی‌متر",
+          "label_en": "Dimensions",
+          "value_en": "1500 × 1150 × 1200 mm"
+        },
+        {
+          "label_fa": "وزن",
+          "value_fa": "≤۴۵۰ کیلوگرم",
+          "label_en": "Weight",
+          "value_en": "≤ 450 kg"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Inspire-Robots-Dexterous-Right-Hand-RH56F1-E2R.htm",
+      "source_price_raw": "CN¥31,385.93",
+      "product_id": "robotsasia-accessory-inspire-rh56f1-e2r",
+      "slug": "robotsasia-accessory-inspire-rh56f1-e2r",
+      "category": "accessories",
+      "subcategory": "robot-hands",
+      "brand": "Inspire Robots",
+      "model": "RH56F1-E2R",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "دست رباتیک ماهر Inspire RH56F1-E2R (راست)",
+      "product_name_en": "Inspire RH56F1-E2R Dexterous Right Hand",
+      "tagline_fa": "دست پنج‌انگشتی شش‌درجه‌آزادی با کنترل RS485 و حسگری",
+      "tagline_en": "Five-finger 6-DOF hand with RS485 control and sensing",
+      "description_fa": "Inspire RH56F1-E2R یک دست رباتیک ماهر راست با پنج انگشت و شش درجه‌ی آزادی است که با رابط RS485 کنترل می‌شود. این دست از محرک‌های ریز همراه با حسگری و کنترل ترکیبی نیرو/موقعیت بهره می‌برد تا گرفتن پایدار اشیا را بهبود دهد و معمولاً به‌صورت جفت چپ/راست به کار می‌رود.",
+      "description_en": "The Inspire RH56F1-E2R is a five-finger, 6-DOF dexterous right hand controlled over RS485. It combines miniature actuators with sensing and mixed force/position control to improve grasp stability, and is typically deployed as a matched left/right pair.",
+      "lead_time_days": 45,
+      "hero_image": "",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "دست رباتیک ماهر",
+          "label_en": "Type",
+          "value_en": "Dexterous robot hand"
+        },
+        {
+          "label_fa": "انگشت‌ها",
+          "value_fa": "۵ انگشت",
+          "label_en": "Fingers",
+          "value_en": "5 fingers"
+        },
+        {
+          "label_fa": "درجات آزادی",
+          "value_fa": "۶ درجه آزادی",
+          "label_en": "Degrees of freedom",
+          "value_en": "6 DOF"
+        },
+        {
+          "label_fa": "کنترل/واسط",
+          "value_fa": "RS485",
+          "label_en": "Control / interface",
+          "value_en": "RS485"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Linkerbot-Linker-Hand-L10-Standard-Version.htm",
+      "source_price_raw": "CN¥35,000.00",
+      "product_id": "robotsasia-accessory-linkerbot-l10",
+      "slug": "robotsasia-accessory-linkerbot-l10",
+      "category": "accessories",
+      "subcategory": "robot-hands",
+      "brand": "Linkerbot",
+      "model": "Linker Hand L10",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "دست رباتیک ماهر Linkerbot Linker Hand L10",
+      "product_name_en": "Linkerbot Linker Hand L10",
+      "tagline_fa": "دست با ۱۰ درجه‌آزادی فعال + ۱۰ غیرفعال و واسط CAN/EtherCAT",
+      "tagline_en": "Hand with 10 active + 10 passive DOF, CAN/EtherCAT",
+      "description_fa": "Linkerbot Linker Hand L10 یک دست رباتیک ماهر پرکارایی با ۱۰ درجه‌ی آزادی فعال و ۱۰ غیرفعال است که برای دستکاری درون‌دستی و تعامل با ابزار طراحی شده است. معماری لینکیج (به‌جای کابلی) بسته‌بندی را ساده و استحکام را بیشتر می‌کند و از گزینه‌های چندحسگری و یکپارچگی CAN/EtherCAT پشتیبانی می‌کند.",
+      "description_en": "The Linkerbot Linker Hand L10 is a high-performance dexterous hand with 10 active + 10 passive degrees of freedom, designed for in-hand manipulation and tool interaction. Its linkage-driven architecture (rather than cable-driven) simplifies packaging and improves robustness, with multi-sensor options and CAN/EtherCAT integration.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/l/i/linkerbot-linker-hand-l10.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "دست رباتیک ماهر",
+          "label_en": "Type",
+          "value_en": "Dexterous robot hand"
+        },
+        {
+          "label_fa": "درجات آزادی",
+          "value_fa": "۱۰ فعال + ۱۰ غیرفعال",
+          "label_en": "Degrees of freedom",
+          "value_en": "10 active + 10 passive"
+        },
+        {
+          "label_fa": "معماری",
+          "value_fa": "لینکیج",
+          "label_en": "Architecture",
+          "value_en": "Linkage-driven"
+        },
+        {
+          "label_fa": "واسط",
+          "value_fa": "CAN / EtherCAT",
+          "label_en": "Interface",
+          "value_en": "CAN / EtherCAT"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Robotera-XHAND1-Dexterous-Hand.htm",
+      "source_price_raw": "CN¥117,174.13",
+      "product_id": "robotsasia-accessory-robotera-xhand1",
+      "slug": "robotsasia-accessory-robotera-xhand1",
+      "category": "accessories",
+      "subcategory": "robot-hands",
+      "brand": "Robotera",
+      "model": "XHAND1",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "دست رباتیک ماهر Robotera XHAND1 (راست)",
+      "product_name_en": "Robotera XHAND1 Dexterous Right Hand",
+      "tagline_fa": "دست پنج‌انگشتی ۱۲ درجه‌آزادی با حسگر لمسی و نیروی گرفتن تا ۸۰ نیوتن",
+      "tagline_en": "Five-finger 12-DOF hand, tactile sensing, up to 80 N grip",
+      "description_fa": "Robotera XHAND1 یک دست رباتیک پنج‌انگشتی پیشرفته با ۱۲ درجه‌ی آزادیِ کاملاً محرک، حسگرهای لمسی با رزولوشن بالا و نیروی گرفتن تا ۸۰ نیوتن است. این دست از انتقال Quasi-Direct Drive با چرخ‌دنده‌ی کامل بهره می‌برد و برای دستکاری دقیق انسان‌وار طراحی شده است.",
+      "description_en": "The Robotera XHAND1 is an advanced five-finger robotic hand with 12 fully actuated degrees of freedom, high-resolution tactile sensors and up to 80 N grip strength. It uses full-gear Quasi-Direct Drive transmission and targets human-like precision manipulation.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/r/o/robotera-xhand1_1.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "دست رباتیک ماهر",
+          "label_en": "Type",
+          "value_en": "Dexterous robot hand"
+        },
+        {
+          "label_fa": "انگشت‌ها",
+          "value_fa": "۵ انگشت",
+          "label_en": "Fingers",
+          "value_en": "5 fingers"
+        },
+        {
+          "label_fa": "درجات آزادی",
+          "value_fa": "۱۲ درجه آزادی (کاملاً محرک)",
+          "label_en": "Degrees of freedom",
+          "value_en": "12 DOF (fully actuated)"
+        },
+        {
+          "label_fa": "نیروی گرفتن",
+          "value_fa": "تا ۸۰ نیوتن",
+          "label_en": "Grip strength",
+          "value_en": "Up to 80 N"
+        },
+        {
+          "label_fa": "حسگر",
+          "value_fa": "لمسی با رزولوشن بالا",
+          "label_en": "Sensing",
+          "value_en": "High-resolution tactile"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Unitree-G1-Dex3-1-Force-Control-Three-Finger-Dexterity-Hand.htm",
+      "source_price_raw": "CN¥45,335.23",
+      "product_id": "robotsasia-accessory-unitree-dex3-1",
+      "slug": "robotsasia-accessory-unitree-dex3-1",
+      "category": "accessories",
+      "subcategory": "robot-hands",
+      "brand": "Unitree",
+      "model": "G1 Dex3-1",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "دست رباتیک ماهر Unitree G1 Dex3-1",
+      "product_name_en": "Unitree G1 Dex3-1 Dexterous Hand",
+      "tagline_fa": "دست سه‌انگشتی نیرو-کنترل با ۷ درجه‌آزادی و ۳۳ حسگر لمسی",
+      "tagline_en": "Three-finger force-control hand, 7 DOF, 33 tactile sensors",
+      "description_fa": "Unitree G1 Dex3-1 یک دست رباتیک ماهر سه‌انگشتی با کنترل نیرو، هفت درجه‌ی آزادی و ۳۳ حسگر لمسی است که به‌عنوان دست اختیاری پیشرفته برای ربات انسان‌نمای G1 ارائه می‌شود. طراحی آن بر مفصل‌بندی چندگانه، کنترل نیرو و حسگری لمسی برای گرفتن کنترل‌شده‌ی اشیا تأکید دارد.",
+      "description_en": "The Unitree G1 Dex3-1 is a three-finger force-control dexterous hand with 7 DOF and 33 tactile sensors, offered as an advanced optional hand for the Unitree G1 humanoid. It emphasizes multi-joint articulation, force control and tactile sensing for controlled object grasping.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/u/n/unitree_g1_dex3-1_force_control_three_finger_dexterity_hand_1_1.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "دست رباتیک ماهر",
+          "label_en": "Type",
+          "value_en": "Dexterous robot hand"
+        },
+        {
+          "label_fa": "انگشت‌ها",
+          "value_fa": "۳ انگشت",
+          "label_en": "Fingers",
+          "value_en": "3 fingers"
+        },
+        {
+          "label_fa": "درجات آزادی",
+          "value_fa": "۷ درجه آزادی",
+          "label_en": "Degrees of freedom",
+          "value_en": "7 DOF"
+        },
+        {
+          "label_fa": "حسگر لمسی",
+          "value_fa": "۳۳ حسگر",
+          "label_en": "Tactile sensors",
+          "value_en": "33"
+        },
+        {
+          "label_fa": "کنترل",
+          "value_fa": "نیرو-کنترل",
+          "label_en": "Control",
+          "value_en": "Force control"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Unitree-H1-2-Dexterous-Hand.htm",
+      "source_price_raw": "CN¥69,746.50",
+      "product_id": "robotsasia-accessory-unitree-h1-2-hand",
+      "slug": "robotsasia-accessory-unitree-h1-2-hand",
+      "category": "accessories",
+      "subcategory": "robot-hands",
+      "brand": "Unitree",
+      "model": "H1-2 Dexterous Hand",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "دست رباتیک ماهر Unitree H1-2",
+      "product_name_en": "Unitree H1-2 Dexterous Hand",
+      "tagline_fa": "دست پنج‌انگشتی انسان‌وار برای ربات‌های انسان‌نمای H1/H1-2",
+      "tagline_en": "Five-finger anthropomorphic hand for H1/H1-2 humanoids",
+      "description_fa": "Unitree H1-2 Dexterous Hand یک دست رباتیک پنج‌انگشتی انسان‌وار (خانواده‌ی Dex5-1) برای ربات‌های انسان‌نمای H1/H1-2 است که شست، اشاره، میانی، حلقه و کوچک را به‌صورت مستقل به حرکت درمی‌آورد. ارتقای H1-2 با بازوهای هفت‌درجه‌آزادی و مچ، پیش‌نیاز جهت‌گیری کاربردی دست را فراهم کرده است.",
+      "description_en": "The Unitree H1-2 Dexterous Hand is a five-finger anthropomorphic hand (Dex5-1 family) for the H1/H1-2 humanoids, independently actuating thumb, index, middle, ring and little fingers. The H1-2 upgrade added 7-DOF arms with a wrist, providing the kinematic prerequisite for functional hand orientation.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/u/n/unitree_g1_third-party_dexterity_one-handed_g1-dex-rh-lh__1.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "دست رباتیک ماهر",
+          "label_en": "Type",
+          "value_en": "Dexterous robot hand"
+        },
+        {
+          "label_fa": "انگشت‌ها",
+          "value_fa": "۵ انگشت (انسان‌وار)",
+          "label_en": "Fingers",
+          "value_en": "5 fingers (anthropomorphic)"
+        },
+        {
+          "label_fa": "خانواده",
+          "value_fa": "Dex5-1",
+          "label_en": "Family",
+          "value_en": "Dex5-1"
+        },
+        {
+          "label_fa": "سازگاری",
+          "value_fa": "ربات‌های H1 / H1-2",
+          "label_en": "Compatibility",
+          "value_en": "H1 / H1-2 humanoids"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Shadow-DH-Dexterous-Hand.htm",
+      "source_price_raw": null,
+      "product_id": "robotsasia-accessory-shadow-dh",
+      "slug": "robotsasia-accessory-shadow-dh",
+      "category": "accessories",
+      "subcategory": "robot-hands",
+      "brand": "Shadow Robot",
+      "model": "Dexterous Hand (DH)",
+      "origin_fa": "بریتانیا",
+      "origin_en": "United Kingdom",
+      "product_name_fa": "دست رباتیک ماهر Shadow Dexterous Hand (DH)",
+      "product_name_en": "Shadow Dexterous Hand (DH)",
+      "tagline_fa": "دست تاندون‌محرک پردرجه‌آزادی با ۲۰ محرک و حسگری لمسی",
+      "tagline_en": "High-DOF tendon-driven hand, 20 actuators, tactile sensing",
+      "description_fa": "Shadow Dexterous Hand (DH) یک دست رباتیک تاندون‌محرک و انسان‌وار است که اندازه، سینماتیک و گستره‌ی کاری دست انسان را تقریب می‌زند و در پژوهش رباتیک به‌طور گسترده به کار می‌رود. نسخه‌ی کلاسیک پنج‌انگشتی آن دارای ۲۰ محرک و پشتیبانی از ۲۴ حرکت مفصلی به همراه حسگری لمسی و یکپارچگی EtherCAT/ROS است.",
+      "description_en": "The Shadow Dexterous Hand (DH) is a tendon-driven, anthropomorphic robot hand that approximates the size, kinematics and functional range of a human hand and is widely used in robotics research. The classic five-finger version has 20 actuators and supports 24 joint movements, with tactile sensing and EtherCAT/ROS integration.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/s/h/shadow-robot_1.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "دست رباتیک ماهر",
+          "label_en": "Type",
+          "value_en": "Dexterous robot hand"
+        },
+        {
+          "label_fa": "محرک‌ها",
+          "value_fa": "۲۰ محرک",
+          "label_en": "Actuators",
+          "value_en": "20 actuators"
+        },
+        {
+          "label_fa": "حرکات مفصلی",
+          "value_fa": "۲۴ حرکت",
+          "label_en": "Joint movements",
+          "value_en": "24"
+        },
+        {
+          "label_fa": "درایو",
+          "value_fa": "تاندون‌محرک",
+          "label_en": "Drive",
+          "value_en": "Tendon-driven"
+        },
+        {
+          "label_fa": "یکپارچگی",
+          "value_fa": "EtherCAT / ROS، حسگر لمسی",
+          "label_en": "Integration",
+          "value_en": "EtherCAT / ROS, tactile sensing"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Agibot-OmniPicker.htm",
+      "source_price_raw": "CN¥4,184.79",
+      "product_id": "robotsasia-accessory-agibot-omnipicker",
+      "slug": "robotsasia-accessory-agibot-omnipicker",
+      "category": "accessories",
+      "subcategory": "robot-hands",
+      "brand": "AgiBot",
+      "model": "OmniPicker",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "گریپر صنعتی AgiBot OmniPicker",
+      "product_name_en": "AgiBot OmniPicker Gripper",
+      "tagline_fa": "گریپر رباتیک با نیروی گرفتن ۱۴۰ نیوتن و دوام یک‌میلیون چرخه",
+      "tagline_en": "Robot gripper with 140 N grip force and 1M-cycle durability",
+      "description_fa": "AgiBot OmniPicker یک گریپر رباتیک صنعتی است که در ابتدا به‌عنوان لوازم جانبی اختیاری برای ربات انسان‌نمای فشرده‌ی AgiBot X2 معرفی شد. نسل OmniPicker 3 با نیروی گرفتن ۱۴۰ نیوتن و دوام نامی یک‌میلیون چرخه، برای کاربردهای گرفتن و جابه‌جایی مناسب است.",
+      "description_en": "The AgiBot OmniPicker is an industrial robot gripper, originally introduced as an optional accessory for the AgiBot X2 compact humanoid. The OmniPicker 3 generation offers 140 N of grip force and a 1,000,000-cycle rated durability, suiting grasping and handling applications.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/o/m/omnipicker.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "گریپر رباتیک",
+          "label_en": "Type",
+          "value_en": "Robot gripper"
+        },
+        {
+          "label_fa": "نیروی گرفتن",
+          "value_fa": "۱۴۰ نیوتن",
+          "label_en": "Grip force",
+          "value_en": "140 N"
+        },
+        {
+          "label_fa": "دوام",
+          "value_fa": "۱٬۰۰۰٬۰۰۰ چرخه",
+          "label_en": "Durability",
+          "value_en": "1,000,000 cycles"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/AgiBot-X2-Spare-Battery.htm",
+      "source_price_raw": "CN¥13,216.96",
+      "product_id": "robotsasia-accessory-agibot-x2-battery",
+      "slug": "robotsasia-accessory-agibot-x2-battery",
+      "category": "accessories",
+      "subcategory": "robot-batteries",
+      "brand": "AgiBot",
+      "model": "X2 Spare Battery",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "باتری یدک AgiBot X2",
+      "product_name_en": "AgiBot X2 Spare Battery",
+      "tagline_fa": "باتری یدک برای ربات انسان‌نمای AgiBot X2",
+      "tagline_en": "Spare battery for the AgiBot X2 humanoid",
+      "description_fa": "باتری یدک AgiBot X2 یک بسته‌ی باتری جایگزین برای ربات انسان‌نمای AgiBot X2 است که با فراهم‌کردن یک باتری اضافی برای تعویض سریع، زمان کارکرد میدانی را افزایش می‌دهد و توقف ناشی از شارژ را کاهش می‌دهد.",
+      "description_en": "The AgiBot X2 Spare Battery is a replacement battery pack for the AgiBot X2 humanoid, extending field uptime by providing an extra pack for quick swaps and reducing charging downtime.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/a/g/agibot-x2-spare-battery_1.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "باتری یدک",
+          "label_en": "Type",
+          "value_en": "Spare battery"
+        },
+        {
+          "label_fa": "سازگاری",
+          "value_fa": "ربات انسان‌نمای AgiBot X2",
+          "label_en": "Compatibility",
+          "value_en": "AgiBot X2 humanoid"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Unitree-R1-Battery-Charger.htm",
+      "source_price_raw": null,
+      "product_id": "robotsasia-accessory-unitree-r1-charger",
+      "slug": "robotsasia-accessory-unitree-r1-charger",
+      "category": "accessories",
+      "subcategory": "robot-chargers",
+      "brand": "Unitree",
+      "model": "R1 Battery Charger",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "شارژر باتری Unitree R1",
+      "product_name_en": "Unitree R1 Battery Charger",
+      "tagline_fa": "شارژر اختصاصی باتری برای ربات انسان‌نمای Unitree R1",
+      "tagline_en": "Dedicated battery charger for the Unitree R1 humanoid",
+      "description_fa": "شارژر باتری Unitree R1 یک شارژر اختصاصی تک‌تکه برای ربات انسان‌نمای Unitree R1 است. این شارژر به‌صورت یک آداپتور برق متناوب (AC) بیرونی عرضه می‌شود و بخشی از اکوسیستم توان است که بر زمان کارکرد و آماده‌به‌کاری ربات اثر می‌گذارد.",
+      "description_en": "The Unitree R1 Battery Charger is a dedicated single-piece charger for the Unitree R1 humanoid. Supplied as an external AC-powered adapter, it is part of the power ecosystem that affects robot uptime and readiness.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/u/n/unitree_r1_charger_1.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "شارژر باتری",
+          "label_en": "Type",
+          "value_en": "Battery charger"
+        },
+        {
+          "label_fa": "سازگاری",
+          "value_fa": "ربات انسان‌نمای Unitree R1",
+          "label_en": "Compatibility",
+          "value_en": "Unitree R1 humanoid"
+        },
+        {
+          "label_fa": "فرم",
+          "value_fa": "آداپتور برق AC",
+          "label_en": "Form",
+          "value_en": "AC power adapter"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/BWSENSING-BWS2700-High-Precision-Modbus-Dual-Axis-Inclinometer.htm",
+      "source_price_raw": null,
+      "product_id": "robotsasia-accessory-bwsensing-bws2700",
+      "slug": "robotsasia-accessory-bwsensing-bws2700",
+      "category": "accessories",
+      "subcategory": "sensors",
+      "brand": "BWSENSING",
+      "model": "BWS2700",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "شیب‌سنج دومحوره دقت‌بالا BWSENSING BWS2700",
+      "product_name_en": "BWSENSING BWS2700 High-Precision Dual-Axis Inclinometer",
+      "tagline_fa": "شیب‌سنج دومحوره‌ی MEMS با خروجی Modbus و بازه‌ی ±۳۰ درجه",
+      "tagline_en": "Dual-axis MEMS inclinometer with Modbus output and ±30° range",
+      "description_fa": "BWSENSING BWS2700 یک شیب‌سنج (اینکلینومتر) دومحوره‌ی دقت‌بالا بر پایه‌ی فناوری MEMS با خروجی دیجیتال Modbus است. بازه‌ی اندازه‌گیری آن ±۳۰ درجه است و برای پایش زاویه و تراز در سامانه‌های رباتیک و صنعتی به کار می‌رود.",
+      "description_en": "The BWSENSING BWS2700 is a high-precision dual-axis inclinometer based on MEMS technology with Modbus digital output. It has a ±30° measurement range and is used for angle and level monitoring in robotic and industrial systems.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/b/w/bwsensing-high-precision-modbus-dual-axis-inclinometer-bws2700.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "شیب‌سنج (اینکلینومتر)",
+          "label_en": "Type",
+          "value_en": "Inclinometer"
+        },
+        {
+          "label_fa": "محورها",
+          "value_fa": "دومحوره",
+          "label_en": "Axes",
+          "value_en": "Dual-axis"
+        },
+        {
+          "label_fa": "فناوری",
+          "value_fa": "MEMS",
+          "label_en": "Technology",
+          "value_en": "MEMS"
+        },
+        {
+          "label_fa": "خروجی",
+          "value_fa": "Modbus دیجیتال",
+          "label_en": "Output",
+          "value_en": "Modbus digital"
+        },
+        {
+          "label_fa": "بازه",
+          "value_fa": "±۳۰ درجه",
+          "label_en": "Range",
+          "value_en": "±30°"
+        }
+      ],
+      "use_cases": []
+    }
+  ]
+}

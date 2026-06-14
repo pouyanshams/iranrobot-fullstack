@@ -6092,14 +6092,14 @@
     {
       "id": "magiclab-magicbot-g1",
       "slug": "magiclab-magicbot-g1",
-      "name": "ربات انسان‌نمای چرخ‌دار MagicLab MagicBot G1 Standard Edition",
+      "name": "ربات انسان‌نمای دوپای MagicLab MagicBot G1 Standard Edition",
       "nameEn": "MagicLab MagicBot G1 Standard Edition Humanoid Robot",
       "brand": "MagicLab",
       "model": "MagicBot G1",
       "origin": "چین",
       "originEn": "China",
       "category": "humanoid",
-      "subcategory": "wheeled-humanoids",
+      "subcategory": "bipedal-humanoids",
       "isNewArrival": true,
       "tags": [
         "humanoid",
@@ -6109,10 +6109,10 @@
         "MagicLab",
         "MagicBot G1"
       ],
-      "tagline": "پلتفرم انسان‌نمای چرخ‌دار MagicLab برای پژوهش، توسعه نرم‌افزار رباتیک و کاربردهای تعامل انسانی در محیط‌های صاف داخلی.",
-      "taglineEn": "A MagicLab wheeled humanoid platform for robotics research, software development, and human-interaction applications in flat indoor environments.",
-      "description": "MagicLab MagicBot G1 Standard Edition نسخه پایه از خانواده ربات‌های انسان‌نمای MagicBot G1 شرکت MagicLab است؛ یک پلتفرم انسان‌نمای چرخ‌دار که در کنار مدل دوپای MagicBot Z1 از همین برند ارائه می‌شود. این پیکره‌بندی برای پژوهش، نمایش رباتیک و توسعه کاربردهای تعامل انسان و ربات در فضاهای داخلی صاف طراحی شده است.",
-      "descriptionEn": "The MagicLab MagicBot G1 Standard Edition is the entry-level configuration of MagicLab’s MagicBot G1 humanoid family, offered alongside the bipedal MagicBot Z1 from the same brand. This wheeled humanoid configuration is aimed at robotics research, demonstrations, and human-robot interaction development in flat indoor environments.",
+      "tagline": "پلتفرم انسان‌نمای دوپای هم‌اندازه‌ی انسان از MagicLab برای پژوهش، توسعه‌ی نرم‌افزار رباتیک و کاربردهای تعامل انسانی.",
+      "taglineEn": "A MagicLab human-scale bipedal humanoid platform for robotics research, software development, and human-interaction applications.",
+      "description": "MagicLab MagicBot G1 Standard Edition نسخه‌ی پایه از خانواده‌ی ربات‌های انسان‌نمای MagicBot G1 شرکت MagicLab است؛ یک انسان‌نمای دوپای هم‌اندازه‌ی انسان که در کنار مدل MagicBot Z1 از همین برند ارائه می‌شود. این پلتفرم انسان‌نمای دوپا برای پژوهش، نمایش رباتیک و توسعه‌ی کاربردهای تعامل انسان و ربات در فضاهای داخلی طراحی شده است.",
+      "descriptionEn": "The MagicLab MagicBot G1 Standard Edition is the entry-level configuration of MagicLab's MagicBot G1 humanoid family, a human-scale bipedal humanoid offered alongside the MagicBot Z1 from the same brand. This bipedal humanoid platform is aimed at robotics research, demonstrations, and human-robot interaction development in indoor environments.",
       "priceLabel": "استعلام قیمت",
       "priceLabelEn": "Request quote",
       "leadTimeDays": 30,
@@ -6143,7 +6143,7 @@
         },
         {
           "label": "نوع ربات",
-          "value": "انسان‌نمای چرخ‌دار"
+          "value": "انسان‌نمای دو پا"
         }
       ],
       "specsEn": [
@@ -6169,7 +6169,7 @@
         },
         {
           "label": "Robot Type",
-          "value": "Wheeled Humanoid"
+          "value": "Bipedal Humanoid"
         }
       ],
       "highlights": [],

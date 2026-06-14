@@ -1,0 +1,2031 @@
+{
+  "_meta": {
+    "source": "robotsasia",
+    "scope": "Core-4 test batch (humanoids/quadrupeds/amrs/drones), standalone robots only",
+    "note": "Paraphrased IranRobot copy, factual specs. Source CNY prices kept in source_price_raw; catalog stays quote-based. education use_case tagged on clearly educational/research units."
+  },
+  "products": [
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Unitree-G1-Basic-Humanoid-Robot.htm",
+      "source_price_raw": "CN¥149,954.98",
+      "product_id": "robotsasia-humanoid-unitree-g1-basic",
+      "slug": "robotsasia-humanoid-unitree-g1-basic",
+      "category": "humanoids",
+      "subcategory": "bipedal-humanoids",
+      "brand": "Unitree",
+      "model": "G1 Basic",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات انسان‌نمای Unitree G1 Basic",
+      "product_name_en": "Unitree G1 Basic Humanoid Robot",
+      "tagline_fa": "انسان‌نمای دوپای جمع‌وجور با ۲۳ درجه آزادی",
+      "tagline_en": "Compact bipedal humanoid with 23 DOF",
+      "description_fa": "Unitree G1 Basic یک ربات انسان‌نمای دوپای جمع‌وجور با حدود ۲۳ درجه آزادی است که برای پژوهش، آموزش و توسعه‌ی هوش مصنوعی تجسم‌یافته طراحی شده است. با قد حدود ۱٫۳ متر و وزن نزدیک به ۳۵ کیلوگرم، پلتفرمی قابل‌حمل برای آزمایشگاه‌ها و نمایش‌های حرکتی فراهم می‌کند.",
+      "description_en": "The Unitree G1 Basic is a compact bipedal humanoid with about 23 degrees of freedom, built for research, education and embodied-AI development. At roughly 1.3 m tall and ~35 kg, it is a portable platform for labs and motion demonstrations.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/u/n/unitree-g1.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "ربات انسان‌نما",
+          "label_en": "Type",
+          "value_en": "Humanoid robot"
+        },
+        {
+          "label_fa": "درجات آزادی",
+          "value_fa": "۲۳ درجه آزادی",
+          "label_en": "Degrees of freedom",
+          "value_en": "23 DOF"
+        },
+        {
+          "label_fa": "قد",
+          "value_fa": "حدود ۱٫۳ متر",
+          "label_en": "Height",
+          "value_en": "~1.3 m"
+        },
+        {
+          "label_fa": "وزن",
+          "value_fa": "حدود ۳۵ کیلوگرم",
+          "label_en": "Weight",
+          "value_en": "~35 kg"
+        },
+        {
+          "label_fa": "باتری",
+          "value_fa": "۹۰۰۰ میلی‌آمپرساعت، حدود ۲ ساعت کارکرد",
+          "label_en": "Battery",
+          "value_en": "9,000 mAh, ~2 h runtime"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Unitree-H1.htm",
+      "source_price_raw": "CN¥661,929.19",
+      "product_id": "robotsasia-humanoid-unitree-h1",
+      "slug": "robotsasia-humanoid-unitree-h1",
+      "category": "humanoids",
+      "subcategory": "bipedal-humanoids",
+      "brand": "Unitree",
+      "model": "H1",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات انسان‌نمای Unitree H1",
+      "product_name_en": "Unitree H1 Humanoid Robot",
+      "tagline_fa": "انسان‌نمای دوپای تمام‌قد با عملکرد حرکتی رکوردشکن",
+      "tagline_en": "Full-scale bipedal humanoid with record-level performance",
+      "description_fa": "Unitree H1 یک ربات انسان‌نمای دوپای تمام‌قد با ارتفاع ۱٫۸ متر و وزن ۴۷ کیلوگرم است که به‌خاطر چگالی گشتاور بالا و توان حرکتی فوق‌العاده شناخته می‌شود. نسبت وزن کم به گشتاور بالا، شتاب و دوی دوپای پرسرعت را ممکن می‌کند و آن را برای پژوهش‌های پیشرفته‌ی رباتیک مناسب می‌سازد.",
+      "description_en": "The Unitree H1 is a full-scale bipedal humanoid standing 1.8 m and weighing 47 kg, known for high torque density and exceptional dynamic performance. Its low mass-to-torque ratio enables high acceleration and fast bipedal running, suiting advanced robotics research.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/u/n/unitree_humanoid-h1_pics-3.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "ربات انسان‌نما",
+          "label_en": "Type",
+          "value_en": "Humanoid robot"
+        },
+        {
+          "label_fa": "ساختار",
+          "value_fa": "دوپا (Bipedal)",
+          "label_en": "Configuration",
+          "value_en": "Bipedal"
+        },
+        {
+          "label_fa": "قد",
+          "value_fa": "۱٫۸ متر",
+          "label_en": "Height",
+          "value_en": "1.8 m"
+        },
+        {
+          "label_fa": "وزن",
+          "value_fa": "۴۷ کیلوگرم",
+          "label_en": "Weight",
+          "value_en": "47 kg"
+        },
+        {
+          "label_fa": "چگالی گشتاور اوج",
+          "value_fa": "حدود ۱۸۹ نیوتن‌متر بر کیلوگرم",
+          "label_en": "Peak torque density",
+          "value_en": "~189 N·m/kg"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/UBTECH-Walker-S2.htm",
+      "source_price_raw": "CN¥1,046,162.67",
+      "product_id": "robotsasia-humanoid-ubtech-walker-s2",
+      "slug": "robotsasia-humanoid-ubtech-walker-s2",
+      "category": "humanoids",
+      "subcategory": "bipedal-humanoids",
+      "brand": "UBTECH",
+      "model": "Walker S2",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات انسان‌نمای صنعتی UBTECH Walker S2",
+      "product_name_en": "UBTECH Walker S2 Industrial Humanoid Robot",
+      "tagline_fa": "انسان‌نمای دوپای صنعتی با ۴۱ درجه آزادی و بینایی ماشین پیشرفته",
+      "tagline_en": "Industrial bipedal humanoid with 41 DOF and advanced vision",
+      "description_fa": "UBTECH Walker S2 یک ربات انسان‌نمای دوپای صنعتی با تناسبات انسانی (قد حدود ۱٫۴۵ متر) و ۴۱ درجه آزادی است. ترکیب سامانه‌های بینایی ماشین پیشرفته و راه‌رفتن دوپای پایدار، آن را به یکی از پیچیده‌ترین انسان‌نماهای تجاری برای کاربردهای صنعتی و خدماتی تبدیل می‌کند.",
+      "description_en": "The UBTECH Walker S2 is an industrial bipedal humanoid with human-like proportions (~1.45 m) and 41 degrees of freedom. Advanced computer-vision systems plus stable bipedal locomotion make it one of the most sophisticated commercial humanoids for industrial and service use.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/u/b/ubtech-walker-s2-humanoid-robot.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "ربات انسان‌نما",
+          "label_en": "Type",
+          "value_en": "Humanoid robot"
+        },
+        {
+          "label_fa": "ساختار",
+          "value_fa": "دوپا (Bipedal)",
+          "label_en": "Configuration",
+          "value_en": "Bipedal"
+        },
+        {
+          "label_fa": "درجات آزادی",
+          "value_fa": "۴۱ درجه آزادی",
+          "label_en": "Degrees of freedom",
+          "value_en": "41 DOF"
+        },
+        {
+          "label_fa": "قد",
+          "value_fa": "حدود ۱٫۴۵ متر",
+          "label_en": "Height",
+          "value_en": "~1.45 m"
+        },
+        {
+          "label_fa": "ادراک",
+          "value_fa": "بینایی ماشین پیشرفته",
+          "label_en": "Perception",
+          "value_en": "Advanced computer vision"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Fourier-GR2.htm",
+      "source_price_raw": "CN¥871,831.29",
+      "product_id": "robotsasia-humanoid-fourier-gr2",
+      "slug": "robotsasia-humanoid-fourier-gr2",
+      "category": "humanoids",
+      "subcategory": "bipedal-humanoids",
+      "brand": "Fourier",
+      "model": "GR-2",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات انسان‌نمای Fourier GR-2",
+      "product_name_en": "Fourier GR-2 Humanoid Robot",
+      "tagline_fa": "انسان‌نمای هم‌اندازه‌ی انسان با تا ۵۳ محرک",
+      "tagline_en": "Human-scale humanoid with up to 53 actuators",
+      "description_fa": "Fourier GR-2 یک ربات انسان‌نمای هم‌اندازه‌ی انسان با قد ۱۷۵ سانتی‌متر و وزن حدود ۶۳ کیلوگرم است. این ربات با تا ۵۳ محرک/درجه آزادی، گستره‌ی وسیعی از حرکات انسانی شامل راه‌رفتن، گرفتن اشیا و چرخش تنه را شبیه‌سازی می‌کند و از چارچوب‌های مدرن رباتیک پشتیبانی می‌کند.",
+      "description_en": "The Fourier GR-2 is a human-scale humanoid standing 175 cm and weighing about 63 kg. With up to 53 actuators/degrees of freedom, it reproduces a broad set of human motions — walking, grasping and torso rotation — and supports modern robotics frameworks.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/f/o/fourier-gr2.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "ربات انسان‌نما",
+          "label_en": "Type",
+          "value_en": "Humanoid robot"
+        },
+        {
+          "label_fa": "ساختار",
+          "value_fa": "دوپا (Bipedal)",
+          "label_en": "Configuration",
+          "value_en": "Bipedal"
+        },
+        {
+          "label_fa": "درجات آزادی",
+          "value_fa": "تا ۵۳ محرک/درجه آزادی",
+          "label_en": "Degrees of freedom",
+          "value_en": "Up to 53 actuators/DOF"
+        },
+        {
+          "label_fa": "قد",
+          "value_fa": "۱۷۵ سانتی‌متر",
+          "label_en": "Height",
+          "value_en": "175 cm"
+        },
+        {
+          "label_fa": "وزن",
+          "value_fa": "حدود ۶۳ کیلوگرم",
+          "label_en": "Weight",
+          "value_en": "~63 kg"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Booster-T1-Standard-Humanoid-Robot.htm",
+      "source_price_raw": "CN¥237,138.11",
+      "product_id": "robotsasia-humanoid-booster-t1",
+      "slug": "robotsasia-humanoid-booster-t1",
+      "category": "humanoids",
+      "subcategory": "bipedal-humanoids",
+      "brand": "Booster Robotics",
+      "model": "T1",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات انسان‌نمای Booster T1 Standard",
+      "product_name_en": "Booster T1 Standard Humanoid Robot",
+      "tagline_fa": "انسان‌نمای دوپای ۲۳ درجه آزادی با پردازنده‌ی هوش مصنوعی ۲۰۰ TOPS",
+      "tagline_en": "23-DOF bipedal humanoid with 200 TOPS AI compute",
+      "description_fa": "Booster T1 Standard یک ربات انسان‌نمای دوپا با قد حدود ۱٫۲ متر و ۲۳ درجه آزادی (پاها ۶×۲، بازوها ۴×۲، کمر ۱، سر ۲) است. این ربات با پردازنده‌ی Intel i7 و NVIDIA Jetson AGX Orin (توان پردازش هوش مصنوعی ۲۰۰ TOPS) و مجموعه‌ای از حسگرها شامل دوربین RGBD و IMU نه‌محوره عرضه می‌شود.",
+      "description_en": "The Booster T1 Standard is a bipedal humanoid about 1.2 m tall with 23 degrees of freedom (legs 6×2, arms 4×2, waist 1, head 2). It ships with an Intel i7 plus NVIDIA Jetson AGX Orin (200 TOPS of AI compute) and a sensor suite including an RGBD camera and a 9-axis IMU.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/b/o/booster-t1_1.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "ربات انسان‌نما",
+          "label_en": "Type",
+          "value_en": "Humanoid robot"
+        },
+        {
+          "label_fa": "درجات آزادی",
+          "value_fa": "۲۳ درجه آزادی",
+          "label_en": "Degrees of freedom",
+          "value_en": "23 DOF"
+        },
+        {
+          "label_fa": "قد",
+          "value_fa": "حدود ۱٫۲ متر",
+          "label_en": "Height",
+          "value_en": "~1.2 m"
+        },
+        {
+          "label_fa": "پردازنده",
+          "value_fa": "Intel i7 + NVIDIA Jetson AGX Orin",
+          "label_en": "Processor",
+          "value_en": "Intel i7 + NVIDIA Jetson AGX Orin"
+        },
+        {
+          "label_fa": "توان پردازش هوش مصنوعی",
+          "value_fa": "۲۰۰ TOPS",
+          "label_en": "AI compute",
+          "value_en": "200 TOPS"
+        },
+        {
+          "label_fa": "حسگرها",
+          "value_fa": "دوربین RGBD، IMU نه‌محوره",
+          "label_en": "Sensors",
+          "value_en": "RGBD camera, 9-axis IMU"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Agibot-X2-Full-Stack-Open-Source-Humanoid-Robot.htm",
+      "source_price_raw": "CN¥169,065.52",
+      "product_id": "robotsasia-humanoid-agibot-x2",
+      "slug": "robotsasia-humanoid-agibot-x2",
+      "category": "humanoids",
+      "subcategory": "bipedal-humanoids",
+      "brand": "AgiBot",
+      "model": "X2",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات انسان‌نمای متن‌باز AgiBot X2",
+      "product_name_en": "AgiBot X2 Open-Source Humanoid Robot",
+      "tagline_fa": "انسان‌نمای جمع‌وجور و متن‌باز برای پژوهش",
+      "tagline_en": "Compact open-source humanoid for research",
+      "description_fa": "AgiBot X2 یک ربات انسان‌نمای جمع‌وجور و تمام‌پشته‌ی متن‌باز با قد حدود ۱٫۳۱ متر و وزن نزدیک به ۳۵ کیلوگرم است. ساختار بیونیک با درجات آزادی بالا (حدود ۲۷ تا ۳۱ بسته به نسخه) و ابعاد قابل‌مدیریت، آن را برای فضاهای پژوهشی، کلاس‌ها و تعامل ایمن انسان‌وار مناسب می‌کند.",
+      "description_en": "The AgiBot X2 is a compact, full-stack open-source humanoid about 1.31 m tall and ~35 kg. A high-DOF bionic structure (around 27–31 DOF depending on variant) and a manageable footprint make it suitable for research spaces, classrooms and safe human-like interaction.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/a/g/agibot-x2-main.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "ربات انسان‌نما",
+          "label_en": "Type",
+          "value_en": "Humanoid robot"
+        },
+        {
+          "label_fa": "درجات آزادی",
+          "value_fa": "حدود ۲۷ تا ۳۱ درجه آزادی",
+          "label_en": "Degrees of freedom",
+          "value_en": "~27–31 DOF"
+        },
+        {
+          "label_fa": "قد",
+          "value_fa": "حدود ۱٫۳۱ متر",
+          "label_en": "Height",
+          "value_en": "~1.31 m"
+        },
+        {
+          "label_fa": "وزن",
+          "value_fa": "حدود ۳۵ کیلوگرم",
+          "label_en": "Weight",
+          "value_en": "~35 kg"
+        },
+        {
+          "label_fa": "اکوسیستم",
+          "value_fa": "متن‌باز (Full-stack)",
+          "label_en": "Ecosystem",
+          "value_en": "Open-source (full-stack)"
+        }
+      ],
+      "use_cases": [
+        "education"
+      ]
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/RobotEra-L7-Bipedal-Humanoid-Robot.htm",
+      "source_price_raw": "CN¥697,464.68",
+      "product_id": "robotsasia-humanoid-robotera-l7",
+      "slug": "robotsasia-humanoid-robotera-l7",
+      "category": "humanoids",
+      "subcategory": "bipedal-humanoids",
+      "brand": "RobotEra",
+      "model": "L7",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات انسان‌نمای دوپای RobotEra L7",
+      "product_name_en": "RobotEra L7 Bipedal Humanoid Robot",
+      "tagline_fa": "انسان‌نمای تمام‌قد با ۵۵ درجه آزادی، سرعت ۴ متر/ثانیه و ظرفیت دودست ۲۰ کیلوگرم",
+      "tagline_en": "Full-size humanoid, 55 DOF, 4 m/s, 20 kg dual-arm payload",
+      "description_fa": "RobotEra L7 یک ربات انسان‌نمای دوپای تمام‌قد با ارتفاع ۱٫۷۱ متر و وزن ۶۵ کیلوگرم (بدون دست‌های ماهر) است. این ربات با ۵۵ درجه آزادی کل، بازوهای هفت‌درجه‌آزادی، سرعت تا ۴ متر بر ثانیه و ظرفیت حمل دودست ۲۰ کیلوگرم، چابکی و مهارت تمام‌بدن را برای کاربردهای واقعی فراهم می‌کند.",
+      "description_en": "The RobotEra L7 is a full-size bipedal humanoid 1.71 m tall and 65 kg (without dexterous hands). With 55 total degrees of freedom, 7-DOF arms, up to 4 m/s speed and a 20 kg dual-arm payload, it delivers whole-body agility and dexterity for real-world tasks.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/r/o/robotera-l7-3.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "ربات انسان‌نما",
+          "label_en": "Type",
+          "value_en": "Humanoid robot"
+        },
+        {
+          "label_fa": "درجات آزادی",
+          "value_fa": "۵۵ درجه آزادی",
+          "label_en": "Degrees of freedom",
+          "value_en": "55 DOF"
+        },
+        {
+          "label_fa": "قد",
+          "value_fa": "۱٫۷۱ متر",
+          "label_en": "Height",
+          "value_en": "1.71 m"
+        },
+        {
+          "label_fa": "وزن",
+          "value_fa": "۶۵ کیلوگرم (بدون دست)",
+          "label_en": "Weight",
+          "value_en": "65 kg (without hands)"
+        },
+        {
+          "label_fa": "سرعت",
+          "value_fa": "تا ۴ متر بر ثانیه",
+          "label_en": "Speed",
+          "value_en": "Up to 4 m/s"
+        },
+        {
+          "label_fa": "ظرفیت حمل دودست",
+          "value_fa": "۲۰ کیلوگرم",
+          "label_en": "Dual-arm payload",
+          "value_en": "20 kg"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Unitree-G1-D-Wheeled-Humanoid-Robot.htm",
+      "source_price_raw": "CN¥270,616.43",
+      "product_id": "robotsasia-humanoid-unitree-g1-d-wheeled",
+      "slug": "robotsasia-humanoid-unitree-g1-d-wheeled",
+      "category": "humanoids",
+      "subcategory": "wheeled-humanoids",
+      "brand": "Unitree",
+      "model": "G1-D",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات انسان‌نمای چرخ‌دار دودست Unitree G1-D",
+      "product_name_en": "Unitree G1-D Wheeled Humanoid Robot",
+      "tagline_fa": "منیپولاتور متحرک چرخ‌دار دودست با ۱۷ درجه آزادی",
+      "tagline_en": "Dual-arm wheeled mobile manipulator with 17 DOF",
+      "description_fa": "Unitree G1-D یک منیپولاتور متحرک چرخ‌دار دودست با ۱۷ درجه آزادی (هر بازو ۷ + کمر ۲ + ستون ۱) است که برای جمع‌آوری داده، شبیه‌سازی و آموزش مدل‌های هوش مصنوعی تجسم‌یافته طراحی شده است. وزن کل با باتری حدود ۵۰ کیلوگرم و ارتفاع قابل‌تنظیم است.",
+      "description_en": "The Unitree G1-D is a dual-arm wheeled mobile manipulator with 17 degrees of freedom (7 per arm + 2 waist + 1 column), designed for data collection, simulation and embodied-AI model training. Total weight with battery is about 50 kg, with adjustable height.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/u/n/unitree-g1-d.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "انسان‌نمای چرخ‌دار / منیپولاتور متحرک",
+          "label_en": "Type",
+          "value_en": "Wheeled humanoid / mobile manipulator"
+        },
+        {
+          "label_fa": "درجات آزادی",
+          "value_fa": "۱۷ درجه آزادی",
+          "label_en": "Degrees of freedom",
+          "value_en": "17 DOF"
+        },
+        {
+          "label_fa": "ساختار",
+          "value_fa": "دودست روی پایه‌ی چرخ‌دار",
+          "label_en": "Configuration",
+          "value_en": "Dual-arm on wheeled base"
+        },
+        {
+          "label_fa": "وزن",
+          "value_fa": "حدود ۵۰ کیلوگرم (با باتری)",
+          "label_en": "Weight",
+          "value_en": "~50 kg (with battery)"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Elephant-Robotics-Mercury-Humanoid-Robot-X1-4011300003.htm",
+      "source_price_raw": "CN¥111,587.43",
+      "product_id": "robotsasia-humanoid-elephant-mercury-x1",
+      "slug": "robotsasia-humanoid-elephant-mercury-x1",
+      "category": "humanoids",
+      "subcategory": "wheeled-humanoids",
+      "brand": "Elephant Robotics",
+      "model": "Mercury X1",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات انسان‌نمای چرخ‌دار Elephant Robotics Mercury X1",
+      "product_name_en": "Elephant Robotics Mercury X1 Wheeled Humanoid Robot",
+      "tagline_fa": "انسان‌نمای چرخ‌دار دودست ۱۹ درجه آزادی با LiDAR و پشتیبانی ROS",
+      "tagline_en": "19-DOF wheeled dual-arm humanoid with LiDAR and ROS support",
+      "description_fa": "Elephant Robotics Mercury X1 یک ربات انسان‌نمای چرخ‌دار دودست با ۱۹ درجه آزادی است که روی پایه‌ی متحرک چرخ‌دار قرار دارد. این پلتفرم با حسگر LiDAR، پردازنده‌ی Jetson و پشتیبانی ROS، دستکاری متحرک عملی را با گشودگی پژوهشی ترکیب می‌کند؛ بیشینه‌ی سرعت ۱٫۲ متر بر ثانیه و زاویه‌ی شیب‌پیمایی ۱۵ درجه.",
+      "description_en": "The Elephant Robotics Mercury X1 is a wheeled dual-arm humanoid with 19 degrees of freedom on a mobile wheeled base. With LiDAR sensing, Jetson compute and ROS support, it combines practical mobile manipulation with research openness; max speed 1.2 m/s and 15° climbing angle.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/e/l/elephant-robotics-mercury-x1.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "انسان‌نمای چرخ‌دار دودست",
+          "label_en": "Type",
+          "value_en": "Wheeled dual-arm humanoid"
+        },
+        {
+          "label_fa": "درجات آزادی",
+          "value_fa": "۱۹ درجه آزادی",
+          "label_en": "Degrees of freedom",
+          "value_en": "19 DOF"
+        },
+        {
+          "label_fa": "حسگر/پردازش",
+          "value_fa": "LiDAR، Jetson، ROS",
+          "label_en": "Sensing/compute",
+          "value_en": "LiDAR, Jetson, ROS"
+        },
+        {
+          "label_fa": "سرعت",
+          "value_fa": "۱٫۲ متر بر ثانیه",
+          "label_en": "Speed",
+          "value_en": "1.2 m/s"
+        },
+        {
+          "label_fa": "شیب‌پیمایی",
+          "value_fa": "۱۵ درجه",
+          "label_en": "Climbing angle",
+          "value_en": "15°"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Elephant-Robotics-Mercury-Humanoid-Robot-A1-4011300001.htm",
+      "source_price_raw": "CN¥34,866.28",
+      "product_id": "robotsasia-humanoid-elephant-mercury-a1",
+      "slug": "robotsasia-humanoid-elephant-mercury-a1",
+      "category": "humanoids",
+      "subcategory": "upper-body-humanoids",
+      "brand": "Elephant Robotics",
+      "model": "Mercury A1",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "بازوی رباتیک انسان‌وار Elephant Robotics Mercury A1",
+      "product_name_en": "Elephant Robotics Mercury A1 Robotic Arm",
+      "tagline_fa": "بازوی هفت‌درجه‌آزادی سبک با ظرفیت ۱ کیلوگرم و تکرارپذیری ±۰٫۰۵ میلی‌متر",
+      "tagline_en": "Lightweight 7-DOF arm, 1 kg payload, ±0.05 mm repeatability",
+      "description_fa": "Elephant Robotics Mercury A1 یک بازوی رباتیک سبک هفت‌درجه‌آزادی با ظرفیت حمل ۱ کیلوگرم، برد ۴۵۰ میلی‌متر و تکرارپذیری ±۰٫۰۵ میلی‌متر است. بدنه از الیاف کربن و آلیاژ آلومینیوم ساخته شده و درجه‌ی آزادی هفتم، انعطاف بیشتری برای رسیدن و جهت‌گیری انسان‌وار فراهم می‌کند.",
+      "description_en": "The Elephant Robotics Mercury A1 is a lightweight 7-DOF robotic arm with a 1 kg payload, 450 mm reach and ±0.05 mm repeatability. Built from carbon fiber and aluminum alloy, its seventh axis adds flexibility for human-like reach and orientation.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/m/e/mercury-a1.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "بازوی رباتیک انسان‌وار",
+          "label_en": "Type",
+          "value_en": "Humanoid robotic arm"
+        },
+        {
+          "label_fa": "درجات آزادی",
+          "value_fa": "۷ درجه آزادی",
+          "label_en": "Degrees of freedom",
+          "value_en": "7 DOF"
+        },
+        {
+          "label_fa": "ظرفیت حمل",
+          "value_fa": "۱ کیلوگرم",
+          "label_en": "Payload",
+          "value_en": "1 kg"
+        },
+        {
+          "label_fa": "برد کاری",
+          "value_fa": "۴۵۰ میلی‌متر",
+          "label_en": "Reach",
+          "value_en": "450 mm"
+        },
+        {
+          "label_fa": "تکرارپذیری",
+          "value_fa": "±۰٫۰۵ میلی‌متر",
+          "label_en": "Repeatability",
+          "value_en": "±0.05 mm"
+        }
+      ],
+      "use_cases": [
+        "education"
+      ]
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Unitree-Go2-Air-Quadruped-Robot-Dog.htm",
+      "source_price_raw": "CN¥16,495.05",
+      "product_id": "robotsasia-quadruped-unitree-go2-air",
+      "slug": "robotsasia-quadruped-unitree-go2-air",
+      "category": "quadrupeds",
+      "subcategory": "standard-quadrupeds",
+      "brand": "Unitree",
+      "model": "Go2 Air",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات چهارپای Unitree Go2 Air",
+      "product_name_en": "Unitree Go2 Air Quadruped Robot Dog",
+      "tagline_fa": "سگ رباتیک جمع‌وجور مجهز به LiDAR برای آموزش و نمایش",
+      "tagline_en": "Compact LiDAR-enabled robot dog for education and demos",
+      "description_fa": "Unitree Go2 Air یک سگ رباتیک چهارپای جمع‌وجور با کنترل راه‌رفتن پویا و ادراک مبتنی بر LiDAR است. ابعاد فشرده و قابلیت حمل آسان، آن را به گزینه‌ای مناسب برای آموزش، نمایش حرکتی و کاربردهای هوش مصنوعی تجسم‌یافته تبدیل می‌کند.",
+      "description_en": "The Unitree Go2 Air is a compact quadruped robot dog with dynamic walking control and LiDAR-based perception. Its small footprint and easy portability make it a strong fit for education, mobility demonstrations and embodied-AI applications.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/u/n/unitree_go2_1_3.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "ربات چهارپا (سگ رباتیک)",
+          "label_en": "Type",
+          "value_en": "Quadruped robot (robot dog)"
+        },
+        {
+          "label_fa": "ساختار",
+          "value_fa": "چهارپا، چهار پای مفصلی",
+          "label_en": "Configuration",
+          "value_en": "Quadruped, four articulated legs"
+        },
+        {
+          "label_fa": "ادراک",
+          "value_fa": "LiDAR",
+          "label_en": "Perception",
+          "value_en": "LiDAR"
+        },
+        {
+          "label_fa": "کاربرد",
+          "value_fa": "آموزش، نمایش، پژوهش",
+          "label_en": "Use",
+          "value_en": "Education, demos, research"
+        }
+      ],
+      "use_cases": [
+        "education"
+      ]
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Unitree-Go2-PRO-Robot-Dog.htm",
+      "source_price_raw": "CN¥26,433.92",
+      "product_id": "robotsasia-quadruped-unitree-go2-pro",
+      "slug": "robotsasia-quadruped-unitree-go2-pro",
+      "category": "quadrupeds",
+      "subcategory": "standard-quadrupeds",
+      "brand": "Unitree",
+      "model": "Go2 Pro",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات چهارپای Unitree Go2 Pro",
+      "product_name_en": "Unitree Go2 Pro Quadruped Robot Dog",
+      "tagline_fa": "سگ رباتیک با 4D LiDAR، سرعت تا ۵ متر/ثانیه و اتصال چندحالته",
+      "tagline_en": "4D-LiDAR robot dog, up to 5 m/s, multi-mode connectivity",
+      "description_fa": "Unitree Go2 Pro یک سگ رباتیک چهارپای حرفه‌ای با حسگر 4D LiDAR، بیشینه‌ی سرعت دوی حدود ۵ متر بر ثانیه و گشتاور اوج مفصل حدود ۴۵ نیوتن‌متر است. اتصال چندحالته (Wi-Fi 6، بلوتوث و پشتیبانی ۴G) آن را برای پژوهش رباتیک و هوش مصنوعی تجسم‌یافته مناسب می‌کند.",
+      "description_en": "The Unitree Go2 Pro is a professional quadruped robot dog with 4D LiDAR, a top running speed of about 5 m/s and ~45 N·m peak joint torque. Multi-mode connectivity (Wi-Fi 6, Bluetooth and 4G support) makes it well suited to robotics R&D and embodied AI.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/u/n/unitree_go2_1.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "ربات چهارپا (سگ رباتیک)",
+          "label_en": "Type",
+          "value_en": "Quadruped robot (robot dog)"
+        },
+        {
+          "label_fa": "ادراک",
+          "value_fa": "4D LiDAR",
+          "label_en": "Perception",
+          "value_en": "4D LiDAR"
+        },
+        {
+          "label_fa": "سرعت بیشینه",
+          "value_fa": "حدود ۵ متر بر ثانیه",
+          "label_en": "Max speed",
+          "value_en": "~5 m/s"
+        },
+        {
+          "label_fa": "گشتاور اوج مفصل",
+          "value_fa": "حدود ۴۵ نیوتن‌متر",
+          "label_en": "Peak joint torque",
+          "value_en": "~45 N·m"
+        },
+        {
+          "label_fa": "اتصال",
+          "value_fa": "Wi-Fi 6، بلوتوث، ۴G",
+          "label_en": "Connectivity",
+          "value_en": "Wi-Fi 6, Bluetooth, 4G"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Unitree-B2.htm",
+      "source_price_raw": "CN¥697,465.03",
+      "product_id": "robotsasia-quadruped-unitree-b2",
+      "slug": "robotsasia-quadruped-unitree-b2",
+      "category": "quadrupeds",
+      "subcategory": "standard-quadrupeds",
+      "brand": "Unitree",
+      "model": "B2",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات چهارپای صنعتی Unitree B2",
+      "product_name_en": "Unitree B2 Quadruped Robot",
+      "tagline_fa": "پلتفرم چهارپای صنعتی همه‌کاره با ظرفیت و دوام بالا",
+      "tagline_en": "All-scenario industrial quadruped with high load and endurance",
+      "description_fa": "Unitree B2 یک پلتفرم چهارپای صنعتی همه‌کاره است که بر دوام، ظرفیت حمل و سازگاری با زمین‌های دشوار تأکید دارد. این ربات برای پژوهش، بازرسی، امنیت و لجستیک طراحی شده و ابعاد آن بسته به وضعیت ایستاده یا خوابیده تغییر می‌کند.",
+      "description_en": "The Unitree B2 is an all-scenario industrial quadruped platform emphasizing endurance, load capacity and terrain adaptability. It targets research, inspection, security and logistics, with dimensions that vary between standing and prone postures.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/u/n/unitree-b2.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "ربات چهارپا (سگ رباتیک)",
+          "label_en": "Type",
+          "value_en": "Quadruped robot (robot dog)"
+        },
+        {
+          "label_fa": "رده",
+          "value_fa": "صنعتی / همه‌سناریو",
+          "label_en": "Class",
+          "value_en": "Industrial / all-scenario"
+        },
+        {
+          "label_fa": "ویژگی‌ها",
+          "value_fa": "دوام بالا، سازگاری با زمین دشوار",
+          "label_en": "Strengths",
+          "value_en": "High endurance, terrain adaptability"
+        },
+        {
+          "label_fa": "کاربرد",
+          "value_fa": "بازرسی، امنیت، لجستیک",
+          "label_en": "Use",
+          "value_en": "Inspection, security, logistics"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Unitree-Aliengo.htm",
+      "source_price_raw": "CN¥348,732.45",
+      "product_id": "robotsasia-quadruped-unitree-aliengo",
+      "slug": "robotsasia-quadruped-unitree-aliengo",
+      "category": "quadrupeds",
+      "subcategory": "standard-quadrupeds",
+      "brand": "Unitree",
+      "model": "AlienGo",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات چهارپای Unitree AlienGo",
+      "product_name_en": "Unitree AlienGo Quadruped Robot",
+      "tagline_fa": "چهارپای چابک با محرک‌های پرگشتاور برای پژوهش و بازرسی",
+      "tagline_en": "Agile quadruped with high-torque actuators for research and inspection",
+      "description_fa": "Unitree AlienGo یک ربات چهارپا با محرک‌های الکتریکی پرگشتاور و پاهای چندمفصلی است که حالت‌های حرکتی متعدد از جمله حالت ورزشی را پشتیبانی می‌کند. ترکیب IMU، اِنکودر مفاصل و دوربین‌های عمق/LiDAR، آن را برای پژوهش، بازرسی و امنیت مناسب می‌کند؛ سرعت تا حدود ۱٫۵ متر بر ثانیه.",
+      "description_en": "The Unitree AlienGo is a quadruped with high-torque electric actuators and multi-joint legs supporting several gaits, including a sport mode. IMU, joint encoders and depth/LiDAR cameras suit it to research, inspection and security; top speed up to ~1.5 m/s.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/u/n/unitree-aliengo.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "ربات چهارپا (سگ رباتیک)",
+          "label_en": "Type",
+          "value_en": "Quadruped robot (robot dog)"
+        },
+        {
+          "label_fa": "محرک‌ها",
+          "value_fa": "الکتریکی پرگشتاور",
+          "label_en": "Actuators",
+          "value_en": "High-torque electric"
+        },
+        {
+          "label_fa": "حسگرها",
+          "value_fa": "IMU، اِنکودر مفاصل، دوربین عمق/LiDAR",
+          "label_en": "Sensors",
+          "value_en": "IMU, joint encoders, depth/LiDAR"
+        },
+        {
+          "label_fa": "سرعت بیشینه",
+          "value_fa": "تا حدود ۱٫۵ متر بر ثانیه",
+          "label_en": "Max speed",
+          "value_en": "Up to ~1.5 m/s"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Unitree-B1.htm",
+      "source_price_raw": "CN¥697,464.96",
+      "product_id": "robotsasia-quadruped-unitree-b1",
+      "slug": "robotsasia-quadruped-unitree-b1",
+      "category": "quadrupeds",
+      "subcategory": "standard-quadrupeds",
+      "brand": "Unitree",
+      "model": "B1",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات چهارپای Unitree B1",
+      "product_name_en": "Unitree B1 Quadruped Robot",
+      "tagline_fa": "چهارپای سنگین‌کار همه‌هوا با ظرفیت بار بالا",
+      "tagline_en": "Heavy-duty all-weather quadruped with high load capacity",
+      "description_fa": "Unitree B1 یک پلتفرم چهارپای سنگین‌کار در رده‌ی حرفه‌ای Unitree است که بر عملکرد همه‌هوا، ظرفیت بار بالا و فضای توسعه برای حسگرها تأکید دارد. بیشینه‌ی بار راه‌رونده حدود ۲۰ کیلوگرم و بیشینه‌ی بار ایستاده حدود ۸۰ کیلوگرم گزارش شده است.",
+      "description_en": "The Unitree B1 is a heavy-duty quadruped in Unitree's professional lineup, emphasizing all-weather operation, high load capacity and expansion space for sensors. Published figures cite a max walking load of ~20 kg and a max standing load of ~80 kg.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/u/n/unitree-b1.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "ربات چهارپا (سگ رباتیک)",
+          "label_en": "Type",
+          "value_en": "Quadruped robot (robot dog)"
+        },
+        {
+          "label_fa": "رده",
+          "value_fa": "سنگین‌کار / همه‌هوا",
+          "label_en": "Class",
+          "value_en": "Heavy-duty / all-weather"
+        },
+        {
+          "label_fa": "بار راه‌رونده",
+          "value_fa": "حدود ۲۰ کیلوگرم",
+          "label_en": "Walking load",
+          "value_en": "~20 kg"
+        },
+        {
+          "label_fa": "بار ایستاده",
+          "value_fa": "حدود ۸۰ کیلوگرم",
+          "label_en": "Standing load",
+          "value_en": "~80 kg"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Deep-Robotics-Lite3-Basic-Quadruped-Robot-Dog.htm",
+      "source_price_raw": "CN¥34,838.38",
+      "product_id": "robotsasia-quadruped-deeprobotics-lite3",
+      "slug": "robotsasia-quadruped-deeprobotics-lite3",
+      "category": "quadrupeds",
+      "subcategory": "standard-quadrupeds",
+      "brand": "Deep Robotics",
+      "model": "Lite3",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات چهارپای Deep Robotics Lite3",
+      "product_name_en": "Deep Robotics Lite3 Quadruped Robot Dog",
+      "tagline_fa": "سگ رباتیک پژوهشی ۱۲ کیلوگرمی با ظرفیت ۵ کیلوگرم و SDK ROS",
+      "tagline_en": "12 kg research robot dog, 5 kg payload, ROS SDK",
+      "description_fa": "Deep Robotics Lite3 (نسخه‌ی Basic) یک سگ رباتیک چهارپای سبک و قابل‌حمل با وزن ۱۲ کیلوگرم (با باتری) و ابعاد ایستاده‌ی ۶۱۰×۳۷۰×۴۰۶ میلی‌متر است. این پلتفرم با ظرفیت حمل ۵ کیلوگرم، قابلیت عبور از شیب ۴۰ درجه و مانع ۱۸ سانتی‌متری، کارکرد ۱٫۵ تا ۲ ساعت و SDK/API برای ROS1/ROS2، برای پژوهش و آموزش طراحی شده است.",
+      "description_en": "The Deep Robotics Lite3 (Basic) is a lightweight, portable quadruped robot dog weighing 12 kg (with battery) with standing dimensions of 610 × 370 × 406 mm. With a 5 kg payload, 40° slope and 18 cm obstacle capability, 1.5–2 h runtime and ROS1/ROS2 SDK/API, it is built for research and education.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/d/e/deep-robotics-lite-3-basic_1.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "ربات چهارپا (سگ رباتیک)",
+          "label_en": "Type",
+          "value_en": "Quadruped robot (robot dog)"
+        },
+        {
+          "label_fa": "وزن",
+          "value_fa": "۱۲ کیلوگرم (با باتری)",
+          "label_en": "Weight",
+          "value_en": "12 kg (with battery)"
+        },
+        {
+          "label_fa": "ظرفیت حمل",
+          "value_fa": "۵ کیلوگرم",
+          "label_en": "Payload",
+          "value_en": "5 kg"
+        },
+        {
+          "label_fa": "ابعاد ایستاده",
+          "value_fa": "۶۱۰×۳۷۰×۴۰۶ میلی‌متر",
+          "label_en": "Standing dimensions",
+          "value_en": "610 × 370 × 406 mm"
+        },
+        {
+          "label_fa": "شیب / مانع",
+          "value_fa": "۴۰ درجه / ۱۸ سانتی‌متر",
+          "label_en": "Slope / obstacle",
+          "value_en": "40° / 18 cm"
+        },
+        {
+          "label_fa": "کارکرد",
+          "value_fa": "۱٫۵ تا ۲ ساعت",
+          "label_en": "Runtime",
+          "value_en": "1.5–2 h"
+        }
+      ],
+      "use_cases": [
+        "education"
+      ]
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Deep-Robotics-X30-Pro-Industrial-Quadruped-Robot-Dog.htm",
+      "source_price_raw": "CN¥592,845.28",
+      "product_id": "robotsasia-quadruped-deeprobotics-x30-pro",
+      "slug": "robotsasia-quadruped-deeprobotics-x30-pro",
+      "category": "quadrupeds",
+      "subcategory": "standard-quadrupeds",
+      "brand": "Deep Robotics",
+      "model": "X30 Pro",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات چهارپای صنعتی Deep Robotics X30 Pro",
+      "product_name_en": "Deep Robotics X30 Pro Industrial Quadruped Robot Dog",
+      "tagline_fa": "چهارپای مقاوم IP67 برای بازرسی صنعتی و گشت‌زنی",
+      "tagline_en": "IP67 rugged quadruped for industrial inspection and patrol",
+      "description_fa": "Deep Robotics X30 Pro یک سگ رباتیک چهارپای مقاوم با درجه‌ی حفاظت IP67 از خانواده‌ی پلتفرم‌های همه‌زمینه‌ی X30 است که برای گشت پست‌های برق، بازرسی تأسیسات صنعتی و کاربردهای مشابه طراحی شده است. ابعاد ایستاده ۱۰۰۰×۷۱۵×۴۷۰ میلی‌متر و وزن ۵۹ کیلوگرم (با باتری) است و از تعویض سریع باتری پشتیبانی می‌کند.",
+      "description_en": "The Deep Robotics X30 Pro is a rugged IP67 quadruped from the all-terrain X30 series, built for power-substation patrols, industrial facility inspection and similar tasks. Standing dimensions are 1000 × 715 × 470 mm at 59 kg (with battery), with quick-swap battery support.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/d/e/deep-robotics-x30-pro.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "ربات چهارپا (سگ رباتیک)",
+          "label_en": "Type",
+          "value_en": "Quadruped robot (robot dog)"
+        },
+        {
+          "label_fa": "درجه‌ی حفاظت",
+          "value_fa": "IP67",
+          "label_en": "Protection rating",
+          "value_en": "IP67"
+        },
+        {
+          "label_fa": "ابعاد ایستاده",
+          "value_fa": "۱۰۰۰×۷۱۵×۴۷۰ میلی‌متر",
+          "label_en": "Standing dimensions",
+          "value_en": "1000 × 715 × 470 mm"
+        },
+        {
+          "label_fa": "وزن",
+          "value_fa": "۵۹ کیلوگرم (با باتری)",
+          "label_en": "Weight",
+          "value_en": "59 kg (with battery)"
+        },
+        {
+          "label_fa": "کاربرد",
+          "value_fa": "بازرسی صنعتی، گشت‌زنی",
+          "label_en": "Use",
+          "value_en": "Industrial inspection, patrol"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/AgiBot-D1-Pro-Quadruped-Robot-Dog.htm",
+      "source_price_raw": "CN¥22,318.88",
+      "product_id": "robotsasia-quadruped-agibot-d1-pro",
+      "slug": "robotsasia-quadruped-agibot-d1-pro",
+      "category": "quadrupeds",
+      "subcategory": "standard-quadrupeds",
+      "brand": "AgiBot",
+      "model": "D1 Pro",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات چهارپای AgiBot D1 Pro",
+      "product_name_en": "AgiBot D1 Pro Quadruped Robot Dog",
+      "tagline_fa": "سگ رباتیک چابک با سرعت تا ۳٫۷ متر/ثانیه و یادگیری تقویتی",
+      "tagline_en": "Agile RL-driven robot dog, up to 3.7 m/s",
+      "description_fa": "AgiBot D1 Pro یک سگ رباتیک چهارپای چابک مبتنی بر یادگیری تقویتی است که سرعت دوی تا ۳٫۷ متر بر ثانیه، عبور از پله تا ۱۶ سانتی‌متر، پرش حدود ۳۵ سانتی‌متر، عبور از شیب ۳۰ درجه و کارکرد ۱ تا ۲ ساعت را ارائه می‌دهد.",
+      "description_en": "The AgiBot D1 Pro is an agile, reinforcement-learning-driven quadruped robot dog offering up to 3.7 m/s running speed, 16 cm stair climbing, ~35 cm jump height, 30° slope handling and 1–2 h endurance.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/a/g/agibot-d1-2.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "ربات چهارپا (سگ رباتیک)",
+          "label_en": "Type",
+          "value_en": "Quadruped robot (robot dog)"
+        },
+        {
+          "label_fa": "سرعت بیشینه",
+          "value_fa": "تا ۳٫۷ متر بر ثانیه",
+          "label_en": "Max speed",
+          "value_en": "Up to 3.7 m/s"
+        },
+        {
+          "label_fa": "عبور از پله",
+          "value_fa": "تا ۱۶ سانتی‌متر",
+          "label_en": "Stair climbing",
+          "value_en": "Up to 16 cm"
+        },
+        {
+          "label_fa": "ارتفاع پرش",
+          "value_fa": "حدود ۳۵ سانتی‌متر",
+          "label_en": "Jump height",
+          "value_en": "~35 cm"
+        },
+        {
+          "label_fa": "شیب‌پیمایی",
+          "value_fa": "۳۰ درجه",
+          "label_en": "Slope",
+          "value_en": "30°"
+        },
+        {
+          "label_fa": "کارکرد",
+          "value_fa": "۱ تا ۲ ساعت",
+          "label_en": "Endurance",
+          "value_en": "1–2 h"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/MagicLab-MagicDog-W-Wheeled-Quadruped-Robot.htm",
+      "source_price_raw": "CN¥104,271.02",
+      "product_id": "robotsasia-quadruped-magiclab-magicdog-w",
+      "slug": "robotsasia-quadruped-magiclab-magicdog-w",
+      "category": "quadrupeds",
+      "subcategory": "wheeled-quadrupeds",
+      "brand": "MagicLab",
+      "model": "MagicDog-W",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات چهارپای چرخ‌دار MagicLab MagicDog-W",
+      "product_name_en": "MagicLab MagicDog-W Wheeled Quadruped Robot",
+      "tagline_fa": "سگ رباتیک چرخ‌دار هوش‌مصنوعی‌محور برای آموزش STEM",
+      "tagline_en": "AI-powered wheeled robot dog for STEM education",
+      "description_fa": "MagicLab MagicDog-W یک ربات چهارپای چرخ‌دار هوش‌مصنوعی‌محور و چابک است که برای پژوهش، آموزش و نوآوری طراحی شده است. این ربات به‌ویژه برای برنامه‌های آموزش STEM، نمایشگاه‌ها و رویدادهای فناوری مناسب است.",
+      "description_en": "The MagicLab MagicDog-W is an AI-powered, agile wheeled quadruped robot designed for research, education and innovation. It is particularly suited to STEM education programs, expos and technology events.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/m/a/magiclab-magicdog-w-1.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "چهارپای چرخ‌دار",
+          "label_en": "Type",
+          "value_en": "Wheeled quadruped"
+        },
+        {
+          "label_fa": "ویژگی",
+          "value_fa": "هوش مصنوعی، چابک",
+          "label_en": "Features",
+          "value_en": "AI-powered, agile"
+        },
+        {
+          "label_fa": "کاربرد",
+          "value_fa": "آموزش STEM، نمایشگاه",
+          "label_en": "Use",
+          "value_en": "STEM education, expos"
+        }
+      ],
+      "use_cases": [
+        "education"
+      ]
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Unitree-Go2-W-Standard-Wheeled-Robot-Dog-Go2-W-U1.htm",
+      "source_price_raw": "CN¥90,670.45",
+      "product_id": "robotsasia-quadruped-unitree-go2-w",
+      "slug": "robotsasia-quadruped-unitree-go2-w",
+      "category": "quadrupeds",
+      "subcategory": "wheeled-quadrupeds",
+      "brand": "Unitree",
+      "model": "Go2-W",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات چهارپای چرخ‌دار Unitree Go2-W",
+      "product_name_en": "Unitree Go2-W Wheeled Quadruped Robot Dog",
+      "tagline_fa": "چهارپای ترکیبی چرخ-پا برای آموزش و تحرک ترکیبی",
+      "tagline_en": "Hybrid wheel-leg quadruped for education and hybrid mobility",
+      "description_fa": "Unitree Go2-W یک سگ رباتیک چهارپای چرخ‌دار با معماری ترکیبی چرخ-پا است؛ چرخ‌ها کارایی حرکت روی سطوح صاف را بهبود می‌دهند و پاها قابلیت عبور از موانع را حفظ می‌کنند. لاستیک‌های بادی (کلاس حدود ۱۸۰ میلی‌متر / ۷ اینچ) چسبندگی را افزایش می‌دهند؛ پلتفرمی مناسب برای آموزش، خودگردانی و نمونه‌سازی بازرسی.",
+      "description_en": "The Unitree Go2-W is a wheeled quadruped robot dog with a hybrid wheel-leg architecture: wheels improve rolling efficiency on smooth surfaces while legs preserve obstacle traversal. Pneumatic tires (≈180 mm / 7-inch class) add traction, making it a fit for education, autonomy and inspection prototypes.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/u/n/unitree-go2-w-main_1.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "چهارپای چرخ‌دار (ترکیبی)",
+          "label_en": "Type",
+          "value_en": "Wheeled quadruped (hybrid)"
+        },
+        {
+          "label_fa": "معماری",
+          "value_fa": "ترکیبی چرخ-پا",
+          "label_en": "Architecture",
+          "value_en": "Hybrid wheel-leg"
+        },
+        {
+          "label_fa": "لاستیک",
+          "value_fa": "بادی، کلاس حدود ۱۸۰ میلی‌متر",
+          "label_en": "Tires",
+          "value_en": "Pneumatic, ~180 mm class"
+        },
+        {
+          "label_fa": "کاربرد",
+          "value_fa": "آموزش، خودگردانی، بازرسی",
+          "label_en": "Use",
+          "value_en": "Education, autonomy, inspection"
+        }
+      ],
+      "use_cases": [
+        "education"
+      ]
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/SEER-Robotics-AMB-150.htm",
+      "source_price_raw": null,
+      "product_id": "robotsasia-amr-seer-amb-150",
+      "slug": "robotsasia-amr-seer-amb-150",
+      "category": "amrs",
+      "subcategory": null,
+      "brand": "SEER Robotics",
+      "model": "AMB-150",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات متحرک خودران SEER AMB-150",
+      "product_name_en": "SEER Robotics AMB-150 AMR",
+      "tagline_fa": "AMR صنعتی برای جابه‌جایی مواد در انبار و خط تولید",
+      "tagline_en": "Industrial AMR for warehouse and line material handling",
+      "description_fa": "SEER Robotics AMB-150 یک ربات متحرک خودران (AMR) برای خودکارسازی جابه‌جایی مواد در انبارها، کارخانه‌ها و مراکز لجستیک است. این پلتفرم پایه بر ناوبری کنترل‌شده، مسیریابی تکرارپذیر و ادغام با سامانه‌های مدیریت ناوگان تأکید دارد.",
+      "description_en": "The SEER Robotics AMB-150 is an autonomous mobile robot (AMR) for automating material handling in warehouses, factories and logistics centers. This base platform emphasizes controlled navigation, repeatable routing and fleet-management integration.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/s/e/seer-robotics-amb-150-square-1.png",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "ربات متحرک خودران (AMR)",
+          "label_en": "Type",
+          "value_en": "Autonomous mobile robot (AMR)"
+        },
+        {
+          "label_fa": "کاربرد",
+          "value_fa": "جابه‌جایی مواد، انبار، لجستیک",
+          "label_en": "Use",
+          "value_en": "Material handling, warehouse, logistics"
+        },
+        {
+          "label_fa": "ناوبری",
+          "value_fa": "SLAM / لیزری",
+          "label_en": "Navigation",
+          "value_en": "SLAM / laser"
+        },
+        {
+          "label_fa": "رده",
+          "value_fa": "پلتفرم پایه (Base robot)",
+          "label_en": "Class",
+          "value_en": "Base robot platform"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/SEER-Robotics-AMB-300.htm",
+      "source_price_raw": null,
+      "product_id": "robotsasia-amr-seer-amb-300",
+      "slug": "robotsasia-amr-seer-amb-300",
+      "category": "amrs",
+      "subcategory": null,
+      "brand": "SEER Robotics",
+      "model": "AMB-300",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات متحرک خودران SEER AMB-300",
+      "product_name_en": "SEER Robotics AMB-300 AMR",
+      "tagline_fa": "AMR صنعتی با ظرفیت بالاتر برای انبار و لجستیک",
+      "tagline_en": "Higher-capacity industrial AMR for warehouse and logistics",
+      "description_fa": "SEER Robotics AMB-300 یک ربات متحرک خودران (AMR) از سری AMB برای جابه‌جایی مواد در محیط‌های صنعتی، انبار و خطوط تولید است. این مدل با ظرفیت بالاتر نسبت به AMB-150، بر ناوبری دقیق، مسیریابی تکرارپذیر و ادغام با سامانه‌های مدیریت ناوگان تأکید دارد.",
+      "description_en": "The SEER Robotics AMB-300 is an autonomous mobile robot (AMR) in the AMB series for material handling across industrial, warehouse and production-line environments. A higher-capacity model than the AMB-150, it emphasizes precise navigation, repeatable routing and fleet-management integration.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/s/e/seer-robotics-amb-300-square-1.png",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "ربات متحرک خودران (AMR)",
+          "label_en": "Type",
+          "value_en": "Autonomous mobile robot (AMR)"
+        },
+        {
+          "label_fa": "کاربرد",
+          "value_fa": "جابه‌جایی مواد، انبار، لجستیک",
+          "label_en": "Use",
+          "value_en": "Material handling, warehouse, logistics"
+        },
+        {
+          "label_fa": "ناوبری",
+          "value_fa": "SLAM / لیزری",
+          "label_en": "Navigation",
+          "value_en": "SLAM / laser"
+        },
+        {
+          "label_fa": "رده",
+          "value_fa": "ظرفیت بالاتر سری AMB",
+          "label_en": "Class",
+          "value_en": "Higher-capacity AMB series"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/SEER-Robotics-AMB-300XS.htm",
+      "source_price_raw": null,
+      "product_id": "robotsasia-amr-seer-amb-300xs",
+      "slug": "robotsasia-amr-seer-amb-300xs",
+      "category": "amrs",
+      "subcategory": null,
+      "brand": "SEER Robotics",
+      "model": "AMB-300XS",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات متحرک خودران SEER AMB-300XS",
+      "product_name_en": "SEER Robotics AMB-300XS AMR",
+      "tagline_fa": "نسخه‌ی فشرده‌ی AMR صنعتی AMB-300",
+      "tagline_en": "Compact variant of the AMB-300 industrial AMR",
+      "description_fa": "SEER Robotics AMB-300XS نسخه‌ی فشرده‌ی سری AMB-300 است؛ یک ربات متحرک خودران برای جابه‌جایی مواد در فضاهای صنعتی و انبارهایی که به ردپای کوچک‌تر نیاز دارند. تمرکز آن بر ناوبری کنترل‌شده، مسیریابی تکرارپذیر و ادغام ناوگان است.",
+      "description_en": "The SEER Robotics AMB-300XS is a compact variant of the AMB-300 series — an autonomous mobile robot for material handling in industrial spaces and warehouses that need a smaller footprint. It focuses on controlled navigation, repeatable routing and fleet integration.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/s/e/seer-robotics-amb-300xs-square-1.png",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "ربات متحرک خودران (AMR)",
+          "label_en": "Type",
+          "value_en": "Autonomous mobile robot (AMR)"
+        },
+        {
+          "label_fa": "کاربرد",
+          "value_fa": "جابه‌جایی مواد، فضای فشرده",
+          "label_en": "Use",
+          "value_en": "Material handling, compact spaces"
+        },
+        {
+          "label_fa": "ناوبری",
+          "value_fa": "SLAM / لیزری",
+          "label_en": "Navigation",
+          "value_en": "SLAM / laser"
+        },
+        {
+          "label_fa": "ویژگی",
+          "value_fa": "ردپای فشرده",
+          "label_en": "Feature",
+          "value_en": "Compact footprint"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/SEER-Robotics-SFL-300L.htm",
+      "source_price_raw": null,
+      "product_id": "robotsasia-amr-seer-sfl-300l",
+      "slug": "robotsasia-amr-seer-sfl-300l",
+      "category": "amrs",
+      "subcategory": null,
+      "brand": "SEER Robotics",
+      "model": "SFL-300L",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "فورک‌لیفت خودران SEER SFL-300L",
+      "product_name_en": "SEER Robotics SFL-300L Autonomous Forklift",
+      "tagline_fa": "پالت‌تراک/فورک‌لیفت خودران برای جابه‌جایی پالت",
+      "tagline_en": "Autonomous pallet truck / forklift for pallet handling",
+      "description_fa": "SEER Robotics SFL-300L یک ربات متحرک خودران از نوع پالت‌تراک/فورک‌لیفت برای جابه‌جایی خودکار پالت در انبار و لجستیک است. این مدل بر ناوبری کنترل‌شده، باراندازی دقیق و ادغام با سامانه‌های مدیریت ناوگان تأکید دارد.",
+      "description_en": "The SEER Robotics SFL-300L is an autonomous mobile robot of the pallet-truck / forklift type, built for automated pallet handling in warehouses and logistics. It emphasizes controlled navigation, accurate docking and fleet-management integration.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/s/e/seer-robotics-sfl-300l-square-1.png",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "فورک‌لیفت/پالت‌تراک خودران",
+          "label_en": "Type",
+          "value_en": "Autonomous forklift / pallet truck"
+        },
+        {
+          "label_fa": "کاربرد",
+          "value_fa": "جابه‌جایی پالت، انبار",
+          "label_en": "Use",
+          "value_en": "Pallet handling, warehouse"
+        },
+        {
+          "label_fa": "ناوبری",
+          "value_fa": "SLAM / لیزری",
+          "label_en": "Navigation",
+          "value_en": "SLAM / laser"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/KEENON-S100.htm",
+      "source_price_raw": "CN¥97,645.10",
+      "product_id": "robotsasia-amr-keenon-s100",
+      "slug": "robotsasia-amr-keenon-s100",
+      "category": "amrs",
+      "subcategory": null,
+      "brand": "Keenon",
+      "model": "S100",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات پیک خودران Keenon S100",
+      "product_name_en": "Keenon S100 Autonomous Courier Robot",
+      "tagline_fa": "ربات حمل سنگین ۱۰۰ کیلوگرمی با باتری ۸ ساعته و LiDAR",
+      "tagline_en": "100 kg heavy-load courier robot, 8 h battery, LiDAR",
+      "description_fa": "Keenon S100 یک ربات پیک خودران سنگین‌کار با ظرفیت حمل تا ۱۰۰ کیلوگرم است که برای محیط‌های صنعتی و تجاری طراحی شده است. این ربات با باتری حدود ۸ ساعته، تعویض سریع باتری در ۱۵ ثانیه، کنترل پایداری PID و ناوبری مبتنی بر LiDAR، جابه‌جایی پیوسته‌ی بار را بدون خستگی نیروی انسانی فراهم می‌کند.",
+      "description_en": "The Keenon S100 is a heavy-duty autonomous courier robot carrying up to 100 kg, built for industrial and commercial settings. With an ~8-hour battery, 15-second battery swap, PID stability control and LiDAR navigation, it provides continuous load transport without human fatigue.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/k/e/keenon-s100.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "ربات متحرک خودران (AMR)",
+          "label_en": "Type",
+          "value_en": "Autonomous mobile robot (AMR)"
+        },
+        {
+          "label_fa": "ظرفیت حمل",
+          "value_fa": "تا ۱۰۰ کیلوگرم",
+          "label_en": "Payload",
+          "value_en": "Up to 100 kg"
+        },
+        {
+          "label_fa": "باتری",
+          "value_fa": "حدود ۸ ساعت، تعویض ۱۵ ثانیه‌ای",
+          "label_en": "Battery",
+          "value_en": "~8 h, 15 s swap"
+        },
+        {
+          "label_fa": "ناوبری",
+          "value_fa": "LiDAR",
+          "label_en": "Navigation",
+          "value_en": "LiDAR"
+        },
+        {
+          "label_fa": "کنترل",
+          "value_fa": "پایداری PID",
+          "label_en": "Control",
+          "value_en": "PID stability control"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/KEENON-S300.htm",
+      "source_price_raw": "CN¥97,610.23",
+      "product_id": "robotsasia-amr-keenon-s300",
+      "slug": "robotsasia-amr-keenon-s300",
+      "category": "amrs",
+      "subcategory": null,
+      "brand": "Keenon",
+      "model": "S300",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات حمل سنگین Keenon S300",
+      "product_name_en": "Keenon S300 Heavy-Load Delivery Robot",
+      "tagline_fa": "ربات تحویل هوشمند ۳۰۰ کیلوگرمی با SLAM+LiDAR و سپر ایمنی ۳۶۰ درجه",
+      "tagline_en": "300 kg intelligent delivery robot, SLAM+LiDAR, 360° safety shield",
+      "description_fa": "Keenon S300 یک ربات تحویل هوشمند سنگین‌کار با ظرفیت حمل تا ۳۰۰ کیلوگرم است که ناوبری خودران Keenon را به جابه‌جایی مواد صنعتی گسترش می‌دهد. این ربات از ناوبری SLAM + LiDAR، سپر ایمنی ۳۶۰ درجه، کنترل آفلاین و بالابر یک‌لمسی بهره می‌برد.",
+      "description_en": "The Keenon S300 is a heavy-duty intelligent delivery robot carrying up to 300 kg, extending Keenon's autonomous navigation to industrial material handling. It features SLAM + LiDAR navigation, a 360° safety shield, offline control and one-touch lifting.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/k/e/keenon-s300.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "ربات متحرک خودران (AMR)",
+          "label_en": "Type",
+          "value_en": "Autonomous mobile robot (AMR)"
+        },
+        {
+          "label_fa": "ظرفیت حمل",
+          "value_fa": "تا ۳۰۰ کیلوگرم",
+          "label_en": "Payload",
+          "value_en": "Up to 300 kg"
+        },
+        {
+          "label_fa": "ناوبری",
+          "value_fa": "SLAM + LiDAR",
+          "label_en": "Navigation",
+          "value_en": "SLAM + LiDAR"
+        },
+        {
+          "label_fa": "ایمنی",
+          "value_fa": "سپر ایمنی ۳۶۰ درجه",
+          "label_en": "Safety",
+          "value_en": "360° safety shield"
+        },
+        {
+          "label_fa": "ویژگی",
+          "value_fa": "بالابر یک‌لمسی، کنترل آفلاین",
+          "label_en": "Features",
+          "value_en": "One-touch lift, offline control"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/PUDU-Pudubot-2-Universal-Delivery-Robot.htm",
+      "source_price_raw": "CN¥418,479.02",
+      "product_id": "robotsasia-amr-pudu-pudubot-2",
+      "slug": "robotsasia-amr-pudu-pudubot-2",
+      "category": "amrs",
+      "subcategory": null,
+      "brand": "PUDU",
+      "model": "PuduBot 2",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات تحویل PUDU PuduBot 2",
+      "product_name_en": "PUDU PuduBot 2 Delivery Robot",
+      "tagline_fa": "ربات تحویل داخلی همه‌منظوره با ظرفیت تا ۴۰ کیلوگرم و شارژ خودکار",
+      "tagline_en": "Universal indoor delivery robot, up to 40 kg, auto-recharge",
+      "description_fa": "PUDU PuduBot 2 یک ربات تحویل داخلی همه‌منظوره است که از ناوبری VSLAM+ و Laser SLAM به همراه LiDAR دوگانه برای ادراک ۳۶۰ درجه بهره می‌برد. ظرفیت حمل تا ۴۰ کیلوگرم (هر سینی تا ۱۳ کیلوگرم، اندازه‌ی سینی ۵۰۰×۴۳۲ میلی‌متر) و قابلیت شارژ خودکار، آن را برای مهمان‌نوازی و تحویل چندمقصدی مناسب می‌کند.",
+      "description_en": "The PUDU PuduBot 2 is a universal indoor delivery robot using VSLAM+ and Laser SLAM navigation with dual LiDAR for 360° sensing. With up to 40 kg total payload (13 kg per tray, tray size 500 × 432 mm) and automatic recharging, it fits hospitality and multi-destination delivery.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/p/u/pudu-pudubot-2-universal-delivery-robot.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "ربات متحرک خودران (AMR)",
+          "label_en": "Type",
+          "value_en": "Autonomous mobile robot (AMR)"
+        },
+        {
+          "label_fa": "ظرفیت حمل",
+          "value_fa": "تا ۴۰ کیلوگرم (۱۳ کیلوگرم/سینی)",
+          "label_en": "Payload",
+          "value_en": "Up to 40 kg (13 kg/tray)"
+        },
+        {
+          "label_fa": "ناوبری",
+          "value_fa": "VSLAM+ و Laser SLAM، LiDAR دوگانه",
+          "label_en": "Navigation",
+          "value_en": "VSLAM+ & Laser SLAM, dual LiDAR"
+        },
+        {
+          "label_fa": "اندازه‌ی سینی",
+          "value_fa": "۵۰۰×۴۳۲ میلی‌متر",
+          "label_en": "Tray size",
+          "value_en": "500 × 432 mm"
+        },
+        {
+          "label_fa": "شارژ",
+          "value_fa": "خودکار",
+          "label_en": "Charging",
+          "value_en": "Automatic"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/PUDU-T300-Standard-Industrial-Delivery-Robot.htm",
+      "source_price_raw": null,
+      "product_id": "robotsasia-amr-pudu-t300",
+      "slug": "robotsasia-amr-pudu-t300",
+      "category": "amrs",
+      "subcategory": null,
+      "brand": "PUDU",
+      "model": "T300",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات تحویل صنعتی PUDU T300",
+      "product_name_en": "PUDU T300 Industrial Delivery Robot",
+      "tagline_fa": "AMR صنعتی ۳۰۰ کیلوگرمی با استاندارد ایمنی ISO 3691-4 و شارژ سریع",
+      "tagline_en": "300 kg industrial AMR, ISO 3691-4 safety, fast charging",
+      "description_fa": "PUDU T300 (نسخه‌ی استاندارد) یک ربات متحرک خودران صنعتی با معماری باز و بستر بارگیری تخت برای حمل بین، توته و حامل‌های پالت‌مانند تا ۳۰۰ کیلوگرم است. این ربات از ناوبری VSLAM+ و Laser SLAM، استاندارد ایمنی ISO 3691-4، فضای آزاد زیر بدنه ۶۰ سانتی‌متر و شارژ سریع برای عملیات ۲۴ ساعته بهره می‌برد.",
+      "description_en": "The PUDU T300 (Standard) is an industrial autonomous mobile robot with an open architecture and a flat-top loading platform for bins, totes and pallet-like carriers up to 300 kg. It uses VSLAM+ and LiDAR SLAM navigation, ISO 3691-4 safety, 60 cm under-body clearance and fast charging for 24/7 operations.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/p/u/pudu_pudu_t300_standard_pudu_t300_standard_.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "ربات متحرک خودران (AMR)",
+          "label_en": "Type",
+          "value_en": "Autonomous mobile robot (AMR)"
+        },
+        {
+          "label_fa": "ظرفیت حمل",
+          "value_fa": "تا ۳۰۰ کیلوگرم",
+          "label_en": "Payload",
+          "value_en": "Up to 300 kg"
+        },
+        {
+          "label_fa": "ناوبری",
+          "value_fa": "VSLAM+ و Laser SLAM",
+          "label_en": "Navigation",
+          "value_en": "VSLAM+ & Laser SLAM"
+        },
+        {
+          "label_fa": "ایمنی",
+          "value_fa": "ISO 3691-4",
+          "label_en": "Safety",
+          "value_en": "ISO 3691-4"
+        },
+        {
+          "label_fa": "فضای آزاد زیر بدنه",
+          "value_fa": "۶۰ سانتی‌متر",
+          "label_en": "Clearance",
+          "value_en": "60 cm"
+        },
+        {
+          "label_fa": "شارژ",
+          "value_fa": "سریع، عملیات ۲۴ ساعته",
+          "label_en": "Charging",
+          "value_en": "Fast, 24/7 operation"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/Keenon-DINERBOT-T9.htm",
+      "source_price_raw": "CN¥55,721.47",
+      "product_id": "robotsasia-amr-keenon-dinerbot-t9",
+      "slug": "robotsasia-amr-keenon-dinerbot-t9",
+      "category": "amrs",
+      "subcategory": null,
+      "brand": "Keenon",
+      "model": "DINERBOT T9",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات سرو رستوران Keenon DINERBOT T9",
+      "product_name_en": "Keenon DINERBOT T9 Restaurant Robot",
+      "tagline_fa": "ربات تحویل چهارطبقه با ظرفیت کل ۴۰ کیلوگرم",
+      "tagline_en": "Four-shelf delivery robot with 40 kg total capacity",
+      "description_fa": "Keenon DINERBOT T9 یک ربات تحویل و سرو رستورانی با ظرفیت کل بار ۴۰ کیلوگرم و چهار طبقه‌ی قابل‌تنظیم (با ارتفاع‌های ۱۹٫۵، ۱۶٫۹، ۲۵٫۳ و ۲۲٫۸ سانتی‌متر) است. این ربات با حمل چندسفارشی در یک نوبت، زمان رفت‌وآمد کارکنان را کاهش می‌دهد.",
+      "description_en": "The Keenon DINERBOT T9 is a restaurant delivery robot with a 40 kg total load capacity across four adjustable shelves (heights 19.5, 16.9, 25.3 and 22.8 cm). By carrying multiple orders per trip, it cuts staff walking time.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/d/i/dinerbot-t9.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "ربات متحرک خودران (AMR)",
+          "label_en": "Type",
+          "value_en": "Autonomous mobile robot (AMR)"
+        },
+        {
+          "label_fa": "ظرفیت کل",
+          "value_fa": "۴۰ کیلوگرم",
+          "label_en": "Total capacity",
+          "value_en": "40 kg"
+        },
+        {
+          "label_fa": "طبقات",
+          "value_fa": "۴ طبقه‌ی قابل‌تنظیم",
+          "label_en": "Shelves",
+          "value_en": "4 adjustable shelves"
+        },
+        {
+          "label_fa": "کاربرد",
+          "value_fa": "سرو رستوران، تحویل",
+          "label_en": "Use",
+          "value_en": "Restaurant service, delivery"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/PUDU-Bellabot-Premium-Delivery-Robot.htm",
+      "source_price_raw": "CN¥418,479.02",
+      "product_id": "robotsasia-amr-pudu-bellabot",
+      "slug": "robotsasia-amr-pudu-bellabot",
+      "category": "amrs",
+      "subcategory": null,
+      "brand": "PUDU",
+      "model": "BellaBot",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "ربات تحویل PUDU BellaBot",
+      "product_name_en": "PUDU BellaBot Delivery Robot",
+      "tagline_fa": "ربات تحویل داخلی پرمیوم چهارسینی با اجتناب از مانع سه‌بعدی",
+      "tagline_en": "Premium four-tray indoor delivery robot with 3D obstacle avoidance",
+      "description_fa": "PUDU BellaBot یک ربات تحویل داخلی پرمیوم با چیدمان چهارسینی برای حمل چندسفارشی در یک نوبت است. ظرفیت حمل تا حدود ۴۰ کیلوگرم (هر سینی ۱۰ کیلوگرم، اندازه‌ی سینی حدود ۴۱۰×۵۰۰ میلی‌متر)، اجتناب از مانع سه‌بعدی و ناوبری Dual SLAM، آن را برای مهمان‌نوازی مناسب می‌کند.",
+      "description_en": "The PUDU BellaBot is a premium indoor delivery robot with a four-tray layout for multi-order transport in one trip. Up to ~40 kg payload (10 kg per tray, tray size ~410 × 500 mm), 3D obstacle avoidance and Dual SLAM navigation make it a fit for hospitality.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/p/u/pudu-bellabot-premium-delivery-robot.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "ربات متحرک خودران (AMR)",
+          "label_en": "Type",
+          "value_en": "Autonomous mobile robot (AMR)"
+        },
+        {
+          "label_fa": "ظرفیت حمل",
+          "value_fa": "تا حدود ۴۰ کیلوگرم (۱۰ کیلوگرم/سینی)",
+          "label_en": "Payload",
+          "value_en": "Up to ~40 kg (10 kg/tray)"
+        },
+        {
+          "label_fa": "سینی‌ها",
+          "value_fa": "۴ سینی، حدود ۴۱۰×۵۰۰ میلی‌متر",
+          "label_en": "Trays",
+          "value_en": "4 trays, ~410 × 500 mm"
+        },
+        {
+          "label_fa": "ناوبری",
+          "value_fa": "Dual SLAM، اجتناب از مانع سه‌بعدی",
+          "label_en": "Navigation",
+          "value_en": "Dual SLAM, 3D obstacle avoidance"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/XAG-P150-Max-Starter-7KW-2B2C-Kit.htm",
+      "source_price_raw": "CN¥201,567.39",
+      "product_id": "robotsasia-drone-xag-p150-max-starter",
+      "slug": "robotsasia-drone-xag-p150-max-starter",
+      "category": "drones",
+      "subcategory": null,
+      "brand": "XAG",
+      "model": "P150 Max (Starter 7kW 2B2C)",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "پهپاد کشاورزی XAG P150 Max (کیت Starter 7kW 2B2C)",
+      "product_name_en": "XAG P150 Max Agricultural Drone (Starter 7kW 2B2C Kit)",
+      "tagline_fa": "پهپاد سنگین‌بر چندمنظوره با ظرفیت ۸۰ کیلوگرم و مخزن ۸۰ لیتری",
+      "tagline_en": "Multi-role heavy-lift drone, 80 kg payload, 80 L tank",
+      "description_fa": "XAG P150 Max یک پهپاد کشاورزی سنگین‌بر چندمنظوره برای سم‌پاشی خودکار، پخش گرانول، نقشه‌برداری مزرعه و حمل مواد است. این پلتفرم ظرفیت حمل ۸۰ کیلوگرم، مخزن هوشمند ۸۰ لیتری و نرخ پاشش تا ۳۲ لیتر در دقیقه (تا ۴۶ لیتر با ارتقای چهارنازله) دارد. کیت Starter 7kW 2B2C نسخه‌ی ورودی مقرون‌به‌صرفه شامل دو باتری و دو شارژر است.",
+      "description_en": "The XAG P150 Max is a multi-role heavy-lift agricultural drone for autonomous spraying, spreading, field mapping and material transport. The platform offers an 80 kg payload, an 80 L smart tank and up to 32 L/min spraying flow (up to 46 L/min with the four-nozzle upgrade). The Starter 7kW 2B2C kit is the cost-effective entry configuration with two batteries and two chargers.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/x/a/xag-p150_1.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "پهپاد کشاورزی",
+          "label_en": "Type",
+          "value_en": "Agricultural drone"
+        },
+        {
+          "label_fa": "ظرفیت حمل",
+          "value_fa": "۸۰ کیلوگرم",
+          "label_en": "Payload",
+          "value_en": "80 kg"
+        },
+        {
+          "label_fa": "مخزن",
+          "value_fa": "۸۰ لیتر (هوشمند)",
+          "label_en": "Tank",
+          "value_en": "80 L (smart)"
+        },
+        {
+          "label_fa": "نرخ پاشش",
+          "value_fa": "تا ۳۲ لیتر/دقیقه (تا ۴۶ با ارتقا)",
+          "label_en": "Spray flow",
+          "value_en": "Up to 32 L/min (46 upgraded)"
+        },
+        {
+          "label_fa": "کیت",
+          "value_fa": "7kW، ۲ باتری ۲ شارژر",
+          "label_en": "Kit",
+          "value_en": "7kW, 2 batteries 2 chargers"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/XAG-P150-Standard-14KW-4B4C.htm",
+      "source_price_raw": "CN¥242,927.07",
+      "product_id": "robotsasia-drone-xag-p150-standard-14kw",
+      "slug": "robotsasia-drone-xag-p150-standard-14kw",
+      "category": "drones",
+      "subcategory": null,
+      "brand": "XAG",
+      "model": "P150 Standard (14kW 4B4C)",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "پهپاد کشاورزی XAG P150 Standard (کیت 14kW 4B4C)",
+      "product_name_en": "XAG P150 Standard Agricultural Drone (14kW 4B4C Kit)",
+      "tagline_fa": "پهپاد سم‌پاش با ظرفیت ۷۰ کیلوگرم و نرخ پاشش تا ۳۰ لیتر/دقیقه",
+      "tagline_en": "Spraying drone, 70 kg payload, up to 30 L/min flow",
+      "description_fa": "XAG P150 Standard یک پهپاد کشاورزی چندپره‌ی تاشو و سنگین‌بر برای سم‌پاشی و پخش با ظرفیت حمل بیشینه‌ی ۷۰ کیلوگرم و نرخ پاشش تا ۳۰ لیتر در دقیقه است و از پاشش با نرخ متغیر و تطبیق با زمین پشتیبانی می‌کند. کیت 14kW 4B4C شامل چهار باتری هوشمند، چهار شارژر سریع و شارژ موازی است.",
+      "description_en": "The XAG P150 Standard is a foldable heavy-lift multi-rotor agricultural drone for spraying and spreading, with a 70 kg maximum payload and up to 30 L/min spray flow, supporting variable-rate application and terrain following. The 14kW 4B4C kit includes four smart batteries, four fast chargers and parallel charging.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/x/a/xag-p150_2.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "پهپاد کشاورزی",
+          "label_en": "Type",
+          "value_en": "Agricultural drone"
+        },
+        {
+          "label_fa": "ظرفیت حمل",
+          "value_fa": "تا ۷۰ کیلوگرم",
+          "label_en": "Payload",
+          "value_en": "Up to 70 kg"
+        },
+        {
+          "label_fa": "نرخ پاشش",
+          "value_fa": "تا ۳۰ لیتر/دقیقه",
+          "label_en": "Spray flow",
+          "value_en": "Up to 30 L/min"
+        },
+        {
+          "label_fa": "کیت",
+          "value_fa": "14kW، ۴ باتری ۴ شارژر",
+          "label_en": "Kit",
+          "value_en": "14kW, 4 batteries 4 chargers"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/XAG-P150-Standard-7KW-6B2C.htm",
+      "source_price_raw": "CN¥248,227.80",
+      "product_id": "robotsasia-drone-xag-p150-standard-7kw",
+      "slug": "robotsasia-drone-xag-p150-standard-7kw",
+      "category": "drones",
+      "subcategory": null,
+      "brand": "XAG",
+      "model": "P150 Standard (7kW 6B2C)",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "پهپاد کشاورزی XAG P150 Standard (کیت 7kW 6B2C)",
+      "product_name_en": "XAG P150 Standard Agricultural Drone (7kW 6B2C Kit)",
+      "tagline_fa": "بسته‌ی کامل پهپاد سم‌پاش با ۶ باتری و پشتیبانی RTK",
+      "tagline_en": "Complete spraying-drone package, 6 batteries, RTK support",
+      "description_fa": "XAG P150 Standard در کیت 7kW 6B2C به‌صورت یک بسته‌ی کامل آماده‌ی مزرعه عرضه می‌شود که پهپاد، ماژول سم‌پاشی، سامانه‌ی توان، کنترلر و پشتیبانی موقعیت‌یابی RTK را در کنار شش باتری و دو شارژر گرد می‌آورد. کاربردهای رایج آن حفاظت از محصولات زراعی، سم‌پاشی باغ و پوشش هوایی تکرارپذیر است.",
+      "description_en": "The XAG P150 Standard in the 7kW 6B2C kit is a complete, field-ready package bringing together the aircraft, spraying module, power system, controller and RTK positioning support, plus six batteries and two chargers. Typical uses include broad-acre crop protection, orchard spraying and repeatable aerial coverage.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/x/a/xag-p150_3.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "پهپاد کشاورزی",
+          "label_en": "Type",
+          "value_en": "Agricultural drone"
+        },
+        {
+          "label_fa": "پلتفرم",
+          "value_fa": "P150 چندپره‌ی تاشو",
+          "label_en": "Platform",
+          "value_en": "P150 foldable multi-rotor"
+        },
+        {
+          "label_fa": "کیت",
+          "value_fa": "7kW، ۶ باتری ۲ شارژر",
+          "label_en": "Kit",
+          "value_en": "7kW, 6 batteries 2 chargers"
+        },
+        {
+          "label_fa": "موقعیت‌یابی",
+          "value_fa": "پشتیبانی RTK",
+          "label_en": "Positioning",
+          "value_en": "RTK support"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/XAG-P150-Ultimate-14KW-6B4C-P150-Ultimate-14KW-6B4C-Kit.htm",
+      "source_price_raw": "CN¥283,380.04",
+      "product_id": "robotsasia-drone-xag-p150-ultimate",
+      "slug": "robotsasia-drone-xag-p150-ultimate",
+      "category": "drones",
+      "subcategory": null,
+      "brand": "XAG",
+      "model": "P150 Ultimate (14kW 6B4C)",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "پهپاد کشاورزی XAG P150 Ultimate (کیت 14kW 6B4C)",
+      "product_name_en": "XAG P150 Ultimate Agricultural Drone (14kW 6B4C Kit)",
+      "tagline_fa": "پهپاد پرظرفیت با اکوسیستم شارژ پرتوان برای بهره‌وری بالا",
+      "tagline_en": "High-payload drone with high-power charging for high productivity",
+      "description_fa": "XAG P150 Ultimate در کلاس پهپادهای کشاورزی پرظرفیت قرار می‌گیرد که برای بهره‌وری بالا در کشاورزی دقیق به کار می‌روند. کیت 14kW 6B4C پلتفرم P150 را با اکوسیستم شارژ پرتوان (شش باتری و چهار شارژر) همراه می‌کند تا چرخش باتری و کارکرد پیوسته در مزرعه فراهم شود.",
+      "description_en": "The XAG P150 Ultimate sits in the high-payload class of agricultural drones used for high productivity in precision farming. The 14kW 6B4C kit pairs the P150 platform with a high-power charging ecosystem (six batteries and four chargers) to enable battery rotation and continuous field operation.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/x/a/xag_p100_pro_60l_premium_8b3c_kit_xag-p100-pro-standard__1_1.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "پهپاد کشاورزی",
+          "label_en": "Type",
+          "value_en": "Agricultural drone"
+        },
+        {
+          "label_fa": "رده",
+          "value_fa": "پرظرفیت (High payload)",
+          "label_en": "Class",
+          "value_en": "High payload"
+        },
+        {
+          "label_fa": "کیت",
+          "value_fa": "14kW، ۶ باتری ۴ شارژر",
+          "label_en": "Kit",
+          "value_en": "14kW, 6 batteries 4 chargers"
+        },
+        {
+          "label_fa": "کاربرد",
+          "value_fa": "سم‌پاشی و پخش در کشاورزی دقیق",
+          "label_en": "Use",
+          "value_en": "Spraying & spreading in precision farming"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/XAG-XAG-P150-Swarm-28KW-8B8C-P150-Swarm-28KW-8B8C-Kit.htm",
+      "source_price_raw": "CN¥485,854.14",
+      "product_id": "robotsasia-drone-xag-p150-swarm",
+      "slug": "robotsasia-drone-xag-p150-swarm",
+      "category": "drones",
+      "subcategory": null,
+      "brand": "XAG",
+      "model": "P150 Swarm (28kW 8B8C)",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "پهپاد کشاورزی XAG P150 Swarm (کیت 28kW 8B8C)",
+      "product_name_en": "XAG P150 Swarm Agricultural Drone (28kW 8B8C Kit)",
+      "tagline_fa": "بسته‌ی دو-پهپاده برای عملیات گروهی و پوشش گسترده",
+      "tagline_en": "Two-aircraft package for swarm operations and wide coverage",
+      "description_fa": "XAG P150 Swarm یک بسته‌ی ناوگانی شامل دو پهپاد P150 Max (با RevoSpray 5) است که برای جریان‌های کاری چنددستگاهی طراحی شده تا با چرخش هماهنگ دو پهپاد، پوشش مزرعه را گسترش دهد. کیت 28kW 8B8C بر زیرساخت شارژ پرتوان با هشت باتری و هشت شارژر و شارژ موازی تأکید دارد.",
+      "description_en": "The XAG P150 Swarm is a fleet package of two P150 Max aircraft (with RevoSpray 5) designed for multi-drone workflows, expanding field coverage through coordinated rotation of two aircraft. The 28kW 8B8C kit emphasizes high-power charging infrastructure with eight batteries and eight chargers plus parallel charging.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/x/a/xag_p150_swarm_28kw_8b8c_kit.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "پهپاد کشاورزی",
+          "label_en": "Type",
+          "value_en": "Agricultural drone"
+        },
+        {
+          "label_fa": "پیکربندی",
+          "value_fa": "دو پهپاد P150 Max",
+          "label_en": "Configuration",
+          "value_en": "Two P150 Max aircraft"
+        },
+        {
+          "label_fa": "کیت",
+          "value_fa": "28kW، ۸ باتری ۸ شارژر",
+          "label_en": "Kit",
+          "value_en": "28kW, 8 batteries 8 chargers"
+        },
+        {
+          "label_fa": "کاربرد",
+          "value_fa": "عملیات گروهی، پوشش گسترده",
+          "label_en": "Use",
+          "value_en": "Swarm operations, wide coverage"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/XAG-XAG-P100-Pro-Lite-P100-Pro-60L-Standard-6B2C-Kit.htm",
+      "source_price_raw": "CN¥195,283.23",
+      "product_id": "robotsasia-drone-xag-p100-pro-standard",
+      "slug": "robotsasia-drone-xag-p100-pro-standard",
+      "category": "drones",
+      "subcategory": null,
+      "brand": "XAG",
+      "model": "P100 Pro 60L Standard (6B2C)",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "پهپاد کشاورزی XAG P100 Pro 60L Standard (کیت 6B2C)",
+      "product_name_en": "XAG P100 Pro 60L Standard Agricultural Drone (6B2C Kit)",
+      "tagline_fa": "کوادکوپتر سنگین‌بر با ظرفیت تا ۵۰ کیلوگرم و پی‌لود ماژولار",
+      "tagline_en": "Heavy-lift quadcopter, up to 50 kg payload, modular payloads",
+      "description_fa": "XAG P100 Pro یک کوادکوپتر کشاورزی تاشو و سنگین‌بر با ظرفیت حمل تا ۵۰ کیلوگرم و نرخ پاشش بالا است که از سامانه‌های پی‌لود ماژولار RevoSpray (مایع) و RevoCast (گرانول) پشتیبانی می‌کند. کیت 60L Standard 6B2C شامل شش باتری و دو شارژر برای عملیات پیوسته است.",
+      "description_en": "The XAG P100 Pro is a foldable heavy-lift agricultural quadcopter with up to 50 kg payload and high spray flow, supporting the modular RevoSpray (liquid) and RevoCast (granule) payload systems. The 60L Standard 6B2C kit includes six batteries and two chargers for continuous operation.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/x/a/xag_p100_pro_60l_premium_8b3c_kit_xag-p100-pro-standard__1_2.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "پهپاد کشاورزی",
+          "label_en": "Type",
+          "value_en": "Agricultural drone"
+        },
+        {
+          "label_fa": "ساختار",
+          "value_fa": "کوادکوپتر تاشو",
+          "label_en": "Airframe",
+          "value_en": "Foldable quadcopter"
+        },
+        {
+          "label_fa": "ظرفیت حمل",
+          "value_fa": "تا ۵۰ کیلوگرم",
+          "label_en": "Payload",
+          "value_en": "Up to 50 kg"
+        },
+        {
+          "label_fa": "پی‌لود",
+          "value_fa": "RevoSpray (مایع)، RevoCast (گرانول)",
+          "label_en": "Payloads",
+          "value_en": "RevoSpray (liquid), RevoCast (granule)"
+        },
+        {
+          "label_fa": "کیت",
+          "value_fa": "60L، ۶ باتری ۲ شارژر",
+          "label_en": "Kit",
+          "value_en": "60L, 6 batteries 2 chargers"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/XAG-XAG-P100-Pro-Standard-P100-Pro-60L-Premium-8B3C-Kit.htm",
+      "source_price_raw": "CN¥209,232.53",
+      "product_id": "robotsasia-drone-xag-p100-pro-premium-a",
+      "slug": "robotsasia-drone-xag-p100-pro-premium-a",
+      "category": "drones",
+      "subcategory": null,
+      "brand": "XAG",
+      "model": "P100 Pro 60L Premium (8B3C)",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "پهپاد کشاورزی XAG P100 Pro 60L Premium (کیت 8B3C)",
+      "product_name_en": "XAG P100 Pro 60L Premium Agricultural Drone (8B3C Kit)",
+      "tagline_fa": "نسخه‌ی پرمیوم با ۸ باتری و ۳ شارژر برای کاربری حرفه‌ای",
+      "tagline_en": "Premium configuration, 8 batteries, 3 chargers, for professional use",
+      "description_fa": "XAG P100 Pro 60L Premium (کیت 8B3C) یک پیکربندی سم‌پاش پرظرفیت با اکوسیستم شارژ سریع است که برای کاربران حرفه‌ای مانند مزارع بزرگ و پیمانکاران سم‌پاشی مناسب است. این کیت با هشت باتری و سه شارژر، چرخش سریع باتری و کارکرد بی‌وقفه را فراهم می‌کند و از پی‌لودهای ماژولار RevoSpray و RevoCast پشتیبانی می‌کند.",
+      "description_en": "The XAG P100 Pro 60L Premium (8B3C kit) is a high-capacity spraying configuration with a fast-charging ecosystem, aimed at professional users such as large farms and custom application providers. With eight batteries and three chargers it enables rapid battery rotation and continuous operation, and supports the modular RevoSpray and RevoCast payloads.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/x/a/xag_p100_pro_60l_premium_8b3c_kit_xag-p100-pro-standard_.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "پهپاد کشاورزی",
+          "label_en": "Type",
+          "value_en": "Agricultural drone"
+        },
+        {
+          "label_fa": "ساختار",
+          "value_fa": "کوادکوپتر تاشو، تا ۵۰ کیلوگرم",
+          "label_en": "Airframe",
+          "value_en": "Foldable quadcopter, up to 50 kg"
+        },
+        {
+          "label_fa": "کیت",
+          "value_fa": "60L Premium، ۸ باتری ۳ شارژر",
+          "label_en": "Kit",
+          "value_en": "60L Premium, 8 batteries 3 chargers"
+        },
+        {
+          "label_fa": "پی‌لود",
+          "value_fa": "RevoSpray، RevoCast",
+          "label_en": "Payloads",
+          "value_en": "RevoSpray, RevoCast"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/XAG-XAG-P100-Pro-Premium-P100-Pro-60L-Premium-8B3C-Kit.htm",
+      "source_price_raw": "CN¥243,415.30",
+      "product_id": "robotsasia-drone-xag-p100-pro-premium-b",
+      "slug": "robotsasia-drone-xag-p100-pro-premium-b",
+      "category": "drones",
+      "subcategory": null,
+      "brand": "XAG",
+      "model": "P100 Pro 60L Premium (8B3C) Plus",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "پهپاد کشاورزی XAG P100 Pro 60L Premium (کیت 8B3C، نسخه‌ی Premium)",
+      "product_name_en": "XAG P100 Pro 60L Premium Agricultural Drone (8B3C Kit, Premium build)",
+      "tagline_fa": "کوادکوپتر سنگین‌بر ۵۰ کیلوگرمی با سامانه‌ی پخش گرانول",
+      "tagline_en": "50 kg heavy-duty quadcopter with granule spreading system",
+      "description_fa": "این نسخه از XAG P100 Pro 60L Premium (کیت 8B3C) یک کوادکوپتر تاشو و سنگین‌کار با ظرفیت اسمی ۵۰ کیلوگرم، نرخ پاشش بالا و سامانه‌ی سازگار پخش گرانول است که برای کاربری دقیق در مزرعه بهینه شده است. هشت باتری و سه شارژر، تداوم عملیات را تضمین می‌کنند.",
+      "description_en": "This build of the XAG P100 Pro 60L Premium (8B3C kit) is a foldable heavy-duty quadcopter with a 50 kg rated payload, high spray flow and a compatible granule-spreading system, optimized for precision field work. Eight batteries and three chargers sustain continuous operation.",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/x/a/xag_p100_pro_60l_premium_8b3c_kit_xag-p100-pro-standard__1.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "پهپاد کشاورزی",
+          "label_en": "Type",
+          "value_en": "Agricultural drone"
+        },
+        {
+          "label_fa": "ظرفیت اسمی",
+          "value_fa": "۵۰ کیلوگرم",
+          "label_en": "Rated payload",
+          "value_en": "50 kg"
+        },
+        {
+          "label_fa": "کیت",
+          "value_fa": "60L Premium، ۸ باتری ۳ شارژر",
+          "label_en": "Kit",
+          "value_en": "60L Premium, 8 batteries 3 chargers"
+        },
+        {
+          "label_fa": "پی‌لود",
+          "value_fa": "RevoSpray (مایع)، RevoCast (گرانول)",
+          "label_en": "Payloads",
+          "value_en": "RevoSpray (liquid), RevoCast (granule)"
+        }
+      ],
+      "use_cases": []
+    },
+    {
+      "source": "robotsasia",
+      "source_url": "https://www.robotsasia.com/XAG-09-007-00158-P150-Max-Agricultural-Drone-With-Revospray-5.htm",
+      "source_price_raw": "CN¥139,423.26",
+      "product_id": "robotsasia-drone-xag-p150-max-revospray",
+      "slug": "robotsasia-drone-xag-p150-max-revospray",
+      "category": "drones",
+      "subcategory": null,
+      "brand": "XAG",
+      "model": "P150 Max (RevoSpray 5)",
+      "origin_fa": "چین",
+      "origin_en": "China",
+      "product_name_fa": "پهپاد کشاورزی XAG P150 Max به‌همراه RevoSpray 5",
+      "product_name_en": "XAG P150 Max Agricultural Drone with RevoSpray 5",
+      "tagline_fa": "پلتفرم پرچم‌دار سم‌پاش بزرگ‌فرمت با مخزن ۸۰ لیتری و رادار 4D",
+      "tagline_en": "Flagship large-format spraying platform, 80 L tank, 4D radar",
+      "description_fa": "XAG P150 Max به‌همراه RevoSpray 5 یک پلتفرم پرچم‌دار سم‌پاش بزرگ‌فرمت با ساختار کوادروتور سنگین‌بر است. این پیکربندی مخزن ۸۰ لیتری، نرخ پاشش ۳۲ تا ۴۶ لیتر در دقیقه، رادار 4D و دقت موقعیت‌یابی RTK را ارائه می‌دهد و معمولاً به‌صورت پیکربندی فقط-پهپاد (به‌همراه سامانه‌ی RevoSpray 5) عرضه می‌شود.",
+      "description_en": "The XAG P150 Max with RevoSpray 5 is a flagship large-format spraying platform built on a heavy-lift quad-rotor airframe. This configuration offers an 80 L tank, 32–46 L/min spray flow, 4D radar and RTK positioning accuracy, and is commonly offered as a drone-only configuration (bundled with the RevoSpray 5 system).",
+      "lead_time_days": 45,
+      "hero_image": "https://www.robotsasia.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/x/a/xag_p150_max_agricultural_drone_with_revospray_5_09-007-00158_.jpg",
+      "specs": [
+        {
+          "label_fa": "نوع",
+          "value_fa": "پهپاد کشاورزی",
+          "label_en": "Type",
+          "value_en": "Agricultural drone"
+        },
+        {
+          "label_fa": "مخزن",
+          "value_fa": "۸۰ لیتر",
+          "label_en": "Tank",
+          "value_en": "80 L"
+        },
+        {
+          "label_fa": "نرخ پاشش",
+          "value_fa": "۳۲ تا ۴۶ لیتر/دقیقه",
+          "label_en": "Spray flow",
+          "value_en": "32–46 L/min"
+        },
+        {
+          "label_fa": "حسگر",
+          "value_fa": "رادار 4D",
+          "label_en": "Sensor",
+          "value_en": "4D radar"
+        },
+        {
+          "label_fa": "موقعیت‌یابی",
+          "value_fa": "RTK",
+          "label_en": "Positioning",
+          "value_en": "RTK"
+        }
+      ],
+      "use_cases": []
+    }
+  ]
+}
